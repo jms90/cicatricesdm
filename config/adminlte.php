@@ -311,7 +311,7 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-       
+
         ['header' => 'PRINCIPAL'],
         [
             'text'    => 'Objetos',
@@ -339,6 +339,7 @@ return [
                 ],
                 [
                     'text' => 'Propiedades de Objetos',
+                    'id' => 'propiedadesDeObjetos',
                     'url'  => '#',
                 ],
             ],

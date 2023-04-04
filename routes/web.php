@@ -21,11 +21,21 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
 
+/* Rutas Tipos de Objetos */
 Route::get('/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'index'])->name('indexTipoObjetos');
-Route::get('/tiposobjetosdata', [App\Http\Controllers\TiposObjetosController::class, 'getData'])->name('getDataObjetos');
+Route::get('/tiposobjetosdata', [App\Http\Controllers\TiposObjetosController::class, 'getDataTable'])->name('getDataObjetos');
 Route::post('/store/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'store'])->name('storeTipo');
-Route::get('/getData/tiposobjetos/{id}', [App\Http\Controllers\TiposObjetosController::class, 'getDataTipo'])->name('getDataTipo');
-Route::post('/update/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'update'])->name('updateTipo');
+Route::get('/getData/tiposobjetos/{id}', [App\Http\Controllers\TiposObjetosController::class, 'getData'])->name('getDataTipo');
 Route::post('/delete/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'delete'])->name('deleteTipo');
+Route::post('/update/tiposobjeto/{id}', [App\Http\Controllers\TiposObjetosController::class, 'update'])->name('updateTipo');
+
+
+/* Rutas Propiedades de Objetos */
+Route::get('/propiedadesdeobjetos', [App\Http\Controllers\PropiedadesController::class, 'index'])->name('indexPropiedadesDeObjetos');
+Route::get('/propiedadesobjetossdata', [App\Http\Controllers\PropiedadesController::class, 'getDataTable'])->name('getDataPropiedades');
+Route::post('/store/propiedadesobjetos', [App\Http\Controllers\PropiedadesController::class, 'store'])->name('storePropiedad');
+Route::get('/getData/propiedadesobjetos/{id}', [App\Http\Controllers\PropiedadesController::class, 'getData'])->name('getDataPropiedad');
+Route::post('/delete/propiedadesobjetos', [App\Http\Controllers\PropiedadesController::class, 'delete'])->name('deletePropiedad');
+Route::post('/update/propiedadesobjetos/{id}', [App\Http\Controllers\PropiedadesController::class, 'update'])->name('updatePropiedad');
+

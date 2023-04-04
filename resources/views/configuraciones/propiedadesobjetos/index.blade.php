@@ -1,6 +1,6 @@
 <div class="mb-2">
-    <button id="btn-add" class="btn btn-success" onclick="abrirModal()"><i class="fas fa-plus"></i> Agregar nuevo
-        Tipo</button>
+    <button id="btn-add" class="btn btn-success" onclick="abrirModal()"><i class="fas fa-plus"></i> Agregar nueva
+        Propiedad</button>
 </div>
 
 <div>
@@ -9,6 +9,8 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Bonificador/Penalizador</th>
+                <th>Descripción</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -18,19 +20,33 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalTipo" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalPropiedad" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="miModalLabel">Título del modal</h5>
-                <a type="button" data-bs-dismiss="modal" aria-label="Close" onclick='$("#modalTipo").modal("hide")'><i
+                <a type="button" data-bs-dismiss="modal" aria-label="Close" onclick='$("#modalPropiedad").modal("hide")'><i
                         class="fas fa-times"></i></a>
             </div>
-            <form id="formularioTipo">
+            <form id="formularioPropiedad">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre:</label>
                         <input type="text" class="form-control" id="nombre" name="nombre">
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="bonificador" class="form-label">Bonificador:</label>
+                            <input type="number" min="0" class="form-control" id="bonificador" name="bonificador" value="0">
+                        </div>
+                        <div class="col-6">
+                            <label for="penalizador" class="form-label">Penalizador:</label>
+                            <input type="number" min="0" class="form-control" id="penalizador" name="penalizador" value="0">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción:</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Escribe una descripción"></textarea>
                     </div>
                 </div>
             </form>
@@ -47,18 +63,20 @@
 <script>
     // Configurar DataTable y agregar botón de agregar
     $(document).ready(function() {
-        $("#titulo").text("Tipos de Objetos");
+        $("#titulo").text("Propeidades de Objetos");
         $('#tabla_objetos').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "{{ route('getDataObjetos') }}",
+                    "url": "{{ route('getDataPropiedades') }}",
                     "type": "GET"
                 },
                 "columns": [
-                    { "data": "id", "width": "10%" },
-                    { "data": "nombre", "width": "70%" },
-                    { "data": "action", "width": "20%", "orderable": false, "searchable": false }
+                    { "data": "id", "width": "5%" },
+                    { "data": "nombre", "width": "20%" },
+                    { "data": "bonificadorPenalizador", "width": "15%" },
+                    { "data": "descripcion", "width": "50%" },
+                    { "data": "action", "width": "10%", "orderable": false, "searchable": false }
                 ],
                 language: {
                     "decimal": "",
@@ -88,26 +106,33 @@
         let ruta = "";
 
         $("#nombre").val("");
-        $("#miModalLabel").html("Nuevo Tipo de Objeto");
+        $("#descripcion").val("");
+        $("#bonificador").val("0");
+        $("#penalizador").val("0");
+
+        $("#miModalLabel").html("Nueva propiedad de Objeto");
         if (!editar) {
-            ruta = "{{ route('storeTipo') }}";
+            ruta = "{{ route('storePropiedad') }}";
         } else {
-            let datos = await getDatosTipos(editar);
-            $("#miModalLabel").html("Editando un Tipo de Objeto");
-            ruta = "{{ route('updateTipo', '_id_') }}";
+            let datos = await getDatosPropiedad(editar);
+            $("#miModalLabel").html("Editando propiedad de Objeto");
+            ruta = "{{ route('updatePropiedad', '_id_') }}";
             ruta = ruta.replace("_id_", datos.id);
 
             $("#nombre").val(datos.nombre);
+            $("#descripcion").val(datos.descripcion);
+            $("#bonificador").val(datos.bonificador);
+            $("#penalizador").val(datos.penalizador);
         }
 
-        $("#formularioTipo").attr("action", ruta);
-        $("#modalTipo").modal();
+        $("#formularioPropiedad").attr("action", ruta);
+        $("#modalPropiedad").modal();
     }
 
 
-    async function getDatosTipos(id) {
+    async function getDatosPropiedad(id) {
         try {
-            let ruta = "{{ route('getDataTipo', '_id_') }} ";
+            let ruta = "{{ route('getDataPropiedad', '_id_') }} ";
             ruta = ruta.replace("_id_", id);
 
             const response = await $.ajax({
@@ -121,16 +146,22 @@
     }
 
     function guardar() {
-        let ruta = $("#formularioTipo").attr("action");
+        let ruta = $("#formularioPropiedad").attr("action");
         cargaSwal('load', "Guardando datos...")
-        $("#modalTipo").modal("hide");
+        $("#modalPropiedad").modal("hide");
 
         let nombre = $("#nombre").val();
+        let descripcion = $("#descripcion").val();
+        let bonificador = $("#bonificador").val();
+        let penalizador = $("#penalizador").val();
         $.ajax({
             url: ruta,
             method: 'POST',
             data: {
-                nombre
+                nombre,
+                descripcion,
+                bonificador,
+                penalizador
             },
             success: function(response) {
                 console.log(response.mensaje)
@@ -143,7 +174,7 @@
         });
     }
 
-    function deleteTipo(id) {
+    function deletePropiedad(id) {
         Swal.fire({
             title: '¿Estás seguro?',
             text: "¡No podrás revertir esto!",
@@ -157,7 +188,7 @@
 
             if (result) {
                 $.ajax({
-                    url: "{{ route('deleteTipo') }}",
+                    url: "{{ route('deletePropiedad') }}",
                     type: 'POST',
                     data: {
                         id: id

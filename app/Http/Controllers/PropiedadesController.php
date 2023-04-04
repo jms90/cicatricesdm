@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoArma;
-use App\Models\TipoObjeto;
+use App\Models\Propiedades;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Yajra\DataTables\DataTables;
 
-class TiposObjetosController extends Controller
+class PropiedadesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,28 +18,28 @@ class TiposObjetosController extends Controller
     {
         $view = view("sinpermisos.sinpermisos");
 
-        if (Auth::user()->isAbleTo("acceso-tipo-objetos")) {
-            $view = view('configuraciones.tiposobjetos.index')->render();
+        if (Auth::user()->isAbleTo("acceso-propiedad-objetos")) {
+            $view = view('configuraciones.propiedadesobjetos.index')->render();
         }
 
         return $view;
     }
 
     /**
-     * Obtiene los datos de todos los tipos de objete para una Datatble
+     * Obtiene los datos de todas propiedades de objetos para una Datatble
      */
     public function getDataTable()
     {
-        if (Auth::user()->isAbleTo("acceso-tipo-objetos")) {
+        if (Auth::user()->isAbleTo("acceso-propiedad-objetos")) {
 
-            $sql = "SELECT id, nombre FROM tipos_objetos WHERE deleted_at IS NULL";
+            $sql = "SELECT id, nombre,descripcion, concat('+ ', bonificador, '/ - ', penalizador) as bonificadorPenalizador FROM propiedades WHERE deleted_at IS NULL";
             $datos = DB::select($sql);
 
             return DataTables::of($datos)
                 ->addColumn('action', function ($data) {
                     $botones = "<center>";
                     $botones .= '<button class="btn btn-info btn-sm mr-2 editar" onclick="abrirModal(' . $data->id . ')"><i class="fas fa-edit"></i></button>';
-                    $botones .= '<button class="btn btn-danger btn-sm eliminar" onclick="deleteTipo(' . $data->id . ')"><i class="fas fa-trash"></i></button>';
+                    $botones .= '<button class="btn btn-danger btn-sm eliminar" onclick="deletePropiedad(' . $data->id . ')"><i class="fas fa-trash"></i></button>';
                     $botones .= "</center>";
                     return $botones;
                 })
@@ -54,22 +53,21 @@ class TiposObjetosController extends Controller
     {
 
         try {
-            $tipo = TipoObjeto::findOrFail($id);
+            $propiedad = Propiedades::findOrFail($id);
 
-            return $tipo;
+            return $propiedad;
         } catch (\Throwable $th) {
 
-            return "Error al obtener los datos del tipo";
+            return "Error al obtener los datos del propiedad";
         }
     }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        if (Auth::user()->isAbleTo("crear-tipo-objetos")) {
-            $count = TipoObjeto::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->count();
+        if (Auth::user()->isAbleTo("crear-propiedad-objetos")) {
+            $count = Propiedades::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->count();
 
             if ($count > 0) {
                 return Response::json([
@@ -78,11 +76,15 @@ class TiposObjetosController extends Controller
 
                 ]);
             }
-            $tipo = new TipoObjeto();
 
-            $tipo->nombre = $request->nombre;
+            $propiedad = new Propiedades();
 
-            $ok = $tipo->save();
+            $propiedad->nombre = $request->nombre;
+            $propiedad->descripcion = $request->descripcion;
+            $propiedad->bonificador = $request->bonificador;
+            $propiedad->penalizador = $request->penalizador;
+
+            $ok = $propiedad->save();
 
             if ($ok) {
                 return Response::json([
@@ -109,8 +111,9 @@ class TiposObjetosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Auth::user()->isAbleTo("editar-tipo-objetos")) {
-            $count = TipoObjeto::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->where("id", "!=", $id)->count();
+        if (Auth::user()->isAbleTo("editar-propiedad-objetos")) {
+
+            $count = Propiedades::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->where("id", "!=", $id)->count();
 
             if ($count > 0) {
                 return Response::json([
@@ -121,22 +124,26 @@ class TiposObjetosController extends Controller
             }
 
             try {
-                $tipo = TipoObjeto::findOrFail($id);
+                $propiedad = Propiedades::findOrFail($id);
 
-                $tipo->nombre = $request->nombre;
+                $propiedad->nombre = $request->nombre;
+                $propiedad->descripcion = $request->descripcion;
+                $propiedad->bonificador = $request->bonificador;
+                $propiedad->penalizador = $request->penalizador;
 
-                $ok = $tipo->save();
+
+                $ok = $propiedad->save();
 
                 if ($ok) {
                     return Response::json([
                         "status" => true,
-                        "mensaje" => "Tipo de Objeto editado con éxito..."
+                        "mensaje" => "propiedad de Objeto editado con éxito..."
                     ]);
                 }
             } catch (\Throwable $th) {
                 return Response::json([
                     "status" => false,
-                    "mensaje" => "Error al actualizar el tipo de objeto."
+                    "mensaje" => "Error al actualizar el propiedad de objeto."
                 ]);
             }
         }
@@ -152,21 +159,21 @@ class TiposObjetosController extends Controller
      */
     public function delete(Request $request)
     {
-        if (Auth::user()->isAbleTo("borrar-tipo-objetos")) {
+        if (Auth::user()->isAbleTo("borrar-propiedad-objetos")) {
 
             try {
-                $tipo = TipoObjeto::findOrFail($request->id);
+                $propiedad = Propiedades::findOrFail($request->id);
 
-                $tipo->delete();
+                $propiedad->delete();
 
                 return Response::json([
                     "status" => true,
-                    "mensaje" => "Tipo de objeto eliminado con éxito."
+                    "mensaje" => "Propiedad de objeto eliminado con éxito."
                 ]);
             } catch (\Throwable $th) {
                 return Response::json([
                     "status" => true,
-                    "mensaje" => "Error al obtener los datos del tipo"
+                    "mensaje" => "Error al obtener los datos del Propiedad"
                 ]);
             }
         }
