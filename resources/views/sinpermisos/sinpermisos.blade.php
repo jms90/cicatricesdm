@@ -1,0 +1,1 @@
+<h1>No tienes permisos para entrar a este menú.</h1>

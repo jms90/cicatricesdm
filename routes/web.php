@@ -23,4 +23,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'index'])->name('indexTipoObjetos');
+Route::get('/tiposobjetosdata', [App\Http\Controllers\TiposObjetosController::class, 'getData'])->name('getDataObjetos');
+Route::post('/store/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'store'])->name('storeTipo');
+Route::get('/getData/tiposobjetos/{id}', [App\Http\Controllers\TiposObjetosController::class, 'getDataTipo'])->name('getDataTipo');
+Route::post('/update/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'update'])->name('updateTipo');
+Route::post('/delete/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'delete'])->name('deleteTipo');
