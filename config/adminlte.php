@@ -319,6 +319,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Armas',
+                    'id' => 'armas',
                     'url'  => '#',
                 ],
                 [

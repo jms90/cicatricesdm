@@ -15,6 +15,10 @@
         .custom-swal-text {
             color: white;
         }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 28px !important;
+        }
     </style>
     <div id="contenido">
 
@@ -46,6 +50,15 @@
         $("#tipoObjetosIndex").on("click", function() {
             $("#contenido").empty();
             $.get('{{ route('indexTipoObjetos') }}', function(data) {
+                $('#contenido').html(data);
+            });
+            $('li.nav-item a.nav-link').removeClass('active');
+            $(this).find('a.nav-link').addClass('active');
+        });
+
+        $("#armas").on("click", function() {
+            $("#contenido").empty();
+            $.get('{{ route('indexArma') }}', function(data) {
                 $('#contenido').html(data);
             });
             $('li.nav-item a.nav-link').removeClass('active');

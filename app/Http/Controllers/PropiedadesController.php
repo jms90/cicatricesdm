@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Propiedades;
+use App\Models\Propiedad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -67,7 +67,7 @@ class PropiedadesController extends Controller
     public function store(Request $request)
     {
         if (Auth::user()->isAbleTo("crear-propiedad-objetos")) {
-            $count = Propiedades::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->count();
+            $count = Propiedad::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->count();
 
             if ($count > 0) {
                 return Response::json([
@@ -77,7 +77,7 @@ class PropiedadesController extends Controller
                 ]);
             }
 
-            $propiedad = new Propiedades();
+            $propiedad = new Propiedad();
 
             $propiedad->nombre = $request->nombre;
             $propiedad->descripcion = $request->descripcion;
@@ -113,7 +113,7 @@ class PropiedadesController extends Controller
     {
         if (Auth::user()->isAbleTo("editar-propiedad-objetos")) {
 
-            $count = Propiedades::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->where("id", "!=", $id)->count();
+            $count = Propiedad::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->where("id", "!=", $id)->count();
 
             if ($count > 0) {
                 return Response::json([
@@ -124,7 +124,7 @@ class PropiedadesController extends Controller
             }
 
             try {
-                $propiedad = Propiedades::findOrFail($id);
+                $propiedad = Propiedad::findOrFail($id);
 
                 $propiedad->nombre = $request->nombre;
                 $propiedad->descripcion = $request->descripcion;
@@ -162,7 +162,7 @@ class PropiedadesController extends Controller
         if (Auth::user()->isAbleTo("borrar-propiedad-objetos")) {
 
             try {
-                $propiedad = Propiedades::findOrFail($request->id);
+                $propiedad = Propiedad::findOrFail($request->id);
 
                 $propiedad->delete();
 

@@ -39,3 +39,12 @@ Route::get('/getData/propiedadesobjetos/{id}', [App\Http\Controllers\Propiedades
 Route::post('/delete/propiedadesobjetos', [App\Http\Controllers\PropiedadesController::class, 'delete'])->name('deletePropiedad');
 Route::post('/update/propiedadesobjetos/{id}', [App\Http\Controllers\PropiedadesController::class, 'update'])->name('updatePropiedad');
 
+
+/* Rutas Armas */
+Route::get('/armas', [App\Http\Controllers\ArmasController::class, 'index'])->name('indexArma');
+Route::get('/armasdata', [App\Http\Controllers\ArmasController::class, 'getDataTable'])->name('getDataArmas');
+Route::post('/store/arma', [App\Http\Controllers\ArmasController::class, 'store'])->name('storeArma');
+Route::get('/getData/arma/{id}', [App\Http\Controllers\ArmasController::class, 'getData'])->name('getDataArma');
+Route::post('/delete/arma', [App\Http\Controllers\ArmasController::class, 'delete'])->name('deleteArma');
+Route::post('/update/arma/{id}', [App\Http\Controllers\ArmasController::class, 'update'])->name('updateArma');
+
