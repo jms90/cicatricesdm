@@ -1,6 +1,5 @@
 <div class="mb-2">
-    <button id="btn-add" class="btn btn-success" onclick="abrirModal()"><i class="fas fa-plus"></i> Agregar nueva
-        Propiedad</button>
+    <button id="btn-add" class="btn btn-success" onclick="abrirModal()"><i class="fas fa-plus"></i> Agregar nueva Arma</button>
 </div>
 
 <div>
