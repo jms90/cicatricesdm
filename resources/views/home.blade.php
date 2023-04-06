@@ -26,8 +26,7 @@
 @stop
 
 @section('css')
-    <!-- <link rel="stylesheet" href="/css/admin_custom.css"> -->
-
+    {{-- <link rel="stylesheet" href="{{asset('css/main.css')}}"> --}}
 @stop
 
 @section('js')
@@ -38,9 +37,27 @@
             }
         });
 
-        $("#propiedadesDeObjetos").on("click", function() {
+        $("#petrechosIndex").on("click", function() {
+            $("#contenido").empty();
+            $.get('{{ route('indexPetrechos') }}', function(data) {
+                $('#contenido').html(data);
+            });
+            $('li.nav-item a.nav-link').removeClass('active');
+            $(this).find('a.nav-link').addClass('active');
+        });
+
+        $("#propiedadesDeObjetosIndex").on("click", function() {
             $("#contenido").empty();
             $.get('{{ route('indexPropiedadesDeObjetos') }}', function(data) {
+                $('#contenido').html(data);
+            });
+            $('li.nav-item a.nav-link').removeClass('active');
+            $(this).find('a.nav-link').addClass('active');
+        });
+
+        $("#lugaresCuerpoIndex").on("click", function() {
+            $("#contenido").empty();
+            $.get('{{ route('indexLugaresCuerpo') }}', function(data) {
                 $('#contenido').html(data);
             });
             $('li.nav-item a.nav-link').removeClass('active');
@@ -56,9 +73,18 @@
             $(this).find('a.nav-link').addClass('active');
         });
 
-        $("#armas").on("click", function() {
+        $("#armasIndex").on("click", function() {
             $("#contenido").empty();
             $.get('{{ route('indexArma') }}', function(data) {
+                $('#contenido').html(data);
+            });
+            $('li.nav-item a.nav-link').removeClass('active');
+            $(this).find('a.nav-link').addClass('active');
+        });
+
+        $("#armadurasIndex").on("click", function() {
+            $("#contenido").empty();
+            $.get('{{ route('indexArmaduras') }}', function(data) {
                 $('#contenido').html(data);
             });
             $('li.nav-item a.nav-link').removeClass('active');

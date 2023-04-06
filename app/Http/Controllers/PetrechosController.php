@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Arma;
+use App\Models\Petrecho;
 use App\Models\Propiedad;
 use App\Models\TipoObjeto;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Yajra\DataTables\DataTables;
 
-class ArmasController extends Controller
+class PetrechosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,10 +20,10 @@ class ArmasController extends Controller
     {
         $view = view("sinpermisos.sinpermisos");
 
-        if (Auth::user()->isAbleTo("acceso-armas")) {
+        if (Auth::user()->isAbleTo("acceso-petrechos")) {
             $propiedades = Propiedad::all();
-            $tipos = TipoObjeto::where("arma", 1)->whereNull("deleted_at")->get();
-            $view = view('principales.armas.index')
+            $tipos = TipoObjeto::where("petrecho", 1)->whereNull("deleted_at")->get();
+            $view = view('principales.petrechos.index')
                 ->with("propiedades", $propiedades)
                 ->with("tipos", $tipos)->render();
         }
@@ -32,28 +32,28 @@ class ArmasController extends Controller
     }
 
     /**
-     * Obtiene los datos de todas Arma para una Datatble
+     * Obtiene los datos de todos los Petrechos para una Datatble
      */
     public function getDataTable()
     {
-        if (Auth::user()->isAbleTo("acceso-armas")) {
+        if (Auth::user()->isAbleTo("acceso-petrechos")) {
 
             $sql = "SELECT
-            a.id AS id,
-            a.nombre AS nombre,
+            p.id AS id,
+            p.nombre AS nombre,
             tobj.nombre as tipo,
-            a.danio AS danio,
-            a.estorbo AS estorbo,
-            a.alcance_max as alcance_max,
-            a.alcance_min as alcance_min,
+            p.danio AS danio,
+            p.estorbo AS estorbo,
+            p.alcance_max as alcance_max,
+            p.alcance_min as alcance_min,
             GROUP_CONCAT( propiedades.nombre SEPARATOR ', ' ) AS propiedades
         FROM
-            armas a
-            LEFT JOIN armas_propiedades ON a.id = armas_propiedades.arma_id
-            LEFT JOIN propiedades ON armas_propiedades.propiedad_id = propiedades.id AND propiedades.deleted_at is null
-            LEFT JOIN tipos_objetos tobj ON tobj.id = a.tipo_id AND tobj.deleted_at is null
+            petrechos p
+            LEFT JOIN petrechos_propiedades ON p.id = petrechos_propiedades.petrecho_id
+            LEFT JOIN propiedades ON petrechos_propiedades.propiedad_id = propiedades.id AND propiedades.deleted_at is null
+            LEFT JOIN tipos_objetos tobj ON tobj.id = p.tipo_id AND tobj.deleted_at is null
         WHERE
-            a.deleted_at IS NULL
+            p.deleted_at IS NULL
         GROUP BY id, nombre, tipo, danio, estorbo, alcance_max, alcance_min";
 
             $datos = DB::select($sql);
@@ -62,7 +62,7 @@ class ArmasController extends Controller
                 ->addColumn('action', function ($data) {
                     $botones = "<center>";
                     $botones .= '<button class="btn btn-info btn-sm mr-2 editar" onclick="abrirModal(' . $data->id . ')"><i class="fas fa-edit"></i></button>';
-                    $botones .= '<button class="btn btn-danger btn-sm eliminar" onclick="deleteArma(' . $data->id . ')"><i class="fas fa-trash"></i></button>';
+                    $botones .= '<button class="btn btn-danger btn-sm eliminar" onclick="deletePetrecho(' . $data->id . ')"><i class="fas fa-trash"></i></button>';
                     $botones .= "</center>";
                     return $botones;
                 })
@@ -76,12 +76,12 @@ class ArmasController extends Controller
     {
 
         try {
-            $arma = Arma::with("propiedades")->findOrFail($id);
-
-            return $arma;
+            $petrecho = Petrecho::with("propiedades")->findOrFail($id);
+            return $petrecho;
         } catch (\Throwable $th) {
+            dd($th);
 
-            return "Error al obtener los datos del arma";
+            return "Error al obtener los datos del petrecho";
         }
     }
     /**
@@ -89,8 +89,8 @@ class ArmasController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->isAbleTo("crear-armas")) {
-            $count = Arma::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->count();
+        if (Auth::user()->isAbleTo("crear-petrechos")) {
+            $count = Petrecho::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->count();
 
             if ($count > 0) {
                 return Response::json([
@@ -100,21 +100,21 @@ class ArmasController extends Controller
                 ]);
             }
 
-            $arma = new Arma();
-            $arma->nombre = $request->nombre;
-            $arma->tipo_id = $request->tipo;
-            $arma->danio = $request->danio;
-            $arma->estorbo = $request->estorbo;
-            $arma->alcance_min = $request->alcance_min;
-            $arma->alcance_max = $request->alcance_max;
-            $arma->precio = $request->precio;
-            $arma->descripcion = $request->descripcion;
+            $petrecho = new Petrecho();
+            $petrecho->nombre = $request->nombre;
+            $petrecho->tipo_id = $request->tipo;
+            $petrecho->danio = $request->danio;
+            $petrecho->estorbo = $request->estorbo;
+            $petrecho->alcance_min = $request->alcance_min;
+            $petrecho->alcance_max = $request->alcance_max;
+            $petrecho->precio = $request->precio;
+            $petrecho->descripcion = $request->descripcion;
 
-            $ok = $arma->save();
+            $ok = $petrecho->save();
 
             if ($ok) {
-                if ($request->propiedades) {
-                    $arma->propiedades()->sync($request->propiedades);
+                if($request->propiedades){
+                    $petrecho->propiedades()->sync($request->propiedades);
                 }
                 return Response::json([
                     "status" => true,
@@ -140,9 +140,9 @@ class ArmasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Auth::user()->isAbleTo("editar-armas")) {
+        if (Auth::user()->isAbleTo("editar-petrechos")) {
 
-            $count = Arma::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->where("id", "!=", $id)->count();
+            $count = Petrecho::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->where("id", "!=", $id)->count();
 
             if ($count > 0) {
                 return Response::json([
@@ -153,32 +153,32 @@ class ArmasController extends Controller
             }
 
             try {
-                $arma = Arma::findOrFail($id);
+                $petrecho = Petrecho::findOrFail($id);
+                $petrecho->nombre = $request->nombre;
+                $petrecho->tipo_id = $request->tipo;
+                $petrecho->danio = $request->danio;
+                $petrecho->estorbo = $request->estorbo;
+                $petrecho->alcance_min = $request->alcance_min;
+                $petrecho->alcance_max = $request->alcance_max;
+                $petrecho->precio = $request->precio;
+                $petrecho->descripcion = $request->descripcion;
 
-                $arma->nombre = $request->nombre;
-                $arma->tipo_id = $request->tipo;
-                $arma->danio = $request->danio;
-                $arma->estorbo = $request->estorbo;
-                $arma->alcance_min = $request->alcance_min;
-                $arma->alcance_max = $request->alcance_max;
-                $arma->precio = $request->precio;
-                $arma->descripcion = $request->descripcion;
-
-                $ok = $arma->save();
+                $ok = $petrecho->save();
 
 
                 if ($ok) {
-                    $arma->propiedades()->sync($request->propiedades);
+
+                    $petrecho->propiedades()->sync($request->propiedades);
 
                     return Response::json([
                         "status" => true,
-                        "mensaje" => "arma editada con éxito..."
+                        "mensaje" => "Petrecho editado con éxito..."
                     ]);
                 }
             } catch (\Throwable $th) {
                 return Response::json([
                     "status" => false,
-                    "mensaje" => "Error al actualizar el arma."
+                    "mensaje" => "Error al actualizar el petrecho."
                 ]);
             }
         }
@@ -194,21 +194,21 @@ class ArmasController extends Controller
      */
     public function delete(Request $request)
     {
-        if (Auth::user()->isAbleTo("borrar-armas")) {
+        if (Auth::user()->isAbleTo("borrar-petrechos")) {
 
             try {
-                $arma = Arma::findOrFail($request->id);
+                $petrecho = Petrecho::findOrFail($request->id);
 
-                $arma->delete();
+                $petrecho->delete();
 
                 return Response::json([
                     "status" => true,
-                    "mensaje" => "arma eliminada con éxito."
+                    "mensaje" => "Petrecho eliminado con éxito."
                 ]);
             } catch (\Throwable $th) {
                 return Response::json([
                     "status" => true,
-                    "mensaje" => "Error al obtener los datos del arma"
+                    "mensaje" => "Error al obtener los datos del petrecho"
                 ]);
             }
         }

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Arma;
+use App\Models\Armadura;
+use App\Models\LugarCuerpo;
 use App\Models\Propiedad;
 use App\Models\TipoObjeto;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Yajra\DataTables\DataTables;
 
-class ArmasController extends Controller
+class ArmadurasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,11 +21,13 @@ class ArmasController extends Controller
     {
         $view = view("sinpermisos.sinpermisos");
 
-        if (Auth::user()->isAbleTo("acceso-armas")) {
+        if (Auth::user()->isAbleTo("acceso-armaduras")) {
             $propiedades = Propiedad::all();
-            $tipos = TipoObjeto::where("arma", 1)->whereNull("deleted_at")->get();
-            $view = view('principales.armas.index')
+            $tipos = TipoObjeto::where("armadura", 1)->whereNull("deleted_at")->get();
+            $lugares = LugarCuerpo::all();
+            $view = view('principales.armaduras.index')
                 ->with("propiedades", $propiedades)
+                ->with("lugaresCuerpo", $lugares)
                 ->with("tipos", $tipos)->render();
         }
 
@@ -32,29 +35,32 @@ class ArmasController extends Controller
     }
 
     /**
-     * Obtiene los datos de todas Arma para una Datatble
+     * Obtiene los datos de todas Armaduras para una Datatble
      */
     public function getDataTable()
     {
-        if (Auth::user()->isAbleTo("acceso-armas")) {
+        if (Auth::user()->isAbleTo("acceso-armaduras")) {
 
             $sql = "SELECT
             a.id AS id,
             a.nombre AS nombre,
             tobj.nombre as tipo,
-            a.danio AS danio,
+            a.proteccion AS proteccion,
             a.estorbo AS estorbo,
-            a.alcance_max as alcance_max,
-            a.alcance_min as alcance_min,
-            GROUP_CONCAT( propiedades.nombre SEPARATOR ', ' ) AS propiedades
+            GROUP_CONCAT( propiedades.nombre SEPARATOR ', ' ) AS propiedades,
+            GROUP_CONCAT( lugares_cuerpo.nombre SEPARATOR ', ' ) AS lugares,
+            a.precio
         FROM
-            armas a
-            LEFT JOIN armas_propiedades ON a.id = armas_propiedades.arma_id
-            LEFT JOIN propiedades ON armas_propiedades.propiedad_id = propiedades.id AND propiedades.deleted_at is null
+            armaduras a
+            LEFT JOIN armaduras_propiedades ON a.id = armaduras_propiedades.armadura_id
+            LEFT JOIN propiedades ON armaduras_propiedades.propiedad_id = propiedades.id AND propiedades.deleted_at is null
+
+					  LEFT JOIN armaduras_lugares_cuerpo ON a.id = armaduras_lugares_cuerpo.armadura_id
+            LEFT JOIN lugares_cuerpo ON armaduras_lugares_cuerpo.lugar_id = lugares_cuerpo.id AND armaduras_lugares_cuerpo.deleted_at is null
             LEFT JOIN tipos_objetos tobj ON tobj.id = a.tipo_id AND tobj.deleted_at is null
         WHERE
             a.deleted_at IS NULL
-        GROUP BY id, nombre, tipo, danio, estorbo, alcance_max, alcance_min";
+        GROUP BY id, nombre, tipo, proteccion, estorbo, precio";
 
             $datos = DB::select($sql);
 
@@ -62,7 +68,7 @@ class ArmasController extends Controller
                 ->addColumn('action', function ($data) {
                     $botones = "<center>";
                     $botones .= '<button class="btn btn-info btn-sm mr-2 editar" onclick="abrirModal(' . $data->id . ')"><i class="fas fa-edit"></i></button>';
-                    $botones .= '<button class="btn btn-danger btn-sm eliminar" onclick="deleteArma(' . $data->id . ')"><i class="fas fa-trash"></i></button>';
+                    $botones .= '<button class="btn btn-danger btn-sm eliminar" onclick="deleteArmadura(' . $data->id . ')"><i class="fas fa-trash"></i></button>';
                     $botones .= "</center>";
                     return $botones;
                 })
@@ -76,12 +82,12 @@ class ArmasController extends Controller
     {
 
         try {
-            $arma = Arma::with("propiedades")->findOrFail($id);
+            $armadura = Armadura::with("propiedades", "lugaresCuerpo")->findOrFail($id);
 
-            return $arma;
+            return $armadura;
         } catch (\Throwable $th) {
-
-            return "Error al obtener los datos del arma";
+            dd($th);
+            return "Error al obtener los datos del armadura";
         }
     }
     /**
@@ -89,8 +95,8 @@ class ArmasController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->isAbleTo("crear-armas")) {
-            $count = Arma::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->count();
+        if (Auth::user()->isAbleTo("crear-armaduras")) {
+            $count = Armadura::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->count();
 
             if ($count > 0) {
                 return Response::json([
@@ -100,22 +106,25 @@ class ArmasController extends Controller
                 ]);
             }
 
-            $arma = new Arma();
-            $arma->nombre = $request->nombre;
-            $arma->tipo_id = $request->tipo;
-            $arma->danio = $request->danio;
-            $arma->estorbo = $request->estorbo;
-            $arma->alcance_min = $request->alcance_min;
-            $arma->alcance_max = $request->alcance_max;
-            $arma->precio = $request->precio;
-            $arma->descripcion = $request->descripcion;
+            $armadura = new Armadura();
+            $armadura->nombre = $request->nombre;
+            $armadura->tipo_id = $request->tipo;
+            $armadura->proteccion = $request->proteccion;
+            $armadura->estorbo = $request->estorbo;
+            $armadura->precio = $request->precio;
+            $armadura->descripcion = $request->descripcion;
 
-            $ok = $arma->save();
+            $ok = $armadura->save();
 
             if ($ok) {
                 if ($request->propiedades) {
-                    $arma->propiedades()->sync($request->propiedades);
+                    $armadura->propiedades()->sync($request->propiedades);
                 }
+
+                if ($request->lugares) {
+                    $armadura->lugaresCuerpo()->sync($request->lugares);
+                }
+
                 return Response::json([
                     "status" => true,
                     "mensaje" => "Registro creado correctamente."
@@ -140,9 +149,9 @@ class ArmasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Auth::user()->isAbleTo("editar-armas")) {
+        if (Auth::user()->isAbleTo("editar-armaduras")) {
 
-            $count = Arma::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->where("id", "!=", $id)->count();
+            $count = Armadura::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->where("id", "!=", $id)->count();
 
             if ($count > 0) {
                 return Response::json([
@@ -153,32 +162,33 @@ class ArmasController extends Controller
             }
 
             try {
-                $arma = Arma::findOrFail($id);
+                $armadura = Armadura::findOrFail($id);
 
-                $arma->nombre = $request->nombre;
-                $arma->tipo_id = $request->tipo;
-                $arma->danio = $request->danio;
-                $arma->estorbo = $request->estorbo;
-                $arma->alcance_min = $request->alcance_min;
-                $arma->alcance_max = $request->alcance_max;
-                $arma->precio = $request->precio;
-                $arma->descripcion = $request->descripcion;
+                $armadura->nombre = $request->nombre;
+                $armadura->tipo_id = $request->tipo;
+                $armadura->proteccion = $request->proteccion;
+                $armadura->estorbo = $request->estorbo;
+                $armadura->precio = $request->precio;
+                $armadura->descripcion = $request->descripcion;
 
-                $ok = $arma->save();
+                $ok = $armadura->save();
 
 
                 if ($ok) {
-                    $arma->propiedades()->sync($request->propiedades);
+                    $armadura->propiedades()->sync($request->propiedades);
+
+                    $armadura->lugaresCuerpo()->sync($request->lugares);
 
                     return Response::json([
                         "status" => true,
-                        "mensaje" => "arma editada con éxito..."
+                        "mensaje" => "armadura editada con éxito..."
                     ]);
                 }
             } catch (\Throwable $th) {
+                dd($th);
                 return Response::json([
                     "status" => false,
-                    "mensaje" => "Error al actualizar el arma."
+                    "mensaje" => "Error al actualizar el armadura."
                 ]);
             }
         }
@@ -194,21 +204,21 @@ class ArmasController extends Controller
      */
     public function delete(Request $request)
     {
-        if (Auth::user()->isAbleTo("borrar-armas")) {
+        if (Auth::user()->isAbleTo("borrar-armaduras")) {
 
             try {
-                $arma = Arma::findOrFail($request->id);
+                $armadura = Armadura::findOrFail($request->id);
 
-                $arma->delete();
+                $armadura->delete();
 
                 return Response::json([
                     "status" => true,
-                    "mensaje" => "arma eliminada con éxito."
+                    "mensaje" => "armadura eliminada con éxito."
                 ]);
             } catch (\Throwable $th) {
                 return Response::json([
                     "status" => true,
-                    "mensaje" => "Error al obtener los datos del arma"
+                    "mensaje" => "Error al obtener los datos del armadura"
                 ]);
             }
         }

@@ -1,5 +1,5 @@
 <div class="mb-2">
-    <button id="btn-add" class="btn btn-success" onclick="abrirModal()"><i class="fas fa-plus"></i> Agregar nueva Arma</button>
+    <button id="btn-add" class="btn btn-success" onclick="abrirModal()"><i class="fas fa-plus"></i> Agregar nueva Armadura</button>
 </div>
 
 <div>
@@ -9,11 +9,11 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Tipo</th>
-                <th>Daño</th>
-                <th>Estorbo</th>
-                <th>Alc. Min</th>
-                <th>Alc. Max</th>
+                <th>Lugar</th>
                 <th>Propiedades</th>
+                <th>Protección</th>
+                <th>Estorbo</th>
+                <th>Precio</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -23,35 +23,34 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalArmas" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalArmaduras" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="miModalLabel">Título del modal</h5>
-                <a type="button" data-bs-dismiss="modal" aria-label="Close" onclick='$("#modalArmas").modal("hide")'><i
+                <a type="button" data-bs-dismiss="modal" aria-label="Close" onclick='$("#modalArmaduras").modal("hide")'><i
                         class="fas fa-times"></i></a>
             </div>
-            <form id="formularioArma">
+            <form id="formularioArmadura">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="tipo" class="form-label">Tipo</label>
-                        <select class="form-control form-control-sm" id="tipo" name="tipo" required>
-                            <option value="">Seleccione un tipo</option>
-                            @foreach($tipos as $tipo)
-                            <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
                     <div class="row">
                         <div class="mb-3 col-3">
-                            <label for="danio" class="form-label">Daño</label>
-                            <input type="text" class="form-control form-control-sm" id="danio" name="danio">
+                            <label for="tipo" class="form-label">Tipo</label>
+                            <select class="form-control form-control-sm" id="tipo" name="tipo" required>
+                                <option value="">Seleccione un tipo</option>
+                                @foreach($tipos as $tipo)
+                                <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3 col-3">
+                            <label for="proteccion" class="form-label">Proteccion</label>
+                            <input type="text" class="form-control form-control-sm" id="proteccion" name="proteccion">
                         </div>
 
                         <div class="mb-3 col-3">
@@ -60,20 +59,11 @@
                         </div>
 
                         <div class="mb-3 col-3">
-                            <label for="alcance_min" class="form-label">Alcance Mínimo</label>
-                            <input type="text" class="form-control form-control-sm" id="alcance_min" name="alcance_min">
-                        </div>
-
-                        <div class="mb-3 col-3">
-                            <label for="alcance_max" class="form-label">Alcance Máximo</label>
-                            <input type="text" class="form-control form-control-sm" id="alcance_max" name="alcance_max">
+                            <label for="precio" class="form-label">Precio</label>
+                            <input type="text" class="form-control form-control-sm" id="precio" name="precio">
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="precio" class="form-label">Precio</label>
-                        <input type="text" class="form-control form-control-sm" id="precio" name="precio">
-                    </div>
 
                     <div class="mb-3">
                         <label for="propiedades" class="form-label">Propiedades</label>
@@ -83,7 +73,14 @@
                             @endforeach
                         </select>
                     </div>
-
+                    <div class="mb-3">
+                        <label for="lugares" class="form-label">Lugares Cuerpo</label>
+                        <select class="form-control form-control-sm" id="lugares" name="lugares[]" multiple>
+                            @foreach($lugaresCuerpo as $lugar)
+                            <option value="{{ $lugar->id }}">{{ $lugar->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">Descripción:</label>
                         <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Escribe una descripción"></textarea>
@@ -99,23 +96,23 @@
 </div>
 <script>
     $(document).ready(function() {
-        $("#titulo").text("Armas");
+        $("#titulo").text("Armaduras");
         $('#tabla_armas').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "{{ route('getDataArmas') }}",
+                    "url": "{{ route('getDataArmaduras') }}",
                     "type": "GET"
                 },
                 "columns": [
                     { "data": "id", "width": "5%", "className": "text-center" },
                     { "data": "nombre", "width": "30%" },
-                    { "data": "tipo", "width": "15%" },
-                    { "data": "danio", "width": "5%", "className": "text-right" },
+                    { "data": "tipo", "width": "10%" },
+                    { "data": "lugares", "width": "15%" },
+                    { "data": "propiedades", "width": "10%" },
+                    { "data": "proteccion", "width": "5%" },
                     { "data": "estorbo", "width": "5%", "className": "text-right" },
-                    { "data": "alcance_min", "width": "5%", "className": "text-right" },
-                    { "data": "alcance_max", "width": "5%", "className": "text-right" },
-                    { "data": "propiedades", "width": "30%" },
+                    { "data": "precio", "width": "10%", "className": "text-right" },
                     { "data": "action", "width": "5%", "orderable": false, "searchable": false, "className": "text-center" }
                 ],
                 language: {
@@ -142,11 +139,18 @@
         );
 
         $("#propiedades").select2({
-                language: "es",
-                multiple: true,
-                width: "100%",
-                theme: 'classic'
-            });
+            language: "es",
+            multiple: true,
+            width: "100%",
+            theme: 'classic'
+        });
+
+        $("#lugares").select2({
+            language: "es",
+            multiple: true,
+            width: "100%",
+            theme: 'classic'
+        });
 
         $("#tipo").select2({
             language: "es",
@@ -161,49 +165,58 @@
 
         $("#nombre").val("");
         $("#tipo").val("").trigger("change");
-        $("#danio").val("");
+        $("#lugares").val("").trigger("change");
+        $("#proteccion").val("");
         $("#estorbo").val("");
-        $("#alcance_min").val("");
-        $("#alcance_max").val("");
         $("#precio").val("0");
         $("#propiedades").val("").trigger("change");
         $("#descripcion").val("")
 
-        $("#miModalLabel").html("Nueva Arma");
+        $("#miModalLabel").html("Nueva Armadura");
         if (!editar) {
-            ruta = "{{ route('storeArma') }}";
+            ruta = "{{ route('storeArmadura') }}";
         } else {
             let datos = await getDatosPropiedad(editar);
-            $("#miModalLabel").html("Editando Arma");
-            ruta = "{{ route('updateArma', '_id_') }}";
+            $("#miModalLabel").html("Editando Armadura");
+            ruta = "{{ route('updateArmadura', '_id_') }}";
             ruta = ruta.replace("_id_", datos.id);
 
             $("#nombre").val(datos.nombre);
             $("#tipo").val(datos.tipo_id).trigger("change");
-            $("#danio").val(datos.danio);
+            $("#proteccion").val(datos.proteccion);
             $("#estorbo").val(datos.estorbo);
-            $("#alcance_min").val(datos.alcance_min);
-            $("#alcance_max").val(datos.alcance_max);
+            $("#descripcion").val(datos.descripcion);
             $("#precio").val(datos.precio);
 
             var propiedadesIds = [];
 
-            for (var i = 0; i < datos.propiedades.length; i++) {
-                propiedadesIds.push(datos.propiedades[i].id);
+            if(datos.propiedades.length > 0){
+                for (var i = 0; i < datos.propiedades.length; i++) {
+                    propiedadesIds.push(datos.propiedades[i].id);
+                }
             }
 
+            var lugaresIds = [];
+            console.log(datos);
+            if(datos.lugares_cuerpo.length > 0){
+                for (var i = 0; i < datos.lugares_cuerpo.length; i++) {
+                    lugaresIds.push(datos.lugares_cuerpo[i].id);
+                }
+            }
+
+
             $("#propiedades").val(propiedadesIds).trigger("change");
-            $("#descripcion").val(datos.descripcion);
+            $("#lugares").val(lugaresIds).trigger("change");
         }
 
-        $("#formularioArma").attr("action", ruta);
-        $("#modalArmas").modal();
+        $("#formularioArmadura").attr("action", ruta);
+        $("#modalArmaduras").modal();
     }
 
 
     async function getDatosPropiedad(id) {
         try {
-            let ruta = "{{ route('getDataArma', '_id_') }} ";
+            let ruta = "{{ route('getDataArmadura', '_id_') }} ";
             ruta = ruta.replace("_id_", id);
 
             const response = await $.ajax({
@@ -217,19 +230,18 @@
     }
 
     function guardar() {
-        let ruta = $("#formularioArma").attr("action");
+        let ruta = $("#formularioArmadura").attr("action");
         cargaSwal('load', "Guardando datos...")
-        $("#modalArmas").modal("hide");
+        $("#modalArmaduras").modal("hide");
 
         let nombre = $("#nombre").val();
         let tipo = $("#tipo").val();
-        let danio = $("#danio").val();
+        let proteccion = $("#proteccion").val();
         let estorbo = $("#estorbo").val();
-        let alcance_min = $("#alcance_min").val();
-        let alcance_max = $("#alcance_max").val();
+        let descripcion = $("#descripcion").val();
         let precio = $("#precio").val();
         let propiedades = $("#propiedades").val();
-        let descripcion = $("#descripcion").val();
+        let lugares = $("#lugares").val();
 
         $.ajax({
             url: ruta,
@@ -237,13 +249,12 @@
             data: {
                 nombre,
                 tipo,
-                danio,
+                proteccion,
                 estorbo,
-                alcance_min,
-                alcance_max,
+                descripcion,
                 precio,
                 propiedades,
-                descripcion,
+                lugares
             },
             success: function(response) {
                 cargaSwal(response.status, response.mensaje)
@@ -269,7 +280,7 @@
 
             if (result) {
                 $.ajax({
-                    url: "{{ route('deleteArma') }}",
+                    url: "{{ route('deleteArmadura') }}",
                     type: 'POST',
                     data: {
                         id: id

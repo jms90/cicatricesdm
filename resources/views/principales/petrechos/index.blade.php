@@ -3,7 +3,7 @@
 </div>
 
 <div>
-    <table id="tabla_armas" class="table table-hover table-sm table-striped table-bordered" style="width:100%">
+    <table id="tabla_petrechos" class="table table-hover table-sm table-striped table-bordered" style="width:100%">
         <thead class="thead-dark">
             <tr>
                 <th>ID</th>
@@ -23,15 +23,15 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalArmas" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalPetrechos" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="miModalLabel">Título del modal</h5>
-                <a type="button" data-bs-dismiss="modal" aria-label="Close" onclick='$("#modalArmas").modal("hide")'><i
+                <a type="button" data-bs-dismiss="modal" aria-label="Close" onclick='$("#modalPetrechos").modal("hide")'><i
                         class="fas fa-times"></i></a>
             </div>
-            <form id="formularioArma">
+            <form id="formularioPetrecho">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
@@ -99,12 +99,12 @@
 </div>
 <script>
     $(document).ready(function() {
-        $("#titulo").text("Armas");
-        $('#tabla_armas').DataTable({
+        $("#titulo").text("Petrechos");
+        $('#tabla_petrechos').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "{{ route('getDataArmas') }}",
+                    "url": "{{ route('getDataPetrechos') }}",
                     "type": "GET"
                 },
                 "columns": [
@@ -169,13 +169,13 @@
         $("#propiedades").val("").trigger("change");
         $("#descripcion").val("")
 
-        $("#miModalLabel").html("Nueva Arma");
+        $("#miModalLabel").html("Nuevo Petrecho");
         if (!editar) {
-            ruta = "{{ route('storeArma') }}";
+            ruta = "{{ route('storePetrecho') }}";
         } else {
             let datos = await getDatosPropiedad(editar);
-            $("#miModalLabel").html("Editando Arma");
-            ruta = "{{ route('updateArma', '_id_') }}";
+            $("#miModalLabel").html("Editando Petrecho");
+            ruta = "{{ route('updatePetrecho', '_id_') }}";
             ruta = ruta.replace("_id_", datos.id);
 
             $("#nombre").val(datos.nombre);
@@ -185,25 +185,24 @@
             $("#alcance_min").val(datos.alcance_min);
             $("#alcance_max").val(datos.alcance_max);
             $("#precio").val(datos.precio);
-
             var propiedadesIds = [];
-
             for (var i = 0; i < datos.propiedades.length; i++) {
+                console.log(datos.propiedades[i].id)
                 propiedadesIds.push(datos.propiedades[i].id);
             }
-
+            console.log(propiedadesIds);
             $("#propiedades").val(propiedadesIds).trigger("change");
             $("#descripcion").val(datos.descripcion);
         }
 
-        $("#formularioArma").attr("action", ruta);
-        $("#modalArmas").modal();
+        $("#formularioPetrecho").attr("action", ruta);
+        $("#modalPetrechos").modal();
     }
 
 
     async function getDatosPropiedad(id) {
         try {
-            let ruta = "{{ route('getDataArma', '_id_') }} ";
+            let ruta = "{{ route('getDataPetrecho', '_id_') }} ";
             ruta = ruta.replace("_id_", id);
 
             const response = await $.ajax({
@@ -217,9 +216,9 @@
     }
 
     function guardar() {
-        let ruta = $("#formularioArma").attr("action");
+        let ruta = $("#formularioPetrecho").attr("action");
         cargaSwal('load', "Guardando datos...")
-        $("#modalArmas").modal("hide");
+        $("#modalPetrechos").modal("hide");
 
         let nombre = $("#nombre").val();
         let tipo = $("#tipo").val();
@@ -246,8 +245,9 @@
                 descripcion,
             },
             success: function(response) {
+                console.log(response.mensaje)
                 cargaSwal(response.status, response.mensaje)
-                $("#tabla_armas").DataTable().ajax.reload(null, false);
+                $("#tabla_petrechos").DataTable().ajax.reload(null, false);
             },
             error: function(xhr, status, error) {
                 cargaSwal(false, "Error en el servidor al procesar su petición.")
@@ -276,7 +276,7 @@
                     },
                     success: function(response) {
                         cargaSwal(response.status, response.mensaje)
-                        $("#tabla_armas").DataTable().ajax.reload(null, false);
+                        $("#tabla_petrechos").DataTable().ajax.reload(null, false);
                     },
                     error: function(xhr) {
                         Swal.fire({

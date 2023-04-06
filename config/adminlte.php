@@ -319,11 +319,17 @@ return [
             'submenu' => [
                 [
                     'text' => 'Armas',
-                    'id' => 'armas',
+                    'id' => 'armasIndex',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Armaduras',
+                    'id' => 'armadurasIndex',
                     'url'  => '#',
                 ],
                 [
                     'text' => 'Petrechos',
+                    'id' => 'petrechosIndex',
                     'url'  => '#',
                 ],
             ],
@@ -340,7 +346,12 @@ return [
                 ],
                 [
                     'text' => 'Propiedades de Objetos',
-                    'id' => 'propiedadesDeObjetos',
+                    'id' => 'propiedadesDeObjetosIndex',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Lugares de cuerpo',
+                    'id' => "lugaresCuerpoIndex",
                     'url'  => '#',
                 ],
             ],

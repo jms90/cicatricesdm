@@ -9,6 +9,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Clase de Objeto</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -28,9 +29,23 @@
             </div>
             <form id="formularioTipo">
                 <div class="modal-body">
-                    <div class="mb-3">
+                    <div class="mb-3 col-12">
                         <label for="nombre" class="form-label">Nombre:</label>
                         <input type="text" class="form-control" id="nombre" name="nombre">
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-4">
+                            <label for="arma" class="form-label">Arma:</label>
+                            <input type="checkbox" class="form-control" id="arma" name="clase">
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label for="armadura" class="form-label">Armadura:</label>
+                            <input type="checkbox" class="form-control" id="armadura" name="clase">
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label for="petrecho" class="form-label">Petrecho:</label>
+                            <input type="checkbox" class="form-control" id="petrecho" name="clase">
+                        </div>
                     </div>
                 </div>
             </form>
@@ -42,12 +57,13 @@
     </div>
 </div>
 <script>
-    console.log('Hi!');
-</script>
-<script>
-    // Configurar DataTable y agregar botón de agregar
     $(document).ready(function() {
         $("#titulo").text("Tipos de Objetos");
+
+        $('input[name=clase]').on('change', function() {
+            $('input[name=clase]').not(this).prop('checked', false);
+        });
+
         $('#tabla_objetos').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -57,7 +73,8 @@
                 },
                 "columns": [
                     { "data": "id", "width": "10%" },
-                    { "data": "nombre", "width": "70%" },
+                    { "data": "nombre", "width": "50%" },
+                    { "data": "clase", "width": "20%" },
                     { "data": "action", "width": "20%", "orderable": false, "searchable": false }
                 ],
                 language: {
@@ -88,6 +105,9 @@
         let ruta = "";
 
         $("#nombre").val("");
+        $("#arma").prop("checked", false);
+        $("#armadura").prop("checked", false);
+        $("#petrecho").prop("checked", false);
         $("#miModalLabel").html("Nuevo Tipo de Objeto");
         if (!editar) {
             ruta = "{{ route('storeTipo') }}";
@@ -98,6 +118,9 @@
             ruta = ruta.replace("_id_", datos.id);
 
             $("#nombre").val(datos.nombre);
+            $("#arma").prop("checked", datos.arma == 1);
+            $("#armadura").prop("checked", datos.armadura == 1);
+            $("#petrecho").prop("checked", datos.petrecho == 1);
         }
 
         $("#formularioTipo").attr("action", ruta);
@@ -126,14 +149,19 @@
         $("#modalTipo").modal("hide");
 
         let nombre = $("#nombre").val();
+        let arma = $("#arma").prop("checked");
+        let armadura = $("#armadura").prop("checked");
+        let petrecho = $("#petrecho").prop("checked");
         $.ajax({
             url: ruta,
             method: 'POST',
             data: {
-                nombre
+                nombre,
+                arma,
+                armadura,
+                petrecho
             },
             success: function(response) {
-                console.log(response.mensaje)
                 cargaSwal(response.status, response.mensaje)
                 $("#tabla_objetos").DataTable().ajax.reload(null, false);
             },
