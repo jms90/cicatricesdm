@@ -1,5 +1,5 @@
 <div class="mb-2">
-    <button id="btn-add" class="btn btn-success" onclick="abrirModal()"><i class="fas fa-plus"></i> Agregar nueva Arma</button>
+    <button id="btn-add" class="btn btn-success" onclick="abrirModal()"><i class="fas fa-plus"></i> Agregar nuevo Petrecho</button>
 </div>
 
 <div>
@@ -255,7 +255,7 @@
         });
     }
 
-    function deleteArma(id) {
+    function deletePetrecho(id) {
         Swal.fire({
             title: '¿Estás seguro?',
             text: "¡No podrás revertir esto!",
@@ -269,7 +269,7 @@
 
             if (result) {
                 $.ajax({
-                    url: "{{ route('deleteArma') }}",
+                    url: "{{ route('deletePetrecho') }}",
                     type: 'POST',
                     data: {
                         id: id

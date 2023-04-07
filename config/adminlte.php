@@ -306,38 +306,37 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
 
         ['header' => 'PRINCIPAL'],
         [
             'text'    => 'Objetos',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fas fa-store',
             'submenu' => [
                 [
                     'text' => 'Armas',
+                    'icon'    => 'fas fa-hammer',
                     'id' => 'armasIndex',
                     'url'  => '#',
                 ],
                 [
                     'text' => 'Armaduras',
+                    'icon' => 'fas fa-tshirt',
                     'id' => 'armadurasIndex',
                     'url'  => '#',
                 ],
                 [
                     'text' => 'Petrechos',
+                    'icon' => 'fas fa-compass',
                     'id' => 'petrechosIndex',
                     'url'  => '#',
                 ],
-                [
-                    'text' => 'Magias',
-                    'id' => 'magiasIndex',
-                    'url'  => '#',
-                ],
             ],
+        ],
+        [
+            'text' => 'Magias',
+            'id' => 'magiasIndex',
+            'icon' => 'fas fa-hat-wizard',
+            'url'  => '#',
         ],
         ['header' => 'CONFIGURACIONES'],
         [

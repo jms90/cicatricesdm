@@ -79,7 +79,6 @@ class PetrechosController extends Controller
             $petrecho = Petrecho::with("propiedades")->findOrFail($id);
             return $petrecho;
         } catch (\Throwable $th) {
-            dd($th);
 
             return "Error al obtener los datos del petrecho";
         }
