@@ -48,6 +48,15 @@ Route::post('/delete/propiedadesobjetos', [App\Http\Controllers\PropiedadesContr
 Route::post('/update/propiedadesobjetos/{id}', [App\Http\Controllers\PropiedadesController::class, 'update'])->name('updatePropiedad');
 
 
+/* Rutas Escuelas de Magia */
+Route::get('/escuelasmagia', [App\Http\Controllers\EscuelasMagiaController::class, 'index'])->name('indexEscuelasMagia');
+Route::get('/escuelasmagiadata', [App\Http\Controllers\EscuelasMagiaController::class, 'getDataTable'])->name('getDataEscuelasMagia');
+Route::post('/store/escuelasmagia', [App\Http\Controllers\EscuelasMagiaController::class, 'store'])->name('storeEscuelaMagia');
+Route::get('/getData/escuelamagia/{id}', [App\Http\Controllers\EscuelasMagiaController::class, 'getData'])->name('getDataEscuelaMagia');
+Route::post('/delete/escuelamagia', [App\Http\Controllers\EscuelasMagiaController::class, 'delete'])->name('deleteEscuelaMagia');
+Route::post('/update/escuelaMagia/{id}', [App\Http\Controllers\EscuelasMagiaController::class, 'update'])->name('updateEscuelaMagia');
+
+
 /* Rutas Armas */
 Route::get('/armas', [App\Http\Controllers\ArmasController::class, 'index'])->name('indexArma');
 Route::get('/armasdata', [App\Http\Controllers\ArmasController::class, 'getDataTable'])->name('getDataArmas');
@@ -72,3 +81,10 @@ Route::get('/getData/petrechos/{id}', [App\Http\Controllers\PetrechosController:
 Route::post('/delete/petrechos', [App\Http\Controllers\PetrechosController::class, 'delete'])->name('deletePetrecho');
 Route::post('/update/petrechos/{id}', [App\Http\Controllers\PetrechosController::class, 'update'])->name('updatePetrecho');
 
+/* Rutas Magias */
+Route::get('/magias', [App\Http\Controllers\MagiasController::class, 'index'])->name('indexMagia');
+Route::get('/magiassdata', [App\Http\Controllers\MagiasController::class, 'getDataTable'])->name('getDataMagias');
+Route::post('/store/magia', [App\Http\Controllers\MagiasController::class, 'store'])->name('storeMagia');
+Route::get('/getData/magia/{id}', [App\Http\Controllers\MagiasController::class, 'getData'])->name('getDataMagia');
+Route::post('/delete/magia', [App\Http\Controllers\MagiasController::class, 'delete'])->name('deleteMagia');
+Route::post('/update/magia/{id}', [App\Http\Controllers\MagiasController::class, 'update'])->name('updateMagia');

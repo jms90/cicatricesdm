@@ -73,6 +73,24 @@
             $(this).find('a.nav-link').addClass('active');
         });
 
+        $("#EscuelasMagiaIndex").on("click", function() {
+            $("#contenido").empty();
+            $.get('{{ route('indexEscuelasMagia') }}', function(data) {
+                $('#contenido').html(data);
+            });
+            $('li.nav-item a.nav-link').removeClass('active');
+            $(this).find('a.nav-link').addClass('active');
+        });
+
+        $("#magiasIndex").on("click", function() {
+            $("#contenido").empty();
+            $.get('{{ route('indexMagia') }}', function(data) {
+                $('#contenido').html(data);
+            });
+            $('li.nav-item a.nav-link').removeClass('active');
+            $(this).find('a.nav-link').addClass('active');
+        });
+
         $("#armasIndex").on("click", function() {
             $("#contenido").empty();
             $.get('{{ route('indexArma') }}', function(data) {

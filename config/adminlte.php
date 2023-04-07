@@ -332,6 +332,11 @@ return [
                     'id' => 'petrechosIndex',
                     'url'  => '#',
                 ],
+                [
+                    'text' => 'Magias',
+                    'id' => 'magiasIndex',
+                    'url'  => '#',
+                ],
             ],
         ],
         ['header' => 'CONFIGURACIONES'],
@@ -352,6 +357,11 @@ return [
                 [
                     'text' => 'Lugares de cuerpo',
                     'id' => "lugaresCuerpoIndex",
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Escuelas de magia',
+                    'id' => "EscuelasMagiaIndex",
                     'url'  => '#',
                 ],
             ],
