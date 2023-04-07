@@ -109,6 +109,18 @@
             $(this).find('a.nav-link').addClass('active');
         });
 
+        setInterval(() => {
+            $.get('/session', function (data) {
+                if (data.authenticated) {
+                    // El usuario sigue autenticado, no se hace nada.
+                } else {
+                    // El usuario no está autenticado, se redirige a la página de inicio de sesión.
+                    window.location.replace('/login');
+                }
+            });
+        }, 5000);
+
+
         function cargaSwal(tipo, texto = "") {
 
             switch (tipo) {
