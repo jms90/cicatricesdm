@@ -46,6 +46,15 @@
             $(this).find('a.nav-link').addClass('active');
         });
 
+        $("#diosesIndex").on("click", function() {
+            $("#contenido").empty();
+            $.get('{{ route('indexDioses') }}', function(data) {
+                $('#contenido').html(data);
+            });
+            $('li.nav-item a.nav-link').removeClass('active');
+            $(this).find('a.nav-link').addClass('active');
+        });
+
         $("#propiedadesDeObjetosIndex").on("click", function() {
             $("#contenido").empty();
             $.get('{{ route('indexPropiedadesDeObjetos') }}', function(data) {

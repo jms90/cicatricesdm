@@ -26,12 +26,20 @@ Route::get('/session', function () {
 });
 
 /* Rutas Tipos de Objetos */
-Route::get('/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'index'])->name('indexTipoObjetos');
-Route::get('/tiposobjetosdata', [App\Http\Controllers\TiposObjetosController::class, 'getDataTable'])->name('getDataObjetos');
-Route::post('/store/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'store'])->name('storeTipo');
-Route::get('/getData/tiposobjetos/{id}', [App\Http\Controllers\TiposObjetosController::class, 'getData'])->name('getDataTipo');
-Route::post('/delete/tiposobjetos', [App\Http\Controllers\TiposObjetosController::class, 'delete'])->name('deleteTipo');
-Route::post('/update/tiposobjeto/{id}', [App\Http\Controllers\TiposObjetosController::class, 'update'])->name('updateTipo');
+Route::get('/tipoobjeto', [App\Http\Controllers\TiposObjetosController::class, 'index'])->name('indexTipoObjetos');
+Route::get('/tipoobjeto/getdatatable', [App\Http\Controllers\TiposObjetosController::class, 'getDataTable'])->name('getDataObjetos');
+Route::post('/tipoobjeto/store', [App\Http\Controllers\TiposObjetosController::class, 'store'])->name('storeTipo');
+Route::get('/tipoobjeto/{tipoObjeto}', [App\Http\Controllers\TiposObjetosController::class, 'getData'])->name('getDataTipo');
+Route::post('/tipoobjeto/delete', [App\Http\Controllers\TiposObjetosController::class, 'delete'])->name('deleteTipo');
+Route::post('/tipoobjeto/update/{id}', [App\Http\Controllers\TiposObjetosController::class, 'update'])->name('updateTipo');
+
+/* Rutas Tipos de Objetos */
+Route::get('/dios', [App\Http\Controllers\DiosesController::class, 'index'])->name('indexDioses');
+Route::get('/dios/getdatatable', [App\Http\Controllers\DiosesController::class, 'getDataTable'])->name('getDataDioses');
+Route::post('/dios/store', [App\Http\Controllers\DiosesController::class, 'store'])->name('storeDios');
+Route::get('/dios/{dios}', [App\Http\Controllers\DiosesController::class, 'getData'])->name('getDataDios');
+Route::post('/dios/delete', [App\Http\Controllers\DiosesController::class, 'delete'])->name('deleteDios');
+Route::post('/dios/update/{id}', [App\Http\Controllers\DiosesController::class, 'update'])->name('updateDios');
 
 /* Rutas Lugares de Cuerpo */
 Route::get('/lugarescuperpo', [App\Http\Controllers\LugaresCuerpoController::class, 'index'])->name('indexLugaresCuerpo');

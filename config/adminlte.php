@@ -338,7 +338,14 @@ return [
             'icon' => 'fas fa-hat-wizard',
             'url'  => '#',
         ],
+        [
+            'text' => 'Dioses',
+            'id' => 'diosesIndex',
+            'icon' => 'fas fa-bible',
+            'url'  => '#',
+        ],
         ['header' => 'CONFIGURACIONES'],
+
         [
             'text'    => 'Configuración',
             'icon'    => 'fas fa-cogs',
