@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\EscuelaMagia;
-use App\Models\Magia;
+use App\Models\Bendicion;
+use App\Models\Dios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Yajra\DataTables\DataTables;
 
-class MagiasController extends Controller
+class BendicionesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,10 +19,10 @@ class MagiasController extends Controller
     {
         $view = view("sinpermisos.sinpermisos");
 
-        if (Auth::user()->isAbleTo("acceso-magias")) {
-            $escuelas = EscuelaMagia::all();
-            $view = view('principales.magias.index')
-                ->with("escuelas", $escuelas)
+        if (Auth::user()->isAbleTo("acceso-bendiciones")) {
+            $dioses = Dios::all();
+            $view = view('principales.bendiciones.index')
+                ->with("dioses", $dioses)
                 ->render();
         }
 
@@ -35,21 +34,20 @@ class MagiasController extends Controller
      */
     public function getDataTable()
     {
-        if (Auth::user()->isAbleTo("acceso-magias")) {
+        if (Auth::user()->isAbleTo("acceso-bendiciones")) {
 
             $sql = "SELECT
-                    m.id AS id,
-                    m.nombre AS nombre,
-                    e.nombre as escuela,
-                    m.nivel AS nivel,
-                    m.objetivo AS objetivo,
-                    m.coste as coste,
-                    m.duracion as duracion
-                FROM
-                    magias m
-                    LEFT JOIN escuelas_magias e ON e.id = m.escuela_id AND e.deleted_at is null
-                WHERE
-                    m.deleted_at IS NULL";
+            b.id,
+            b.nombre AS nombre,
+            GROUP_CONCAT( d.nombre SEPARATOR ', ' ) AS alineaciones,
+            b.dificultad,
+            b.objetivo,
+            b.duracion
+        FROM
+            bendiciones b
+            LEFT JOIN bendiciones_dioses bd ON b.id = bd.bendicion_id
+            LEFT JOIN dioses d ON d.id = bd.dios_id
+        GROUP BY id, b.nombre, duracion, dificultad,objetivo";
 
             $datos = DB::select($sql);
 
@@ -69,14 +67,16 @@ class MagiasController extends Controller
 
     public function getData($id)
     {
+        if (Auth::user()->isAbleTo("acceso-bendiciones")) {
 
-        try {
-            $magia = Magia::findOrFail($id);
+            try {
+                $bendicion = Bendicion::with("alineaciones")->findOrFail($id);
 
-            return $magia;
-        } catch (\Throwable $th) {
+                return $bendicion;
+            } catch (\Throwable $th) {
 
-            return "Error al obtener los datos del magia";
+                return "Error al obtener los datos del arma";
+            }
         }
     }
     /**
@@ -84,8 +84,8 @@ class MagiasController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->isAbleTo("crear-magias")) {
-            $count = Magia::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->count();
+        if (Auth::user()->isAbleTo("crear-bendiciones")) {
+            $count = Bendicion::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->count();
 
             if ($count > 0) {
                 return Response::json([
@@ -95,22 +95,22 @@ class MagiasController extends Controller
                 ]);
             }
 
-            $magia = new Magia();
-            $magia->nombre = $request->nombre;
-            $magia->escuela_id = $request->escuela;
-            $magia->nivel = $request->nivel;
-            $magia->objetivo = $request->objetivo;
-            $magia->coste = $request->coste;
-            $magia->duracion = $request->duracion;
-            $magia->requisitos = $request->requisitos;
-            $magia->descripcion = $request->descripcion;
-            $magia->critico = $request->critico;
+            $bendicion = new Bendicion();
+            $bendicion->nombre = $request->nombre;
+            $bendicion->dificultad = $request->dificultad;
+            $bendicion->objetivo = $request->objetivo;
+            $bendicion->coste = $request->coste;
+            $bendicion->duracion = $request->duracion;
+            $bendicion->descripcion = $request->descripcion;
+            $bendicion->critico = $request->critico;
 
 
-            $ok = $magia->save();
+            $ok = $bendicion->save();
 
             if ($ok) {
-
+                if ($request->alineaciones) {
+                    $bendicion->alineaciones()->sync($request->alineaciones);
+                }
                 return Response::json([
                     "status" => true,
                     "mensaje" => "Registro creado correctamente."
@@ -135,9 +135,9 @@ class MagiasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Auth::user()->isAbleTo("editar-magias")) {
+        if (Auth::user()->isAbleTo("editar-bendiciones")) {
 
-            $count = Magia::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->where("id", "!=", $id)->count();
+            $count = Bendicion::where("nombre", "like", trim($request->nombre))->whereNull("deleted_at")->where("id", "!=", $id)->count();
 
             if ($count > 0) {
                 return Response::json([
@@ -148,23 +148,21 @@ class MagiasController extends Controller
             }
 
             try {
-                $magia = Magia::findOrFail($id);
+                $bendicion = Bendicion::findOrFail($id);
 
-                $magia->nombre = $request->nombre;
-                $magia->escuela_id = $request->escuela;
-                $magia->nivel = $request->nivel;
-                $magia->objetivo = $request->objetivo;
-                $magia->coste = $request->coste;
-                $magia->duracion = $request->duracion;
-                $magia->requisitos = $request->requisitos;
-                $magia->descripcion = $request->descripcion;
-                $magia->critico = $request->critico;
+                $bendicion->nombre = $request->nombre;
+                $bendicion->dificultad = $request->dificultad;
+                $bendicion->objetivo = $request->objetivo;
+                $bendicion->coste = $request->coste;
+                $bendicion->duracion = $request->duracion;
+                $bendicion->descripcion = $request->descripcion;
+                $bendicion->critico = $request->critico;
 
-                $ok = $magia->save();
+                $ok = $bendicion->save();
 
 
                 if ($ok) {
-
+                    $bendicion->alineaciones()->sync($request->alineaciones);
                     return Response::json([
                         "status" => true,
                         "mensaje" => "magia editada con éxito..."
@@ -189,7 +187,7 @@ class MagiasController extends Controller
      */
     public function delete(Request $request)
     {
-        if (Auth::user()->isAbleTo("borrar-magias")) {
+        if (Auth::user()->isAbleTo("borrar-bendiciones")) {
 
             try {
                 $magia = Magia::findOrFail($request->id);

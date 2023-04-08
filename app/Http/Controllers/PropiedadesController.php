@@ -53,7 +53,7 @@ class PropiedadesController extends Controller
     {
 
         try {
-            $propiedad = Propiedades::findOrFail($id);
+            $propiedad = Propiedad::findOrFail($id);
 
             return $propiedad;
         } catch (\Throwable $th) {

@@ -339,6 +339,12 @@ return [
             'url'  => '#',
         ],
         [
+            'text' => 'Bendiciones',
+            'id' => 'bendicionesIndex',
+            'icon' => 'fas fa-hat-wizard',
+            'url'  => '#',
+        ],
+        [
             'text' => 'Dioses',
             'id' => 'diosesIndex',
             'icon' => 'fas fa-bible',

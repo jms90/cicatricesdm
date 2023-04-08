@@ -142,11 +142,11 @@
         );
 
         $("#propiedades").select2({
-                language: "es",
-                multiple: true,
-                width: "100%",
-                theme: 'classic'
-            });
+            language: "es",
+            multiple: true,
+            width: "100%",
+            theme: 'classic'
+        });
 
         $("#tipo").select2({
             language: "es",

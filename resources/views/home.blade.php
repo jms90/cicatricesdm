@@ -40,7 +40,13 @@
         $("#petrechosIndex").on("click", function() {
             $("#contenido").empty();
             $.get('{{ route('indexPetrechos') }}', function(data) {
-                $('#contenido').html(data);
+            $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
             });
             $('li.nav-item a.nav-link').removeClass('active');
             $(this).find('a.nav-link').addClass('active');
@@ -50,6 +56,12 @@
             $("#contenido").empty();
             $.get('{{ route('indexDioses') }}', function(data) {
                 $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
             });
             $('li.nav-item a.nav-link').removeClass('active');
             $(this).find('a.nav-link').addClass('active');
@@ -59,6 +71,12 @@
             $("#contenido").empty();
             $.get('{{ route('indexPropiedadesDeObjetos') }}', function(data) {
                 $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
             });
             $('li.nav-item a.nav-link').removeClass('active');
             $(this).find('a.nav-link').addClass('active');
@@ -68,6 +86,12 @@
             $("#contenido").empty();
             $.get('{{ route('indexLugaresCuerpo') }}', function(data) {
                 $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
             });
             $('li.nav-item a.nav-link').removeClass('active');
             $(this).find('a.nav-link').addClass('active');
@@ -77,6 +101,12 @@
             $("#contenido").empty();
             $.get('{{ route('indexTipoObjetos') }}', function(data) {
                 $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
             });
             $('li.nav-item a.nav-link').removeClass('active');
             $(this).find('a.nav-link').addClass('active');
@@ -86,6 +116,12 @@
             $("#contenido").empty();
             $.get('{{ route('indexEscuelasMagia') }}', function(data) {
                 $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
             });
             $('li.nav-item a.nav-link').removeClass('active');
             $(this).find('a.nav-link').addClass('active');
@@ -95,6 +131,12 @@
             $("#contenido").empty();
             $.get('{{ route('indexMagia') }}', function(data) {
                 $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
             });
             $('li.nav-item a.nav-link').removeClass('active');
             $(this).find('a.nav-link').addClass('active');
@@ -104,6 +146,12 @@
             $("#contenido").empty();
             $.get('{{ route('indexArma') }}', function(data) {
                 $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
             });
             $('li.nav-item a.nav-link').removeClass('active');
             $(this).find('a.nav-link').addClass('active');
@@ -113,6 +161,27 @@
             $("#contenido").empty();
             $.get('{{ route('indexArmaduras') }}', function(data) {
                 $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
+            });
+            $('li.nav-item a.nav-link').removeClass('active');
+            $(this).find('a.nav-link').addClass('active');
+        });
+
+        $("#bendicionesIndex").on("click", function() {
+            $("#contenido").empty();
+            $.get('{{ route('indexBendicion') }}', function(data) {
+                $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
             });
             $('li.nav-item a.nav-link').removeClass('active');
             $(this).find('a.nav-link').addClass('active');
