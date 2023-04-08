@@ -108,4 +108,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
      Route::get('/bendicion/{bendicion}', [App\Http\Controllers\BendicionesController::class, 'getData'])->name('getDataBendicion');
      Route::post('/bendicion/delete', [App\Http\Controllers\BendicionesController::class, 'delete'])->name('deleteBendicion');
      Route::post('/bendicion/update/{id}', [App\Http\Controllers\BendicionesController::class, 'update'])->name('updateBendicion');
+
+     /* Rutas talentos */
+     Route::get('/talento', [App\Http\Controllers\TalentosController::class, 'index'])->name('indexTalento');
+     Route::get('/talento/getdatatable', [App\Http\Controllers\TalentosController::class, 'getDataTable'])->name('getDataTalentos');
+     Route::post('/talento/store', [App\Http\Controllers\TalentosController::class, 'store'])->name('storeTalento');
+     Route::get('/talento/{talento}', [App\Http\Controllers\TalentosController::class, 'getData'])->name('getDataTalento');
+     Route::post('/talento/delete', [App\Http\Controllers\TalentosController::class, 'delete'])->name('deleteTalento');
+     Route::post('/talento/update/{id}', [App\Http\Controllers\TalentosController::class, 'update'])->name('updateTalento');
 });

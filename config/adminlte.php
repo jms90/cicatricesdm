@@ -341,7 +341,13 @@ return [
         [
             'text' => 'Bendiciones',
             'id' => 'bendicionesIndex',
-            'icon' => 'fas fa-hat-wizard',
+            'icon' => 'fas fa-virus-slash',
+            'url'  => '#',
+        ],
+        [
+            'text' => 'Talentos',
+            'icon' => 'fas fa-dna',
+            'id' => 'talentosIndex',
             'url'  => '#',
         ],
         [
