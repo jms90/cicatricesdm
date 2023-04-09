@@ -101,19 +101,27 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::post('/delete/magia', [App\Http\Controllers\MagiasController::class, 'delete'])->name('deleteMagia');
     Route::post('/update/magia/{id}', [App\Http\Controllers\MagiasController::class, 'update'])->name('updateMagia');
 
-     /* Rutas Bendiciones */
-     Route::get('/bendicion', [App\Http\Controllers\BendicionesController::class, 'index'])->name('indexBendicion');
-     Route::get('/bendicion/getdatatable', [App\Http\Controllers\BendicionesController::class, 'getDataTable'])->name('getDataBendiciones');
-     Route::post('/bendicion/store', [App\Http\Controllers\BendicionesController::class, 'store'])->name('storeBendicion');
-     Route::get('/bendicion/{bendicion}', [App\Http\Controllers\BendicionesController::class, 'getData'])->name('getDataBendicion');
-     Route::post('/bendicion/delete', [App\Http\Controllers\BendicionesController::class, 'delete'])->name('deleteBendicion');
-     Route::post('/bendicion/update/{id}', [App\Http\Controllers\BendicionesController::class, 'update'])->name('updateBendicion');
+    /* Rutas Bendiciones */
+    Route::get('/bendicion', [App\Http\Controllers\BendicionesController::class, 'index'])->name('indexBendicion');
+    Route::get('/bendicion/getdatatable', [App\Http\Controllers\BendicionesController::class, 'getDataTable'])->name('getDataBendiciones');
+    Route::post('/bendicion/store', [App\Http\Controllers\BendicionesController::class, 'store'])->name('storeBendicion');
+    Route::get('/bendicion/{bendicion}', [App\Http\Controllers\BendicionesController::class, 'getData'])->name('getDataBendicion');
+    Route::post('/bendicion/delete', [App\Http\Controllers\BendicionesController::class, 'delete'])->name('deleteBendicion');
+    Route::post('/bendicion/update/{id}', [App\Http\Controllers\BendicionesController::class, 'update'])->name('updateBendicion');
 
-     /* Rutas talentos */
-     Route::get('/talento', [App\Http\Controllers\TalentosController::class, 'index'])->name('indexTalento');
-     Route::get('/talento/getdatatable', [App\Http\Controllers\TalentosController::class, 'getDataTable'])->name('getDataTalentos');
-     Route::post('/talento/store', [App\Http\Controllers\TalentosController::class, 'store'])->name('storeTalento');
-     Route::get('/talento/{talento}', [App\Http\Controllers\TalentosController::class, 'getData'])->name('getDataTalento');
-     Route::post('/talento/delete', [App\Http\Controllers\TalentosController::class, 'delete'])->name('deleteTalento');
-     Route::post('/talento/update/{id}', [App\Http\Controllers\TalentosController::class, 'update'])->name('updateTalento');
+    /* Rutas talentos */
+    Route::get('/talento', [App\Http\Controllers\TalentosController::class, 'index'])->name('indexTalento');
+    Route::get('/talento/getdatatable', [App\Http\Controllers\TalentosController::class, 'getDataTable'])->name('getDataTalentos');
+    Route::post('/talento/store', [App\Http\Controllers\TalentosController::class, 'store'])->name('storeTalento');
+    Route::get('/talento/{talento}', [App\Http\Controllers\TalentosController::class, 'getData'])->name('getDataTalento');
+    Route::post('/talento/delete', [App\Http\Controllers\TalentosController::class, 'delete'])->name('deleteTalento');
+    Route::post('/talento/update/{id}', [App\Http\Controllers\TalentosController::class, 'update'])->name('updateTalento');
+
+    /* Rutas ascendencias */
+    Route::get('/ascendencia', [App\Http\Controllers\AscendenciasController::class, 'index'])->name('indexAscendencia');
+    Route::get('/ascendencia/getdatatable', [App\Http\Controllers\AscendenciasController::class, 'getDataTable'])->name('getDataAscendencias');
+    Route::post('/ascendencia/store', [App\Http\Controllers\AscendenciasController::class, 'store'])->name('storeAscendencia');
+    Route::get('/ascendencia/{ascendencia}', [App\Http\Controllers\AscendenciasController::class, 'getData'])->name('getDataAscendencia');
+    Route::post('/ascendencia/delete', [App\Http\Controllers\AscendenciasController::class, 'delete'])->name('deleteAscendencia');
+    Route::post('/ascendencia/update/{id}', [App\Http\Controllers\AscendenciasController::class, 'update'])->name('updateAscendencia');
 });

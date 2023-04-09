@@ -202,6 +202,21 @@
             $(this).find('a.nav-link').addClass('active');
         });
 
+        $("#ascendenciasIndex").on("click", function() {
+            $("#contenido").empty();
+            $.get('{{ route('indexAscendencia') }}', function(data) {
+                $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
+            });
+            $('li.nav-item a.nav-link').removeClass('active');
+            $(this).find('a.nav-link').addClass('active');
+        });
+
         setInterval(() => {
             $.get('/session', function (data) {
                 if (data.authenticated) {

@@ -356,6 +356,12 @@ return [
             'icon' => 'fas fa-bible',
             'url'  => '#',
         ],
+        [
+            'text' => 'Ascendencias',
+            'id' => 'ascendenciasIndex',
+            'icon' => 'fas fa-users',
+            'url'  => '#',
+        ],
         ['header' => 'CONFIGURACIONES'],
 
         [
