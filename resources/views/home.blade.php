@@ -217,7 +217,23 @@
             $(this).find('a.nav-link').addClass('active');
         });
 
-        setInterval(() => {
+        $("#clasesIndex").on("click", function() {
+            $("#contenido").empty();
+            $.get('{{ route('indexClase') }}', function(data) {
+                $('#contenido').html(data);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 403) {
+                    cargaSwal(false,"No tiene permisos para realizar esta acción.")
+                } else {
+                    cargaSwal(false,"Error al realizar la petición.");
+                }
+            });
+            $('li.nav-item a.nav-link').removeClass('active');
+            $(this).find('a.nav-link').addClass('active');
+        });
+
+        /* Hay que echarle un ogt */
+     /*    setInterval(() => {
             $.get('/session', function (data) {
                 if (data.authenticated) {
                     // El usuario sigue autenticado, no se hace nada.
@@ -226,7 +242,7 @@
                     window.location.replace('/login');
                 }
             });
-        }, 5000);
+        }, 5000); */
 
 
         function cargaSwal(tipo, texto = "") {

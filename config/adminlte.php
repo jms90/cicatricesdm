@@ -309,6 +309,12 @@ return [
 
         ['header' => 'PRINCIPAL'],
         [
+            'text' => 'Clases',
+            'id' => 'clasesIndex',
+            'icon' => 'fas fa-user',
+            'url'  => '#',
+        ],
+        [
             'text'    => 'Objetos',
             'icon'    => 'fas fa-store',
             'submenu' => [

@@ -124,4 +124,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::get('/ascendencia/{ascendencia}', [App\Http\Controllers\AscendenciasController::class, 'getData'])->name('getDataAscendencia');
     Route::post('/ascendencia/delete', [App\Http\Controllers\AscendenciasController::class, 'delete'])->name('deleteAscendencia');
     Route::post('/ascendencia/update/{id}', [App\Http\Controllers\AscendenciasController::class, 'update'])->name('updateAscendencia');
+
+    /* Rutas clases */
+    Route::get('/clase', [App\Http\Controllers\ClasesController::class, 'index'])->name('indexClase');
+    Route::get('/clase/getdatatable', [App\Http\Controllers\ClasesController::class, 'getDataTable'])->name('getDataClases');
+    Route::post('/clase/store', [App\Http\Controllers\ClasesController::class, 'store'])->name('storeClase');
+    Route::get('/clase/{id}', [App\Http\Controllers\ClasesController::class, 'getData'])->name('getDataClase');
+    Route::post('/clase/delete', [App\Http\Controllers\ClasesController::class, 'delete'])->name('deleteClase');
+    Route::post('/clase/update/{id}', [App\Http\Controllers\ClasesController::class, 'update'])->name('updateClase');
 });
