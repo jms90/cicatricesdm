@@ -11,7 +11,7 @@
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 10/04/2023 21:42:55
+ Date: 11/04/2023 22:36:30
 */
 
 SET NAMES utf8mb4;
@@ -160,7 +160,7 @@ CREATE TABLE `atributos`  (
   `deleted_at` timestamp(0) NULL DEFAULT NULL,
   `descripcion` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of atributos
@@ -171,6 +171,8 @@ INSERT INTO `atributos` VALUES (3, 'Habilidades', '2023-04-09 22:16:26', NULL, N
 INSERT INTO `atributos` VALUES (4, 'Maestrias', '2023-04-09 22:16:26', NULL, NULL, NULL);
 INSERT INTO `atributos` VALUES (5, 'Talentos', '2023-04-09 22:16:26', NULL, NULL, NULL);
 INSERT INTO `atributos` VALUES (6, 'PV', '2023-04-09 22:16:26', NULL, NULL, NULL);
+INSERT INTO `atributos` VALUES (7, 'Hechizos', '2023-04-09 22:16:26', NULL, NULL, NULL);
+INSERT INTO `atributos` VALUES (8, 'Bendiciones', '2023-04-09 22:16:26', NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for atributos_clases
@@ -186,11 +188,59 @@ CREATE TABLE `atributos_clases`  (
   `nivel` int(1) NULL DEFAULT NULL,
   `cantidad_nivel` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of atributos_clases
 -- ----------------------------
+INSERT INTO `atributos_clases` VALUES (1, 1, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 1, 1);
+INSERT INTO `atributos_clases` VALUES (2, 1, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 2, 2);
+INSERT INTO `atributos_clases` VALUES (3, 1, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 3, 1);
+INSERT INTO `atributos_clases` VALUES (4, 1, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 4, 1);
+INSERT INTO `atributos_clases` VALUES (5, 1, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 5, 2);
+INSERT INTO `atributos_clases` VALUES (6, 1, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 6, 1);
+INSERT INTO `atributos_clases` VALUES (7, 2, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 1, 2);
+INSERT INTO `atributos_clases` VALUES (8, 2, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 2, 1);
+INSERT INTO `atributos_clases` VALUES (9, 2, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 3, 2);
+INSERT INTO `atributos_clases` VALUES (10, 2, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 4, 1);
+INSERT INTO `atributos_clases` VALUES (11, 2, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 5, 1);
+INSERT INTO `atributos_clases` VALUES (12, 2, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 6, 2);
+INSERT INTO `atributos_clases` VALUES (13, 3, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 1, 1);
+INSERT INTO `atributos_clases` VALUES (14, 3, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 2, 2);
+INSERT INTO `atributos_clases` VALUES (15, 3, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 3, 2);
+INSERT INTO `atributos_clases` VALUES (16, 3, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 4, 2);
+INSERT INTO `atributos_clases` VALUES (17, 3, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 5, 2);
+INSERT INTO `atributos_clases` VALUES (18, 3, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 6, 3);
+INSERT INTO `atributos_clases` VALUES (19, 4, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 1, 0);
+INSERT INTO `atributos_clases` VALUES (20, 4, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 2, 0);
+INSERT INTO `atributos_clases` VALUES (21, 4, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 3, 0);
+INSERT INTO `atributos_clases` VALUES (22, 4, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 4, 1);
+INSERT INTO `atributos_clases` VALUES (23, 4, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 5, 1);
+INSERT INTO `atributos_clases` VALUES (24, 4, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 6, 1);
+INSERT INTO `atributos_clases` VALUES (25, 5, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 1, 1);
+INSERT INTO `atributos_clases` VALUES (26, 5, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 2, 1);
+INSERT INTO `atributos_clases` VALUES (27, 5, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 3, 1);
+INSERT INTO `atributos_clases` VALUES (28, 5, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 4, 2);
+INSERT INTO `atributos_clases` VALUES (29, 5, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 5, 2);
+INSERT INTO `atributos_clases` VALUES (30, 5, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 6, 2);
+INSERT INTO `atributos_clases` VALUES (31, 6, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 1, 0);
+INSERT INTO `atributos_clases` VALUES (32, 6, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 2, 0);
+INSERT INTO `atributos_clases` VALUES (33, 6, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 3, 1);
+INSERT INTO `atributos_clases` VALUES (34, 6, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 4, 1);
+INSERT INTO `atributos_clases` VALUES (35, 6, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 5, 1);
+INSERT INTO `atributos_clases` VALUES (36, 6, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 6, 1);
+INSERT INTO `atributos_clases` VALUES (37, 7, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 1, 0);
+INSERT INTO `atributos_clases` VALUES (38, 7, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 2, 0);
+INSERT INTO `atributos_clases` VALUES (39, 7, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 3, 0);
+INSERT INTO `atributos_clases` VALUES (40, 7, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 4, 0);
+INSERT INTO `atributos_clases` VALUES (41, 7, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 5, 0);
+INSERT INTO `atributos_clases` VALUES (42, 7, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 6, 0);
+INSERT INTO `atributos_clases` VALUES (43, 8, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 1, 1);
+INSERT INTO `atributos_clases` VALUES (44, 8, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 2, 1);
+INSERT INTO `atributos_clases` VALUES (45, 8, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 3, 1);
+INSERT INTO `atributos_clases` VALUES (46, 8, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 4, 1);
+INSERT INTO `atributos_clases` VALUES (47, 8, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 5, 1);
+INSERT INTO `atributos_clases` VALUES (48, 8, 1, '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 6, 1);
 
 -- ----------------------------
 -- Table structure for bendiciones
@@ -248,11 +298,12 @@ CREATE TABLE `clases`  (
   `descripcion` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `talento_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of clases
 -- ----------------------------
+INSERT INTO `clases` VALUES (1, 'Hechizero', '2023-04-11 19:31:44', '2023-04-11 19:31:44', NULL, 'Pues un clerigo', 1);
 
 -- ----------------------------
 -- Table structure for clases_petrechos
