@@ -15,4 +15,5 @@ class Clase extends Model
     public function equipoInicial(){
         return $this->belongsToMany(Petrecho::class, "clases_petrechos");
     }
+
 }

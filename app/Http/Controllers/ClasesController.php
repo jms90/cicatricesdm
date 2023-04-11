@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Atributo;
 use App\Models\AtributoClase;
 use App\Models\Clase;
+use App\Models\Petrecho;
 use App\Models\Talento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +25,10 @@ class ClasesController extends Controller
         if (Auth::user()->isAbleTo("acceso-clases")) {
             $atributos = Atributo::all();
             $talentos = Talento::all();
+            $petrechos = Petrecho::all();
             $view = view('principales.clases.index')
                 ->with("talentos", $talentos)
+                ->with("petrechos", $petrechos)
                 ->with("atributos", $atributos)->render();
         }
 
@@ -40,22 +43,12 @@ class ClasesController extends Controller
         if (Auth::user()->isAbleTo("acceso-clases")) {
 
             $sql = "SELECT
-            a.id AS id,
-            a.nombre AS nombre,
-            tobj.nombre as tipo,
-            a.danio AS danio,
-            a.estorbo AS estorbo,
-            a.alcance_max as alcance_max,
-            a.alcance_min as alcance_min,
-            GROUP_CONCAT( propiedades.nombre SEPARATOR ', ' ) AS propiedades
-        FROM
-            armas a
-            LEFT JOIN armas_propiedades ON a.id = armas_propiedades.arma_id
-            LEFT JOIN propiedades ON armas_propiedades.propiedad_id = propiedades.id AND propiedades.deleted_at is null
-            LEFT JOIN tipos_objetos tobj ON tobj.id = a.tipo_id AND tobj.deleted_at is null
-        WHERE
-            a.deleted_at IS NULL
-        GROUP BY id, nombre, tipo, danio, estorbo, alcance_max, alcance_min";
+                id,
+                nombre
+                FROM
+                    clases
+                WHERE
+                    deleted_at IS NULL";
 
             $datos = DB::select($sql);
 
@@ -77,11 +70,11 @@ class ClasesController extends Controller
     {
 
         try {
-            $clase = Clase::with("propiedades")->findOrFail($id);
-
+            $clase = Clase::findOrFail($id);
+            $atributos = AtributoClase::where("clase_id", $clase->id)->get();
+            $clase->atributos = $atributos;
             return $clase;
         } catch (\Throwable $th) {
-
             return "Error al obtener los datos de la clase";
         }
     }
@@ -176,8 +169,31 @@ class ClasesController extends Controller
 
                 if ($ok) {
 
-                    $clase->atributos()->sync($request->atributos);
-                    $clase->equipoInicial()->sync($request->equipoInicial);
+
+                    foreach ($request->atributos as $atributo_id => $niveles) {
+                        foreach ($niveles as $nivel => $cantidad) {
+                            $atributo_clase = AtributoClase::where('atributo_id', $atributo_id)
+                                ->where('clase_id', $clase->id)
+                                ->where('nivel', $nivel)
+                                ->first();
+
+                            if ($atributo_clase) {
+                                $atributo_clase->cantidad_nivel = $cantidad;
+                                $atributo_clase->save();
+                            }
+
+                            else {
+                                $atributo_clase = new AtributoClase([
+                                    'atributo_id' => $atributo_id,
+                                    'clase_id' => $clase->id,
+                                    'nivel' => $nivel,
+                                    'cantidad_nivel' => $cantidad
+                                ]);
+                                $atributo_clase->save();
+                            }
+                        }
+                    }
+
 
                     return Response::json([
                         "status" => true,
