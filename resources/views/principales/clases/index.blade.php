@@ -90,24 +90,27 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-equipoSugerido" role="tabpanel" aria-labelledby="nav-equipoSugerido-tab">
-                            <label for="equipo">Equipo:</label>
-                                <select id="equipo">
-                                    @foreach($petrechos as $equipo)
-                                    <option value="{{ $equipo->id }}" data-nombre="{{ $equipo->nombre }}" data-descripcion="{{ $equipo->descripcion }}">
-                                      {{ $equipo->nombre }}
-                                    </option>
-                                  @endforeach
-                                <!-- Agrega más opciones según tus necesidades -->
-                                </select>
-
-                                <label for="cantidad">Cantidad:</label>
-                                <input type="number" id="cantidad" min="1" max="100" value="1">
-
-                                <label for="descripcioObjeton">Descripción:</label>
-                                <input type="text" id="descripcioObjeton">
-
-
-                                <button id="crear-objeto">Crear objeto</button>
+                            <div class="row align-items-center">
+                                <div class="mb-3 col-4">
+                                    <label for="equipo" class="form-label">Equipo:</label>
+                                    <select id="equipo" class="form-control form-control-sm">
+                                        @foreach($petrechos as $equipo)
+                                            <option value="{{ $equipo->id }}" data-nombre="{{ $equipo->nombre }}" data-descripcion="{{ $equipo->descripcion }}">{{ $equipo->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-2">
+                                    <label for="cantidad" class="form-label">Cantidad:</label>
+                                    <input type="number" class="form-control form-control-sm" id="cantidad" min="1" max="100" value="1">
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <label for="descripcionObjeto" class="form-label">Descripción:</label>
+                                    <input type="text" id="descripcionObjeto" class="form-control form-control-sm">
+                                </div>
+                                <div class="mt-3 col-2">
+                                    <button id="crear-objeto" class="btn btn-sm btn-info" type="button">Crear objeto</button>
+                                </div>
+                            </div>
                             <div id="objetos"></div>
                         </div>
                     </div>
@@ -122,20 +125,35 @@
 </div>
 <script>
     var objetos = [];
+
+    if (typeof petrechos === "undefined") {
+        let petrechos = @json($petrechos);
+    }else{
+        delete petrechos;
+        let petrechos = @json($petrechos);
+    }
     $(document).ready(function() {
-        $('#crear-objeto').click(function() {
-            agregarObjeto
-        });
+        $("#equipo").select2({
+            language: "es",
+            width: "100%",
+        })
 
+        $('#crear-objeto').on('click', function() {
+            var equipo = $('#equipo option:selected');
+            var cantidad = $('#cantidad').val();
+            var descripcion = $('#descripcionObjeto').val();
+            var objeto = {
+                id: uuidv4(),
+                equipoId:equipo.val(),
+                cantidad: cantidad,
+                descripcion:descripcion,
+            };
+            objetos.push(objeto);
+            mostrarObjetos();
 
-        $('#equipo').on('change', function() {
-            var index = $(this).closest('.objeto').data('index');
-            var equipoId = $(this).val();
-            var equipoNombre = $(this).find('option:selected').data('nombre');
-            var equipoDescripcion = $(this).find('option:selected').data('descripcion');
-            objetos[index]['equipo_id'] = equipoId; // Actualiza el id del equipo en el objeto correspondiente en la variable global
-            objetos[index]['equipo_nombre'] = equipoNombre; // Actualiza el nombre del equipo en el objeto correspondiente en la variable global
-            objetos[index]['equipo_descripcion'] = equipoDescripcion; // Actualiza la descripción del equipo en el objeto correspondiente en la variable global
+            $("#equipo").val("").trigger("change");
+            $("#cantidad").val("1");
+            $("#descripcionObjeto").val("");
         });
 
         $("#titulo").text("Clases");
@@ -180,12 +198,72 @@
             theme: 'classic'
         });
     });
+    function mostrarObjetos() {
+        var html = '';
+        $('#objetos').empty();
+        for (let i = 0; i < objetos.length; i++) {
+            let objeto = objetos[i];
+            let optionHTML = '';
+            let selectHTML = '';
+
+            // Generar opciones del select
+            petrechos.forEach(function(equipo) {
+                let selected = equipo.id == objeto.equipoId ? 'selected' : '';
+                optionHTML += '<option value="' + equipo.id + '" data-nombre="' + equipo.nombre + '" data-descripcion="' + equipo.descripcion + '" ' + selected + '>' + equipo.nombre + '</option>';
+            });
+
+            selectHTML = '<select class="form-control form-control-sm equipo-select">' + optionHTML + '</select>';
+
+            let html = '<div class="mb-3 objeto" data-id="' + objeto.id + '">' +
+                        '<div class="row align-items-center">' +
+                        '<div class="mb-3 col-4">' +
+                            '<label class="form-label">Equipo:</label>' +
+                            selectHTML +
+                        '</div>' +
+                        '<div class="mb-3 col-2">' +
+                            '<label class="form-label">Cantidad:</label>' +
+                            '<input type="number" class="form-control form-control-sm cantidad-input" min="1" max="100" value="' + objeto.cantidad + '">' +
+                        '</div>' +
+                        '<div class="mb-3 col-4">' +
+                            '<label class="form-label">Descripción:</label>' +
+                            '<input type="text" class="form-control form-control-sm descripcion-input" value="' + objeto.descripcion + '">' +
+                        '</div>' +
+                        '<div class="mt-3 col-2">' +
+                            '<button class="btn btn-sm btn-danger eliminar-objeto" type="button">Eliminar</button>' +
+                        '</div>' +
+                        '</div>' +
+                    '</div>';
+            $('#objetos').append(html);
+        }
+
+        $(".equipo").select2({
+            language: "es",
+            width: "100%",
+        });
+
+        $('.eliminar-objeto').on('click', function() {
+            var id = $(this).data('id');
+
+            objetos = objetos.filter(function(objeto) {
+                return objeto.id != id;
+            });
+            mostrarObjetos();
+        });
+    }
+
+    function uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
 
     function agregarObjeto() {
         // Obtén los valores de los inputs
         var equipoId = $('#equipo').val();
         var cantidad = $('#cantidad').val();
-        var descripcion = $('#descripcion').val();
+        var descripcion = $('#descripcion_equipo').val();
 
         // Crea el objeto con las propiedades "equipo_id", "cantidad" y "descripcion"
         var objeto = {
@@ -205,18 +283,18 @@
             // Crea el HTML para mostrar el objeto actual
             var equipoNombre = '';
             var equipoDescripcion = '';
-            for (var j = 0; j < equipos.length; j++) {
-            if (equipos[j].id == objetos[i].equipo_id) {
-                equipoNombre = equipos[j].nombre;
-                equipoDescripcion = equipos[j].descripcion;
-                break;
-            }
+            for (var j = 0; j < objetos.length; j++) {
+                if (objetos[j].id == objetos[i].equipo_id) {
+                    equipoNombre = objetos[j].nombre;
+                    equipoDescripcion = objetos[j].descripcion;
+                    break;
+                }
             }
             var objetoHtmlActual = `
             <div class="objeto" data-index="${i}">
                 <span>Equipo:</span>
                 <select class="equipo-selector" data-actual="${objetos[i].equipo_id}">
-                ${generarOpcionesSelect(equipos, objetos[i].equipo_id)}
+
                 </select>
                 <span>Cantidad:</span>
                 <input type="number" class="cantidad" value="${objetos[i].cantidad}">
