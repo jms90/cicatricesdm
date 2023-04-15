@@ -93,7 +93,7 @@ class ClasesController extends Controller
 
                 ]);
             }
-
+            dd($request->all());
             $clase = new Clase();
             $clase->nombre = $request->nombre;
             $clase->talento_id = $request->talento_id;

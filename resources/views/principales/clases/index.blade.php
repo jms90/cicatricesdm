@@ -124,15 +124,14 @@
     </div>
 </div>
 <script>
-    var objetos = [];
+    var objetos;
 
-    if (typeof petrechos === "undefined") {
-        let petrechos = @json($petrechos);
-    }else{
-        delete petrechos;
-        let petrechos = @json($petrechos);
-    }
+    var petrechos;
+
     $(document).ready(function() {
+        petrechos = @json($petrechos);
+        objetos = [];
+
         $("#equipo").select2({
             language: "es",
             width: "100%",
@@ -198,6 +197,7 @@
             theme: 'classic'
         });
     });
+
     function mostrarObjetos() {
         var html = '';
         $('#objetos').empty();
@@ -207,12 +207,12 @@
             let selectHTML = '';
 
             // Generar opciones del select
-            petrechos.forEach(function(equipo) {
+            petrechos.forEach(function(equipo, index) {
                 let selected = equipo.id == objeto.equipoId ? 'selected' : '';
                 optionHTML += '<option value="' + equipo.id + '" data-nombre="' + equipo.nombre + '" data-descripcion="' + equipo.descripcion + '" ' + selected + '>' + equipo.nombre + '</option>';
             });
 
-            selectHTML = '<select class="form-control form-control-sm equipo-select">' + optionHTML + '</select>';
+            selectHTML = '<select class="form-control form-control-sm equipo-select" onchange="editarObjeto(' + i + ', this.value)">' + optionHTML + '</select>';
 
             let html = '<div class="mb-3 objeto" data-id="' + objeto.id + '">' +
                         '<div class="row align-items-center">' +
@@ -222,11 +222,11 @@
                         '</div>' +
                         '<div class="mb-3 col-2">' +
                             '<label class="form-label">Cantidad:</label>' +
-                            '<input type="number" class="form-control form-control-sm cantidad-input" min="1" max="100" value="' + objeto.cantidad + '">' +
+                            '<input type="number" class="form-control form-control-sm cantidad-input" min="1" max="100" onkeyup="editarObjetoCantidad(' + i + ', this.value)" value="' + objeto.cantidad + '">' +
                         '</div>' +
                         '<div class="mb-3 col-4">' +
                             '<label class="form-label">Descripción:</label>' +
-                            '<input type="text" class="form-control form-control-sm descripcion-input" value="' + objeto.descripcion + '">' +
+                            '<input type="text" class="form-control form-control-sm descripcion-input" onkeyup="editarObjetoDescripcion(' + i + ',  this.value)" value="' + objeto.descripcion + '">' +
                         '</div>' +
                         '<div class="mt-3 col-2">' +
                             '<button class="btn btn-sm btn-danger eliminar-objeto" type="button">Eliminar</button>' +
@@ -251,6 +251,22 @@
         });
     }
 
+
+    function editarObjeto(index, valor){
+        objetos[index]["equipoId"] = valor;
+    };
+
+    function editarObjetoCantidad(index, valor){
+        console.log(index,valor)
+        objetos[index]["cantidad"] = valor;
+    };
+
+    function editarObjetoDescripcion(index, valor){
+        console.log(index,valor)
+        objetos[index]["descripcion"] = valor;
+    };
+
+
     function uuidv4() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0,
@@ -259,76 +275,6 @@
         });
     }
 
-    function agregarObjeto() {
-        // Obtén los valores de los inputs
-        var equipoId = $('#equipo').val();
-        var cantidad = $('#cantidad').val();
-        var descripcion = $('#descripcion_equipo').val();
-
-        // Crea el objeto con las propiedades "equipo_id", "cantidad" y "descripcion"
-        var objeto = {
-            equipo_id: equipoId,
-            cantidad: cantidad,
-            descripcion: descripcion
-        };
-
-        // Agrega el objeto a la variable global y actualiza la vista
-        objetos.push(objeto);
-        actualizarVista();
-    }
-
-    function actualizarVista() {
-        var objetoHtml = ''; // Aquí se guardará el HTML de cada objeto
-        for (var i = 0; i < objetos.length; i++) {
-            // Crea el HTML para mostrar el objeto actual
-            var equipoNombre = '';
-            var equipoDescripcion = '';
-            for (var j = 0; j < objetos.length; j++) {
-                if (objetos[j].id == objetos[i].equipo_id) {
-                    equipoNombre = objetos[j].nombre;
-                    equipoDescripcion = objetos[j].descripcion;
-                    break;
-                }
-            }
-            var objetoHtmlActual = `
-            <div class="objeto" data-index="${i}">
-                <span>Equipo:</span>
-                <select class="equipo-selector" data-actual="${objetos[i].equipo_id}">
-
-                </select>
-                <span>Cantidad:</span>
-                <input type="number" class="cantidad" value="${objetos[i].cantidad}">
-                <span>Descripción:</span>
-                <input type="text" class="descripcion" value="${objetos[i].descripcion}">
-                <button class="eliminar-objeto">Eliminar</button>
-                <br>
-                <span>Nombre del equipo: ${equipoNombre}</span>
-                <br>
-                <span>Descripción del equipo: ${equipoDescripcion}</span>
-            </div>
-            `;
-            objetoHtml += objetoHtmlActual;
-        }
-        $('#objetos').html(objetoHtml); // Actualiza la vista con los objetos
-
-        // Agrega un evento click al botón de eliminar objeto
-        $('.eliminar-objeto').on('click', function() {
-            var index = $(this).closest('.objeto').data('index');
-            objetos.splice(index, 1); // Elimina el objeto correspondiente de la variable global
-            actualizarVista(); // Actualiza la vista con los objetos restantes
-        });
-
-        // Agrega un evento change al selector de equipo
-        $('.equipo-selector').on('change', function() {
-            var index = $(this).closest('.objeto').data('index');
-            var equipoId = $(this).val();
-            var equipoNombre = $(this).find('option:selected').data('nombre');
-            var equipoDescripcion = $(this).find('option:selected').data('descripcion');
-            objetos[index]['equipo_id'] = equipoId; // Actualiza el id del equipo en el objeto correspondiente en la variable global
-            objetos[index]['equipo_nombre'] = equipoNombre; // Actualiza el nombre del equipo en el objeto correspondiente en la variable global
-            objetos[index]['equipo_descripcion'] = equipoDescripcion; // Actualiza la descripción del equipo en el objeto correspondiente en la variable global
-        });
-        }
 
     async function abrirModal(editar = false) {
         let ruta = "";
@@ -336,6 +282,7 @@
         $("#nombre").val("");
         $("#talento_id").val("").trigger("change");
         $("#descripcion").val("")
+        objetos = [];
 
         $("#miModalLabel").html("Nueva Clase");
         if (!editar) {
@@ -357,6 +304,7 @@
 
         $("#formularioClase").attr("action", ruta);
         $("#modalClases").modal();
+        mostrarObjetos();
     }
 
 
@@ -408,6 +356,7 @@
                 talento_id,
                 atributos,
                 descripcion,
+                objetos,
             },
             success: function(response) {
                 cargaSwal(response.status, response.mensaje)
