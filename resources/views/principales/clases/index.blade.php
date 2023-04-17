@@ -236,7 +236,7 @@
             $('#objetos').append(html);
         }
 
-        $(".equipo").select2({
+        $(".equipo-select").select2({
             language: "es",
             width: "100%",
         });
@@ -300,6 +300,16 @@
                 $(`#nivel_${element.nivel}_${element.atributo_id}`).val(element.cantidad_nivel)
             });
             $("#descripcion").val(datos.descripcion);
+
+            datos.equipoInicial.forEach(element => {
+                console.log(element)
+                objetos.push({
+                    id: element.pivot.id,
+                    equipoId: element.pivot.petrecho_id,
+                    cantidad: element.pivot.cantidad,
+                    descripcion: element.pivot.descripcion
+                });
+            });
         }
 
         $("#formularioClase").attr("action", ruta);

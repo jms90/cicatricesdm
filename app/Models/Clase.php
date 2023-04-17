@@ -13,7 +13,7 @@ class Clase extends Model
     protected $table = "clases";
 
     public function equipoInicial(){
-        return $this->belongsToMany(Petrecho::class, "clases_petrechos");
+        return $this->belongsToMany(Petrecho::class, "clases_petrechos", "clase_id", "petrecho_id")->withPivot("cantidad", "descripcion");
     }
 
 }

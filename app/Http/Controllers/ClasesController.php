@@ -56,7 +56,7 @@ class ClasesController extends Controller
                 ->addColumn('action', function ($data) {
                     $botones = "<center>";
                     $botones .= '<button class="btn btn-info btn-sm mr-2 editar" onclick="abrirModal(' . $data->id . ')"><i class="fas fa-edit"></i></button>';
-                    $botones .= '<button class="btn btn-danger btn-sm eliminar" onclick="deleteArma(' . $data->id . ')"><i class="fas fa-trash"></i></button>';
+                    $botones .= '<button class="btn btn-danger btn-sm eliminar" onclick="deleteClase(' . $data->id . ')"><i class="fas fa-trash"></i></button>';
                     $botones .= "</center>";
                     return $botones;
                 })
@@ -73,6 +73,8 @@ class ClasesController extends Controller
             $clase = Clase::findOrFail($id);
             $atributos = AtributoClase::where("clase_id", $clase->id)->get();
             $clase->atributos = $atributos;
+            $equipoInicial = $clase->equipoInicial()->get();
+            $clase->equipoInicial = $equipoInicial;
             return $clase;
         } catch (\Throwable $th) {
             return "Error al obtener los datos de la clase";
@@ -93,7 +95,7 @@ class ClasesController extends Controller
 
                 ]);
             }
-            dd($request->all());
+
             $clase = new Clase();
             $clase->nombre = $request->nombre;
             $clase->talento_id = $request->talento_id;
@@ -119,8 +121,16 @@ class ClasesController extends Controller
                 }
 
 
-                if ($request->equipoInicial) {
-                    $clase->equipoInicial()->sync($request->equipoInicial);
+                if ($request->objetos) {
+                    $sync_data = [];
+                    foreach ($request->objetos as $objeto) {
+                        $sync_data[$objeto['equipoId']] = [
+                            'cantidad' => $objeto['cantidad'],
+                            'descripcion' => $objeto['descripcion'],
+                        ];
+                    }
+
+                    $clase->equipoInicial()->sync($sync_data);
                 }
                 return Response::json([
                     "status" => true,
@@ -180,9 +190,7 @@ class ClasesController extends Controller
                             if ($atributo_clase) {
                                 $atributo_clase->cantidad_nivel = $cantidad;
                                 $atributo_clase->save();
-                            }
-
-                            else {
+                            } else {
                                 $atributo_clase = new AtributoClase([
                                     'atributo_id' => $atributo_id,
                                     'clase_id' => $clase->id,
@@ -194,7 +202,17 @@ class ClasesController extends Controller
                         }
                     }
 
+                    if ($request->objetos) {
+                        $sync_data = [];
+                        foreach ($request->objetos as $objeto) {
+                            $sync_data[$objeto['equipoId']] = [
+                                'cantidad' => $objeto['cantidad'],
+                                'descripcion' => $objeto['descripcion'],
+                            ];
+                        }
 
+                        $clase->equipoInicial()->sync($sync_data);
+                    }
                     return Response::json([
                         "status" => true,
                         "mensaje" => "clase editada con éxito..."
