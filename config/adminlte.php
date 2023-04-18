@@ -309,6 +309,12 @@ return [
 
         ['header' => 'PRINCIPAL'],
         [
+            'text' => 'Personajes',
+            'id' => 'personajesIndex',
+            'icon' => 'fas fa-users',
+            'url'  => '#',
+        ],
+        [
             'text' => 'Clases',
             'id' => 'clasesIndex',
             'icon' => 'fas fa-user',
@@ -360,6 +366,12 @@ return [
             'text' => 'Dioses',
             'id' => 'diosesIndex',
             'icon' => 'fas fa-bible',
+            'url'  => '#',
+        ],
+        [
+            'text' => 'Habilidades',
+            'id' => 'habilidadesIndex',
+            'icon' => 'fas fa-skiing',
             'url'  => '#',
         ],
         [

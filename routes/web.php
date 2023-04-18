@@ -35,12 +35,28 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::post('/tipoobjeto/update/{id}', [App\Http\Controllers\TiposObjetosController::class, 'update'])->name('updateTipo');
 
     /* Rutas Tipos de Objetos */
+    Route::get('/personaje', [App\Http\Controllers\PersonajesController::class, 'index'])->name('indexPersonajes');
+    Route::get('/personaje/getdatatable', [App\Http\Controllers\PersonajesController::class, 'getDataTable'])->name('getDataPersonajes');
+    Route::post('/personaje/store', [App\Http\Controllers\PersonajesController::class, 'store'])->name('storePersonaje');
+    Route::get('/personaje/{tipoObjeto}', [App\Http\Controllers\PersonajesController::class, 'getData'])->name('getDataPersonaje');
+    Route::post('/personaje/delete', [App\Http\Controllers\PersonajesController::class, 'delete'])->name('deletePersonaje');
+    Route::post('/personaje/update/{id}', [App\Http\Controllers\PersonajesController::class, 'update'])->name('updatePersonaje');
+
+    /* Rutas Tipos de Objetos */
     Route::get('/dios', [App\Http\Controllers\DiosesController::class, 'index'])->name('indexDioses');
     Route::get('/dios/getdatatable', [App\Http\Controllers\DiosesController::class, 'getDataTable'])->name('getDataDioses');
     Route::post('/dios/store', [App\Http\Controllers\DiosesController::class, 'store'])->name('storeDios');
     Route::get('/dios/{dios}', [App\Http\Controllers\DiosesController::class, 'getData'])->name('getDataDios');
     Route::post('/dios/delete', [App\Http\Controllers\DiosesController::class, 'delete'])->name('deleteDios');
     Route::post('/dios/update/{id}', [App\Http\Controllers\DiosesController::class, 'update'])->name('updateDios');
+
+    /* Rutas habilidades */
+    Route::get('/habilidad', [App\Http\Controllers\HabilidadesController::class, 'index'])->name('indexHabilidades');
+    Route::get('/habilidad/getdatatable', [App\Http\Controllers\HabilidadesController::class, 'getDataTable'])->name('getDataHabilidades');
+    Route::post('/habilidad/store', [App\Http\Controllers\HabilidadesController::class, 'store'])->name('storeHabilidad');
+    Route::get('/habilidad/{habilidad}', [App\Http\Controllers\HabilidadesController::class, 'getData'])->name('getDataHabilidad');
+    Route::post('/habilidad/delete', [App\Http\Controllers\HabilidadesController::class, 'delete'])->name('deleteHabilidad');
+    Route::post('/habilidad/update/{id}', [App\Http\Controllers\HabilidadesController::class, 'update'])->name('updateHabilidad');
 
     /* Rutas Lugares de Cuerpo */
     Route::get('/lugarescuperpo', [App\Http\Controllers\LugaresCuerpoController::class, 'index'])->name('indexLugaresCuerpo');
