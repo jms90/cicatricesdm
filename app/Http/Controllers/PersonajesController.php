@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Armadura;
 use App\Models\Ascendencia;
-use App\Models\Atributo;
 use App\Models\AtributosFicha;
 use App\Models\Clase;
 use App\Models\Habilidad;
-use App\Models\LugarCuerpo;
-use App\Models\Propiedad;
+use App\Models\Personaje;
 use App\Models\Talento;
-use App\Models\TipoObjeto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +26,21 @@ class PersonajesController extends Controller
         $view = view("sinpermisos.sinpermisos");
 
         if (Auth::user()->isAbleTo("acceso-personajes")) {
+            $view = view('principales.personajes.index')->render();
+        }
+
+        return $view;
+    }
+
+    /**
+     *
+     * Create view
+     */
+    public function create()
+    {
+        $view = view("sinpermisos.sinpermisos");
+
+        if (Auth::user()->isAbleTo("crear-personajes")) {
             $users = User::all();
             $ascendencias = Ascendencia::all();
             $clases = Clase::all();
@@ -36,14 +48,15 @@ class PersonajesController extends Controller
             $talentos = Talento::all();
             $habilidades = Habilidad::all();
 
-            $view = view('principales.personajes.index')
-            ->with("users", $users)
-            ->with("ascendencias", $ascendencias)
-            ->with("clases", $clases)
-            ->with("atributos", $atributos)
-            ->with("talentos", $talentos)
-            ->with("habilidades", $habilidades)
-            ->render();
+            $view = view('principales.personajes.edit')
+                ->with("users", $users)
+                ->with("ascendencias", $ascendencias)
+                ->with("clases", $clases)
+                ->with("atributos", $atributos)
+                ->with("talentos", $talentos)
+                ->with("habilidades", $habilidades)
+                ->with("modelo", null)
+                ->render();
         }
 
         return $view;
@@ -57,25 +70,17 @@ class PersonajesController extends Controller
         if (Auth::user()->isAbleTo("acceso-personajes")) {
 
             $sql = "SELECT
-            a.id AS id,
-            a.nombre AS nombre,
-            tobj.nombre as tipo,
-            a.proteccion AS proteccion,
-            a.estorbo AS estorbo,
-            GROUP_CONCAT( propiedades.nombre SEPARATOR ', ' ) AS propiedades,
-            GROUP_CONCAT( lugares_cuerpo.nombre SEPARATOR ', ' ) AS lugares,
-            a.precio
+            p.id as id,
+            p.nombre as nombre,
+            u.name AS jugador,
+            c.nombre AS clase
         FROM
-            armaduras a
-            LEFT JOIN armaduras_propiedades ON a.id = armaduras_propiedades.armadura_id
-            LEFT JOIN propiedades ON armaduras_propiedades.propiedad_id = propiedades.id AND propiedades.deleted_at is null
+            personajes p
+            LEFT JOIN users u ON p.user_id = u.id
+            LEFT JOIN clases c ON p.clase_id = c.id
 
-					  LEFT JOIN armaduras_lugares_cuerpo ON a.id = armaduras_lugares_cuerpo.armadura_id
-            LEFT JOIN lugares_cuerpo ON armaduras_lugares_cuerpo.lugar_id = lugares_cuerpo.id AND armaduras_lugares_cuerpo.deleted_at is null
-            LEFT JOIN tipos_objetos tobj ON tobj.id = a.tipo_id AND tobj.deleted_at is null
         WHERE
-            a.deleted_at IS NULL
-        GROUP BY id, nombre, tipo, proteccion, estorbo, precio";
+            p.deleted_at IS NULL";
 
             $datos = DB::select($sql);
 
@@ -97,11 +102,10 @@ class PersonajesController extends Controller
     {
 
         try {
-            $armadura = Armadura::with("propiedades", "lugaresCuerpo")->findOrFail($id);
+            $personaje = Personaje::findOrFail($id);
 
-            return $armadura;
+            return $personaje;
         } catch (\Throwable $th) {
-            dd($th);
             return "Error al obtener los datos del armadura";
         }
     }

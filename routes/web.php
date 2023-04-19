@@ -38,9 +38,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function () 
     Route::get('/personaje', [App\Http\Controllers\PersonajesController::class, 'index'])->name('indexPersonajes');
     Route::get('/personaje/getdatatable', [App\Http\Controllers\PersonajesController::class, 'getDataTable'])->name('getDataPersonajes');
     Route::post('/personaje/store', [App\Http\Controllers\PersonajesController::class, 'store'])->name('storePersonaje');
-    Route::get('/personaje/{tipoObjeto}', [App\Http\Controllers\PersonajesController::class, 'getData'])->name('getDataPersonaje');
+    //Route::get('/personaje/{personaje}', [App\Http\Controllers\PersonajesController::class, 'getData'])->name('getDataPersonaje');
     Route::post('/personaje/delete', [App\Http\Controllers\PersonajesController::class, 'delete'])->name('deletePersonaje');
     Route::post('/personaje/update/{id}', [App\Http\Controllers\PersonajesController::class, 'update'])->name('updatePersonaje');
+    Route::get('/personaje/editar/{id}', [App\Http\Controllers\PersonajesController::class, 'edit'])->name('editPersonaje');
+    Route::get('/personaje/create', [App\Http\Controllers\PersonajesController::class, 'create'])->name('createPersonaje');
 
     /* Rutas Tipos de Objetos */
     Route::get('/dios', [App\Http\Controllers\DiosesController::class, 'index'])->name('indexDioses');
