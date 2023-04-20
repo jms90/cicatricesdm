@@ -77,11 +77,12 @@
         }, );
     });
 
-    function abrirModal(editar = false, id = null) {
+    function abrirModal(id = false) {
+
         $("#contenido").empty();
         let ruta = "{{ route('createPersonaje') }}";
         $("#titulo").text("Crear Nueva Ficha");
-        if(editar){
+        if(id != false){
             $("#titulo").text("Editar Ficha");
             ruta = "{{ route('editPersonaje', ':id:') }}";
             ruta = ruta.replace(':id:', id);

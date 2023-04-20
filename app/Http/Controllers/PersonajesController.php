@@ -32,6 +32,41 @@ class PersonajesController extends Controller
         return $view;
     }
 
+
+    public function edit($id){
+        $view = view("sinpermisos.sinpermisos");
+
+        if (Auth::user()->isAbleTo("editar-personajes")) {
+            $users = User::all();
+            $ascendencias = Ascendencia::all();
+            $clases = Clase::all();
+            $atributos = AtributosFicha::all();
+            $talentos = Talento::all();
+            $habilidades = Habilidad::all();
+            try {
+                $modelo = Personaje::findOrFail($id);
+            } catch (\Throwable $th) {
+                return Response::json([
+                    "status" => false,
+                    "mensaje" => "Error al obtener los datos del personaje"
+                ]);
+            }
+
+            $view = view('principales.personajes.edit')
+                ->with("users", $users)
+                ->with("ascendencias", $ascendencias)
+                ->with("clases", $clases)
+                ->with("atributos", $atributos)
+                ->with("talentos", $talentos)
+                ->with("habilidades", $habilidades)
+                ->with("modelo", $modelo)
+                ->render();
+        }
+
+        return $view;
+    }
+
+
     /**
      *
      * Create view
