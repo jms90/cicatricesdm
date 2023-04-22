@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Armadura;
 use App\Models\Ascendencia;
+use App\Models\Atributo;
 use App\Models\AtributosFicha;
 use App\Models\Clase;
 use App\Models\Habilidad;
@@ -82,6 +83,7 @@ class PersonajesController extends Controller
             $atributos = AtributosFicha::all();
             $talentos = Talento::all();
             $habilidades = Habilidad::all();
+            $atributosNiveles = Atributo::all();
 
             $view = view('principales.personajes.edit')
                 ->with("users", $users)
@@ -90,6 +92,7 @@ class PersonajesController extends Controller
                 ->with("atributos", $atributos)
                 ->with("talentos", $talentos)
                 ->with("habilidades", $habilidades)
+                ->with("atributosNiveles", $atributosNiveles)
                 ->with("modelo", null)
                 ->render();
         }
