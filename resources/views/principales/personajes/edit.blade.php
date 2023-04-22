@@ -144,7 +144,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <div class="d-flex align-items-center">
-                                        <label for="{{ $habilidad->nombre }}_{{ $i }}" class="mr-2">{{ $habilidad->nombre }}</label>
+                                        <label for="habilidad_{{ $habilidad->nombre }}" class="mr-2">{{ $habilidad->nombre }}</label>
                                         @for ($i = 1; $i <= 4; $i++)
                                             <div class="form-check form-check-inline  ml-auto" style="width: 7px;">
                                                 <input class="form-check-input" type="checkbox" id="habilidad_{{ $habilidad->id }}_{{ $i }}" name="{{ $habilidad->nombre }}" style="{{$i == 4 ? "box-shadow: 1px 1px 10px 0.2rem #a77df585" : ""}}">
