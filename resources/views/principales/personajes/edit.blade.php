@@ -85,7 +85,7 @@
                         <label class="col-4" for="{{ $atributo->nombre }}">{{ $atributo->nombre }}</label>
                         @for ($i = 1; $i <= 6; $i++)
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="{{ $atributo->nombre }}_{{ $i }}" name="{{ $atributo->nombre }}">
+                                <input class="form-check-input" type="checkbox" id="{{ $atributo->nombre }}_{{ $i }}" name="{{ $atributo->nombre }}"{{$i == 1 ? "checked" : ""}}>
                                 <label class="form-check-label" for="{{ $atributo->nombre }}_{{ $i }}"></label>
                             </div>
                         @endfor
@@ -98,7 +98,7 @@
                         <label class="col-4" for="{{ $atributo->nombre }}">{{ $atributo->nombre }}</label>
                         @for ($i = 1; $i <= 6; $i++)
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="{{ $atributo->nombre }}_{{ $i }}" name="{{ $atributo->nombre }}">
+                                <input class="form-check-input" type="checkbox" id="{{ $atributo->nombre }}_{{ $i }}" name="{{ $atributo->nombre }}"{{$i == 1 ? "checked" : ""}}>
                                 <label class="form-check-label" for="{{ $atributo->nombre }}_{{ $i }}"></label>
                             </div>
                         @endfor
