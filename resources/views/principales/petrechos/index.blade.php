@@ -11,8 +11,8 @@
                 <th>Tipo</th>
                 <th>Daño</th>
                 <th>Estorbo</th>
-                <th>Alc. Min</th>
-                <th>Alc. Max</th>
+                <th>Estorbo 2</th>
+                <th>Estorbo 3</th>
                 <th>Propiedades</th>
                 <th>Acciones</th>
             </tr>
@@ -60,13 +60,13 @@
                         </div>
 
                         <div class="mb-3 col-3">
-                            <label for="alcance_min" class="form-label">Alcance Mínimo</label>
-                            <input type="text" class="form-control form-control-sm" id="alcance_min" name="alcance_min">
+                            <label for="estorbo_2" class="form-label">Estorob 2</label>
+                            <input type="text" class="form-control form-control-sm" id="estorbo_2" name="estorbo_2">
                         </div>
 
                         <div class="mb-3 col-3">
-                            <label for="alcance_max" class="form-label">Alcance Máximo</label>
-                            <input type="text" class="form-control form-control-sm" id="alcance_max" name="alcance_max">
+                            <label for="estorbo_3" class="form-label">Estorbo 3</label>
+                            <input type="text" class="form-control form-control-sm" id="estorbo_3" name="estorbo_3">
                         </div>
                     </div>
 
@@ -113,8 +113,8 @@
                     { "data": "tipo", "width": "15%" },
                     { "data": "danio", "width": "5%", "className": "text-right" },
                     { "data": "estorbo", "width": "5%", "className": "text-right" },
-                    { "data": "alcance_min", "width": "5%", "className": "text-right" },
-                    { "data": "alcance_max", "width": "5%", "className": "text-right" },
+                    { "data": "estorbo_2", "width": "5%", "className": "text-right" },
+                    { "data": "estorbo_3", "width": "5%", "className": "text-right" },
                     { "data": "propiedades", "width": "30%" },
                     { "data": "action", "width": "5%", "orderable": false, "searchable": false, "className": "text-center" }
                 ],
@@ -163,8 +163,8 @@
         $("#tipo").val("").trigger("change");
         $("#danio").val("");
         $("#estorbo").val("");
-        $("#alcance_min").val("");
-        $("#alcance_max").val("");
+        $("#estorbo_2").val("");
+        $("#estorbo_3").val("");
         $("#precio").val("0");
         $("#propiedades").val("").trigger("change");
         $("#descripcion").val("")
@@ -182,8 +182,8 @@
             $("#tipo").val(datos.tipo_id).trigger("change");
             $("#danio").val(datos.danio);
             $("#estorbo").val(datos.estorbo);
-            $("#alcance_min").val(datos.alcance_min);
-            $("#alcance_max").val(datos.alcance_max);
+            $("#estorbo_2").val(datos.estorbo_2);
+            $("#estorbo_3").val(datos.estorbo_3);
             $("#precio").val(datos.precio);
             var propiedadesIds = [];
             for (var i = 0; i < datos.propiedades.length; i++) {
@@ -224,8 +224,8 @@
         let tipo = $("#tipo").val();
         let danio = $("#danio").val();
         let estorbo = $("#estorbo").val();
-        let alcance_min = $("#alcance_min").val();
-        let alcance_max = $("#alcance_max").val();
+        let estorbo_2 = $("#estorbo_2").val();
+        let estorbo_3 = $("#estorbo_3").val();
         let precio = $("#precio").val();
         let propiedades = $("#propiedades").val();
         let descripcion = $("#descripcion").val();
@@ -238,8 +238,8 @@
                 tipo,
                 danio,
                 estorbo,
-                alcance_min,
-                alcance_max,
+                estorbo_2,
+                estorbo_3,
                 precio,
                 propiedades,
                 descripcion,

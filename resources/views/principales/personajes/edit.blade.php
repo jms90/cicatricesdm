@@ -87,7 +87,7 @@
     </div>
 
     <div class="row">
-        <div class="col-8">
+        <div class="col-9">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-atributos-tab" data-toggle="tab" href="#nav-atributos" role="tab" aria-controls="nav-atributos" aria-selected="true">Atributos</a>
@@ -97,6 +97,7 @@
                     <a class="nav-item nav-link" id="nav-oficios-tab" data-toggle="tab" href="#nav-oficios" role="tab" aria-controls="nav-oficios" aria-selected="false">Oficios</a>
                     <a class="nav-item nav-link" id="nav-avances-tab" data-toggle="tab" href="#nav-avances" role="tab" aria-controls="nav-avances" aria-selected="false">Avances</a>
                     <a class="nav-item nav-link" id="nav-traumas-tab" data-toggle="tab" href="#nav-traumas" role="tab" aria-controls="nav-traumas" aria-selected="false">Traumas, Locuras ...</a>
+                    <a class="nav-item nav-link" id="nav-talentos-tab" data-toggle="tab" href="#nav-talentos" role="tab" aria-controls="nav-talentos" aria-selected="false">Talentos</a>
                     <a class="nav-item nav-link" id="nav-inventario-tab" data-toggle="tab" href="#nav-inventario" role="tab" aria-controls="nav-inventario" aria-selected="false">Inventario</a>
 
                 </div>
@@ -295,13 +296,92 @@
                     <div class="col-12">
                     </div>
                 </div>
+                <div class="tab-pane fade" id="nav-talentos" role="tabpanel" aria-labelledby="nav-talentos-tab">
+                    <div class="col-12">
+                        <select class="form-control form-control-sm" id="talentos" name="talentos[]" multiple>
+
+                            @foreach ($talentos as $talento)
+                                <option value="{{ $talento->id }}">{{ $talento->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="nav-inventario" role="tabpanel" aria-labelledby="nav-inventario-tab">
                     <div class="col-12">
+                        <div class="row">
+                            <table>
+                                <tr>
+                                  <td>ESTORBO 2 :</td>
+                                  <td>
+                                    <div class="row align-items-center justify-content-center">
+                                        <input type="number" style="text-align: center;" class="no-spinner form-control col-3 form-control-sm" id="estorbo2" name="estorbo2" value="0">
+                                        &nbsp;/&nbsp;
+                                        <input type="number" style="text-align: center;" class="no-spinner form-control col-3 form-control-sm" id="estorbo2_max" name="estorbo2_max" value="4">
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <td>ESTORBO 3 :</td>
+                                    <td>
+                                      <div class="row align-items-center justify-content-center">
+                                          <input type="number" style="text-align: center;" class="no-spinner form-control col-3 form-control-sm" id="estorbo3" name="estorbo3" value="0">
+                                          &nbsp;/&nbsp;
+                                          <input type="number" style="text-align: center;" class="no-spinner form-control col-3 form-control-sm" id="estorbo3_max" name="estorbo3_max" value="3">
+                                      </div>
+                                  </tr>
+                                  <tr>
+                                    <td>ESTORBO 4 :</td>
+                                    <td>
+                                      <div class="row align-items-center justify-content-center">
+                                          <input type="number" style="text-align: center;" class="no-spinner form-control col-3 form-control-sm" id="estorbo4" name="estorbo4" value="0">
+                                          &nbsp;/&nbsp;
+                                          <input type="number" style="text-align: center;" class="no-spinner form-control col-3 form-control-sm" id="estorbo4_max" name="estorbo4_max" value="1">
+                                      </div>
+                                  </tr>
+                                <tr>
+                              </table>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="mb-3 col-4">
+                                <label for="equipo" class="form-label">Equipo:</label>
+                                <select id="equipo" class="form-control form-control-sm">
+                                    @foreach($petrechos->merge($armas)->merge($armaduras) as $equipo)
+                                        <option value="{{ $equipo->id }}" data-danio="{{$equipo->danio}}" data-alcance="{{$equipo->alcance_max}}" data-propiedades="{{$equipo->propiedades}}"  data-tipo_id="{{$equipo->tipo_id}}" data-estorbo="{{$equipo->estorbo}}" data-estorbo2="{{$equipo->estorbo_2}}" data-estorbo3="{{$equipo->estorbo_3}}" data-nombre="{{ $equipo->nombre }}" data-descripcion="{{ $equipo->descripcion }}">{{ $equipo->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3 col-2">
+                                <label for="cantidad" class="form-label">Cantidad:</label>
+                                <input type="number" class="form-control form-control-sm" id="cantidad" min="1" max="100" value="1">
+                            </div>
+                            <div class="mb-3 col-3">
+                                <label for="descripcionObjeto" class="form-label">Descripción:</label>
+                                <input type="text" id="descripcionObjeto" class="form-control form-control-sm">
+                            </div>
+                            <div class="mt-3 col-3">
+                                <button id="crear-objeto" class="btn btn-sm btn-info" type="button"><i class="fas fa-plus"></i> Objeto</button>
+                                <button id="crear-arma" class="btn btn-sm btn-warning" type="button"><i class="fas fa-plus"></i>Add Arma</button>
+                                <button id="crear-armadura" class="btn btn-sm btn-secondary" type="button"><i class="fas fa-plus"></i>Add Armadura</button>
+                            </div>
+                        </div>
+                        <fieldset style="border: 1px solid #ee8a32; border-radius: 0.25rem; padding: 0.5rem;">
+                            <legend>Armas</legend>
+                            <div id="armas"></div>
+                        </fieldset>
+
+                        <fieldset style="border: 1px solid #ee8a32; border-radius: 0.25rem; padding: 0.5rem;">
+                            <legend>Armaduras</legend>
+                            <div id="armaduras"></div>
+                        </fieldset>
+
+                        <fieldset style="border: 1px solid #ee8a32; border-radius: 0.25rem; padding: 0.5rem;">
+                            <legend>Objetos</legend>
+                            <div id="objetos"></div>
+                        </fieldset>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row col-4">
+        <div class="row col-3">
             <fieldset class="border p-2 col-12 ml-auto">
                 <legend class="float-none w-auto">Varios</legend>
                 <div class="form-group row justify-content-center align-items-center">
@@ -409,10 +489,82 @@
 
 <script>
     $(document).ready(function() {
+        petrechos = @json($petrechos);
+        armas = @json($armas);
+        armaduras = @json($armaduras);
+        objetos = [];
+        armasPj = [];
+        armadurasPj = [];
+
         $("#user_id").select2({
             language: "es",
             width: "100%",
             theme: 'classic'
+        });
+
+        $("#talentos").select2({
+            language: "es",
+            width: "100%",
+            theme: 'classic',
+            multiple: true
+        });
+
+        $("#equipo").select2({
+            language: "es",
+            width: "100%",
+            theme: 'classic',
+        });
+
+        $("#crear-arma").on("click", function(){
+            var equipo = $('#equipo option:selected');
+            var cantidad = $('#cantidad').val();
+            var descripcion = $('#descripcionObjeto').val();
+
+            let arma = armas.find(arma => arma.id == equipo.val());
+
+            let propiedades = [];
+                arma.propiedades.forEach(propiedad => {
+                    propiedades.push(propiedad.id);
+            });
+
+            arma = {
+                id: uuidv4(),
+                armaId:equipo.val(),
+                tipo_id: equipo.data('tipo_id'),
+                danio: equipo.data('danio'),
+                alcance: equipo.data('alcance'),
+                estorbo: equipo.data('estorbo'),
+                propiedades: propiedades,
+            }
+            armasPj.push(arma);
+            mostrarArmas();
+
+            $("#equipo").val("").trigger("change");
+            $("#cantidad").val("1");
+            $("#descripcionObjeto").val("");
+        });
+
+        $('#crear-objeto').on('click', function() {
+            var equipo = $('#equipo option:selected');
+            var cantidad = $('#cantidad').val();
+            var descripcion = $('#descripcionObjeto').val();
+
+            let objeto = {
+                id: uuidv4(),
+                equipoId:equipo.val(),
+                cantidad: cantidad,
+                tipo_id: equipo.data('tipo_id'),
+                estorbo: equipo.data('estorbo'),
+                estorbo2: equipo.data('estorbo2'),
+                estorbo3: equipo.data('estorbo3'),
+                descripcion:descripcion,
+            };
+            objetos.push(objeto);
+            mostrarObjetos();
+
+            $("#equipo").val("").trigger("change");
+            $("#cantidad").val("1");
+            $("#descripcionObjeto").val("");
         });
 
         $('#atributos input[type="checkbox"]').change(function() {
@@ -530,4 +682,209 @@
             },
         }, );
     });
+
+    function mostrarObjetos() {
+        var html = '';
+        actualizarEstorbos();
+        $('#objetos').empty();
+        for (let i = 0; i < objetos.length; i++) {
+            let objeto = objetos[i];
+            let optionHTML = '';
+            let selectHTML = '';
+
+            // Generar opciones del select
+            petrechos.forEach(function(equipo, index) {
+                let selected = equipo.id == objeto.equipoId ? 'selected' : '';
+                optionHTML += '<option value="' + equipo.id + '" data-tipo_id="' + equipo.tipo_id + '" data-nombre="' + equipo.nombre + '" data-estorbo="' + equipo.estorbo + '" data-descripcion="' + equipo.descripcion + '" ' + selected + '>' + equipo.nombre + '</option>';
+            });
+
+            selectHTML = '<select class="form-control form-control-sm equipo-select" onchange="editarObjeto(' + i + ', this.value)">' + optionHTML + '</select>';
+
+            let html = '<div class="mb-3 objeto" data-id="' + objeto.id + '">' +
+                        '<div class="row align-items-center">' +
+                        '<div class="mb-3 col-4">' +
+                            '<label class="form-label">Equipo:</label>' +
+                            selectHTML +
+                        '</div>' +
+                        '<div class="mb-3 col-2">' +
+                            '<label class="form-label">Cantidad:</label>' +
+                            '<input type="number" class="form-control form-control-sm cantidad-input" min="1" max="100" onkeyup="editarObjetoCantidad(' + i + ', this.value)" value="' + objeto.cantidad + '">' +
+                        '</div>' +
+                        '<div class="mb-3 col-4">' +
+                            '<label class="form-label">Descripción:</label>' +
+                            '<input type="text" class="form-control form-control-sm descripcion-input" onkeyup="editarObjetoDescripcion(' + i + ',  this.value)" value="' + objeto.descripcion + '">' +
+                        '</div>' +
+                        '<div class="mt-3 col-2">' +
+                            '<button class="btn btn-sm btn-danger eliminar-objeto" data-id="'+ objeto.id+'"  type="button">Eliminar</button>' +
+                        '</div>' +
+                        '</div>' +
+                    '</div>';
+            $('#objetos').append(html);
+        }
+
+        $(".equipo-select").select2({
+            language: "es",
+            width: "100%",
+        });
+
+        $('.eliminar-objeto').on('click', function() {
+            var id = $(this).data('id');
+            objetos = objetos.filter(function(objeto) {
+                return objeto.id != id;
+            });
+            actualizarEstorbos();
+            mostrarObjetos();
+        });
+
+    }
+
+    function mostrarArmas(){
+        var html = '';
+        actualizarEstorbos();
+        $('#armas').empty();
+        for (let i = 0; i < armasPj.length; i++) {
+            let objeto = armasPj[i];
+            let optionHTML = '';
+            let selectHTML = '';
+            let optionTipoHTML = '';
+            let selectTipos = '';
+            let selectPropiedades = '';
+            let optionPropiedadHTML = '';
+
+
+            // Generar opciones del select
+            armas.forEach(function(equipo, index) {
+                let selected = equipo.id == objeto.armaId ? 'selected' : '';
+                optionHTML += '<option value="' + equipo.id + '" data-tipo_id="' + equipo.tipo_id + '" data-nombre="' + equipo.nombre + '" data-estorbo="' + equipo.estorbo + '" data-descripcion="' + equipo.descripcion + '" ' + selected + '>' + equipo.nombre + '</option>';
+            });
+
+            @json($tipos).forEach(function(tipo, index) {
+                let selected = tipo.id == objeto.tipo_id ? 'selected' : '';
+                optionTipoHTML += '<option value="' + tipo.id + '"' + selected +' >' + tipo.nombre + '</option>';
+            });
+
+            @json($propiedades).forEach(function(propiedad, index) {
+                let selected = objeto.propiedades.includes(propiedad.id) ? 'selected' : '';
+                optionPropiedadHTML += '<option value="' + propiedad.id + '" ' + selected + '>' + propiedad.nombre + '</option>';
+            });
+
+            selectHTML = '<select class="form-control form-control-sm equipo-select" onchange="editarObjeto(' + i + ', this.value)">' + optionHTML + '</select>';
+            selectTipos = '<select class="form-control form-control-sm tipo-select" onchange="editarObjetoTipo(' + i + ', this.value)">' + optionTipoHTML + '</select>';
+            selectPropiedades = '<select class="form-control form-control-sm propiedad-select" multiple onchange="editarObjetoPropiedad(' + i + ', this.value)">' + optionPropiedadHTML + '</select>';
+            let html = '<div class="mb-3 objeto" data-id="' + objeto.id + '">' +
+                            '<div class="row align-items-center">' +
+                                '<div class="mb-3 col-2">' +
+                                    '<label class="form-label">Equipo:</label>' +
+                                        selectHTML +
+                                    '</div>' +
+                                '<div class="mb-3 col-1">' +
+                                    '<label class="form-label">Daño:</label>' +
+                                    '<input type="number" class="form-control form-control-sm" disabled value="'+ objeto.danio + '">' +
+                                '</div>' +
+                                '<div class="mb-3 col-2">' +
+                                    '<label class="form-label">Tipo:</label>' +
+                                    selectTipos +
+                                '</div>' +
+                                '<div class="mb-3 col-1">' +
+                                    '<label class="form-label">Estorbo:</label>' +
+                                    '<input type="text" class="form-control form-control-sm descripcion-input" onkeyup="editarObjetoDescripcion(' + i + ',  this.value)" value="' + objeto.estorbo + '">' +
+                                '</div>' +
+                                '<div class="mb-3 col-4">' +
+                                    '<label class="form-label">Propiedades:</label>' +
+                                    selectPropiedades +
+                                '</div>' +
+                                '<div class="mb-3 col-1">' +
+                                    '<label class="form-label">Alcance:</label>' +
+                                    '<input type="text" class="form-control form-control-sm alcance-input" onkeyup="editarObjetoDescripcion(' + i + ',  this.value)" value="' + objeto.alcance + '">' +
+                                '</div>' +
+                                '<div class="mt-3 col-1">' +
+                                    '<button class="btn btn-sm btn-danger eliminar-arma" data-id="'+ objeto.id+'"  type="button">Eliminar</button>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+            $('#armas').append(html);
+        }
+
+        $(".equipo-select").select2({
+            language: "es",
+            width: "100%",
+            theme: "classic",
+        });
+
+        $(".propiedad-select").select2({
+            language: "es",
+            width: "100%",
+            theme: "classic",
+            multiple: true,
+        });
+
+        $('.eliminar-arma').on('click', function() {
+            var id = $(this).data('id');
+            armasPj = armasPj.filter(function(objeto) {
+                return objeto.id != id;
+            });
+            mostrarArmas();
+        });
+
+    }
+
+
+    function editarObjeto(index, valor){
+        objetos[index]["equipoId"] = valor;
+        actualizarEstorbos();
+    };
+
+    function editarObjetoCantidad(index, valor){
+        objetos[index]["cantidad"] = valor;
+        actualizarEstorbos();
+    };
+
+    function editarObjetoDescripcion(index, valor){
+        objetos[index]["descripcion"] = valor;
+        actualizarEstorbos();
+    };
+
+
+    function uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    function agruparObjetosPorPropiedad(objetos, propiedad) {
+        return objetos.reduce(function(acumulador, objeto) {
+            var valorPropiedad = objeto[propiedad];
+            if (!acumulador[valorPropiedad]) {
+            acumulador[valorPropiedad] = { valor: valorPropiedad, suma: 0, objetos: [] };
+            }
+            acumulador[valorPropiedad].suma += 1 * objeto.cantidad;
+            acumulador[valorPropiedad].objetos.push(objeto);
+            return acumulador;
+        }, {});
+    }
+
+    function actualizarEstorbos(){
+        let objetosEstorbo = agruparObjetosPorPropiedad(objetos, 'estorbo');
+
+        $("#estorbo2").val(objetosEstorbo[2] ? objetosEstorbo[2].suma : 0);
+        $("#estorbo3").val(objetosEstorbo[3] ? objetosEstorbo[3].suma : 0);
+        $("#estorbo4").val(objetosEstorbo[4] ? objetosEstorbo[4].suma : 0);
+        $("#estorbo2_max").val(4);
+        $("#estorbo3_max").val(2);
+        $("#estorbo4_max").val(1);
+        //objetos tipo1
+        let objetosTipo1 = objetos.filter(function(objeto) {
+            return objeto.tipo_id == 1;
+        });
+
+        let max_estorbo2 = objetosTipo1.reduce((r, b) => Math.max(r, b.estorbo2), 0);
+        let max_estorbo3 = objetosTipo1.reduce((r, b) => Math.max(r, b.estorbo3), 0);
+
+        $("#estorbo2_max").val( parseInt($("#estorbo2_max").val()) + max_estorbo2);
+        $("#estorbo3_max").val( parseInt($("#estorbo3_max").val()) + max_estorbo3);
+
+    }
 </script>

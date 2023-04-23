@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Arma;
 use App\Models\Armadura;
 use App\Models\Ascendencia;
 use App\Models\Atributo;
@@ -9,7 +10,10 @@ use App\Models\AtributosFicha;
 use App\Models\Clase;
 use App\Models\Habilidad;
 use App\Models\Personaje;
+use App\Models\Petrecho;
+use App\Models\Propiedad;
 use App\Models\Talento;
+use App\Models\TipoObjeto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,6 +88,11 @@ class PersonajesController extends Controller
             $talentos = Talento::all();
             $habilidades = Habilidad::all();
             $atributosNiveles = Atributo::all();
+            $petrechos = Petrecho::all();
+            $armas = Arma::all();
+            $armaduras = Armadura::all();
+            $propiedades = Propiedad::all();
+            $tiposOArma = TipoObjeto::all();
 
             $view = view('principales.personajes.edit')
                 ->with("users", $users)
@@ -93,7 +102,12 @@ class PersonajesController extends Controller
                 ->with("talentos", $talentos)
                 ->with("habilidades", $habilidades)
                 ->with("atributosNiveles", $atributosNiveles)
+                ->with("petrechos", $petrechos)
+                ->with("armas", $armas)
+                ->with("armaduras", $armaduras)
                 ->with("modelo", null)
+                ->with("propiedades", $propiedades)
+                ->with("tipos", $tiposOArma)
                 ->render();
         }
 

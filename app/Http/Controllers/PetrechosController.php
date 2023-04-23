@@ -44,8 +44,8 @@ class PetrechosController extends Controller
             tobj.nombre as tipo,
             p.danio AS danio,
             p.estorbo AS estorbo,
-            p.alcance_max as alcance_max,
-            p.alcance_min as alcance_min,
+            p.estorbo_3 as estorbo_3,
+            p.estorbo_2 as estorbo_2,
             GROUP_CONCAT( propiedades.nombre SEPARATOR ', ' ) AS propiedades
         FROM
             petrechos p
@@ -54,7 +54,7 @@ class PetrechosController extends Controller
             LEFT JOIN tipos_objetos tobj ON tobj.id = p.tipo_id AND tobj.deleted_at is null
         WHERE
             p.deleted_at IS NULL
-        GROUP BY id, nombre, tipo, danio, estorbo, alcance_max, alcance_min";
+        GROUP BY id, nombre, tipo, danio, estorbo, estorbo_3, estorbo_2";
 
             $datos = DB::select($sql);
 
@@ -104,8 +104,8 @@ class PetrechosController extends Controller
             $petrecho->tipo_id = $request->tipo;
             $petrecho->danio = $request->danio;
             $petrecho->estorbo = $request->estorbo;
-            $petrecho->alcance_min = $request->alcance_min;
-            $petrecho->alcance_max = $request->alcance_max;
+            $petrecho->estorbo_2 = $request->estorbo_2;
+            $petrecho->estorbo_3 = $request->estorbo_3;
             $petrecho->precio = $request->precio;
             $petrecho->descripcion = $request->descripcion;
 
@@ -157,8 +157,8 @@ class PetrechosController extends Controller
                 $petrecho->tipo_id = $request->tipo;
                 $petrecho->danio = $request->danio;
                 $petrecho->estorbo = $request->estorbo;
-                $petrecho->alcance_min = $request->alcance_min;
-                $petrecho->alcance_max = $request->alcance_max;
+                $petrecho->estorbo_2 = $request->estorbo_2;
+                $petrecho->estorbo_3 = $request->estorbo_3;
                 $petrecho->precio = $request->precio;
                 $petrecho->descripcion = $request->descripcion;
 
