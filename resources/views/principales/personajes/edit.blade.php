@@ -340,6 +340,7 @@
                                 <tr>
                               </table>
                         </div>
+
                         <div class="row align-items-center">
                             <div class="mb-3 col-4">
                                 <label for="equipo" class="form-label">Equipo:</label>
@@ -363,20 +364,51 @@
                                 <button id="crear-armadura" class="btn btn-sm btn-secondary" type="button"><i class="fas fa-plus"></i>Add Armadura</button>
                             </div>
                         </div>
-                        <fieldset style="border: 1px solid #ee8a32; border-radius: 0.25rem; padding: 0.5rem;">
-                            <legend>Armas</legend>
-                            <div id="armas"></div>
-                        </fieldset>
+                        <div id="accordion">
+                            <div class="card">
+                              <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Armas <span class="badge badge-warning" style="display:none;" id="totalArmas"></span>
+                                  </button>
+                                </h5>
+                              </div>
 
-                        <fieldset style="border: 1px solid #ee8a32; border-radius: 0.25rem; padding: 0.5rem;">
-                            <legend>Armaduras</legend>
-                            <div id="armaduras"></div>
-                        </fieldset>
-
-                        <fieldset style="border: 1px solid #ee8a32; border-radius: 0.25rem; padding: 0.5rem;">
-                            <legend>Objetos</legend>
-                            <div id="objetos"></div>
-                        </fieldset>
+                              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                                <div class="card-body">
+                                    <div id="armas"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="card">
+                              <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Armaduras <span class="badge badge-warning" style="display:none;" id="totalArmaduras"></span>
+                                  </button>
+                                </h5>
+                              </div>
+                              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+                                <div class="card-body">
+                                    <div id="armaduras"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="card">
+                              <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Objetos <span class="badge badge-warning" style="display:none;" id="totalObjetos"></span>
+                                  </button>
+                                </h5>
+                              </div>
+                              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
+                                <div class="card-body">
+                                    <div id="objetos"></div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -687,6 +719,12 @@
         var html = '';
         actualizarEstorbos();
         $('#objetos').empty();
+        $("#totalObjetos").text("");
+        $("#totalObjetos").hide();
+        if(objetos.length > 0){
+            $("#totalObjetos").text(objetos.length);
+            $("#totalObjetos").show();
+        }
         for (let i = 0; i < objetos.length; i++) {
             let objeto = objetos[i];
             let optionHTML = '';
@@ -742,6 +780,12 @@
         var html = '';
         actualizarEstorbos();
         $('#armas').empty();
+        $("#totalArmas").text("");
+        $("#totalArmas").hide();
+        if(armasPj.length > 0){
+            $("#totalArmas").text(armasPj.length);
+            $("#totalArmas").show();
+        }
         for (let i = 0; i < armasPj.length; i++) {
             let objeto = armasPj[i];
             let optionHTML = '';
@@ -768,8 +812,8 @@
                 optionPropiedadHTML += '<option value="' + propiedad.id + '" ' + selected + '>' + propiedad.nombre + '</option>';
             });
 
-            selectHTML = '<select class="form-control form-control-sm equipo-select" onchange="editarObjeto(' + i + ', this.value)">' + optionHTML + '</select>';
-            selectTipos = '<select class="form-control form-control-sm tipo-select" onchange="editarObjetoTipo(' + i + ', this.value)">' + optionTipoHTML + '</select>';
+            selectHTML = '<select class="form-control form-control-sm equipo-select" onchange="editarArma(' + i + ', this.value)">' + optionHTML + '</select>';
+            selectTipos = '<select class="form-control form-control-sm tipo-select" onchange="editarObjetoTipo(' + i + ', this.value)" disabled>' + optionTipoHTML + '</select>';
             selectPropiedades = '<select class="form-control form-control-sm propiedad-select" multiple onchange="editarObjetoPropiedad(' + i + ', this.value)">' + optionPropiedadHTML + '</select>';
             let html = '<div class="mb-3 objeto" data-id="' + objeto.id + '">' +
                             '<div class="row align-items-center">' +
@@ -835,6 +879,30 @@
         actualizarEstorbos();
     };
 
+    function editarArma(index, valor){
+        armasPj[index]["armaId"] = valor;
+
+        let arma = armas.find(arma => arma.id == valor);
+
+        armasPj[index]["tipo_id"] = arma.tipo_id;
+        armasPj[index]['danio'] = arma.danio;
+        armasPj[index]['estorbo'] = arma.estorbo;
+        armasPj[index]['alcance'] = arma.alcance_max;
+
+        let propiedades = [];
+
+        if(arma.propiedades){
+            arma.propiedades.forEach(propiedad => {
+                propiedades.push(propiedad.id);
+            });
+        }
+
+
+        armasPj[index]['propiedades'] = propiedades;
+
+        mostrarArmas();
+
+    };
     function editarObjetoCantidad(index, valor){
         objetos[index]["cantidad"] = valor;
         actualizarEstorbos();
