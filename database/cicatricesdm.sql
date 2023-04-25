@@ -11,7 +11,7 @@
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 19/04/2023 22:19:39
+ Date: 25/04/2023 20:40:13
 */
 
 SET NAMES utf8mb4;
@@ -959,57 +959,58 @@ CREATE TABLE `habilidades`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `deleted_at` timestamp(0) NULL DEFAULT NULL,
   `descripcion` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `tipo` int(11) NULL DEFAULT NULL COMMENT '0 para habilidades, 1 para lengua, 2 para saberes y 3 para oficios',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of habilidades
 -- ----------------------------
-INSERT INTO `habilidades` VALUES (1, 'Actuar', '2023-04-17 20:47:35', '2023-04-17 20:47:35', NULL, NULL);
-INSERT INTO `habilidades` VALUES (2, 'Acrobacias', '2023-04-18 18:45:48', '2023-04-18 19:05:13', NULL, NULL);
-INSERT INTO `habilidades` VALUES (3, 'Aguante', '2023-04-18 19:05:22', '2023-04-18 19:05:22', NULL, NULL);
-INSERT INTO `habilidades` VALUES (4, 'Armas a distancia', '2023-04-18 19:05:32', '2023-04-18 19:05:32', NULL, NULL);
-INSERT INTO `habilidades` VALUES (5, 'Armas CaC', '2023-04-18 19:05:42', '2023-04-18 19:05:42', NULL, NULL);
-INSERT INTO `habilidades` VALUES (6, 'Autocontrol', '2023-04-18 19:05:53', '2023-04-18 19:05:53', NULL, NULL);
-INSERT INTO `habilidades` VALUES (7, 'Brio', '2023-04-18 19:06:08', '2023-04-18 19:06:08', NULL, NULL);
-INSERT INTO `habilidades` VALUES (8, 'Conversar', '2023-04-18 19:06:16', '2023-04-18 19:06:16', NULL, NULL);
-INSERT INTO `habilidades` VALUES (9, 'Curar', '2023-04-18 19:06:24', '2023-04-18 19:06:24', NULL, NULL);
-INSERT INTO `habilidades` VALUES (10, 'Evaluar', '2023-04-18 19:06:50', '2023-04-18 19:06:50', NULL, NULL);
-INSERT INTO `habilidades` VALUES (11, 'Folklore', '2023-04-18 19:06:59', '2023-04-18 19:06:59', NULL, NULL);
-INSERT INTO `habilidades` VALUES (12, 'Hurtar', '2023-04-18 19:07:14', '2023-04-18 19:07:14', NULL, NULL);
-INSERT INTO `habilidades` VALUES (13, 'Intimidar', '2023-04-18 19:07:22', '2023-04-18 19:07:22', NULL, NULL);
-INSERT INTO `habilidades` VALUES (14, 'Liderazgo', '2023-04-18 19:07:34', '2023-04-18 19:07:34', NULL, NULL);
-INSERT INTO `habilidades` VALUES (15, 'Montar', '2023-04-18 19:07:40', '2023-04-18 19:07:40', NULL, NULL);
-INSERT INTO `habilidades` VALUES (16, 'Navegar', '2023-04-18 19:07:46', '2023-04-18 19:07:46', NULL, NULL);
-INSERT INTO `habilidades` VALUES (17, 'Percibir', '2023-04-18 19:07:55', '2023-04-18 19:07:55', NULL, NULL);
-INSERT INTO `habilidades` VALUES (18, 'Pelea', '2023-04-18 19:08:02', '2023-04-18 19:08:02', NULL, NULL);
-INSERT INTO `habilidades` VALUES (19, 'Sigilo', '2023-04-18 19:08:31', '2023-04-18 19:08:31', NULL, NULL);
-INSERT INTO `habilidades` VALUES (20, 'Supervivencia', '2023-04-18 19:08:39', '2023-04-18 19:08:39', NULL, NULL);
-INSERT INTO `habilidades` VALUES (21, 'Trastear', '2023-04-18 19:08:47', '2023-04-18 19:08:47', NULL, NULL);
-INSERT INTO `habilidades` VALUES (22, 'Trato animal', '2023-04-18 19:08:56', '2023-04-18 19:08:56', NULL, NULL);
-INSERT INTO `habilidades` VALUES (23, 'Lengua (común)', '2023-04-18 19:09:22', '2023-04-18 19:09:22', NULL, NULL);
-INSERT INTO `habilidades` VALUES (24, 'Lengua (Krell)', '2023-04-18 19:09:33', '2023-04-18 19:09:33', NULL, NULL);
-INSERT INTO `habilidades` VALUES (25, 'Lengua (Ni-go)', '2023-04-18 19:09:45', '2023-04-18 19:09:45', NULL, NULL);
-INSERT INTO `habilidades` VALUES (26, 'Lengua (trival)', '2023-04-18 19:09:57', '2023-04-18 19:09:57', NULL, NULL);
-INSERT INTO `habilidades` VALUES (27, 'Saber (Ciencias)', '2023-04-18 19:10:20', '2023-04-18 19:10:20', NULL, NULL);
-INSERT INTO `habilidades` VALUES (28, 'Saber (Artes)', '2023-04-18 19:10:30', '2023-04-18 19:10:30', NULL, NULL);
-INSERT INTO `habilidades` VALUES (29, 'Saber (arcano)', '2023-04-18 19:10:39', '2023-04-18 19:10:39', NULL, NULL);
-INSERT INTO `habilidades` VALUES (30, 'Saber (teologia)', '2023-04-18 19:10:49', '2023-04-18 19:10:49', NULL, NULL);
-INSERT INTO `habilidades` VALUES (31, 'Saber (mundo espiritual)', '2023-04-18 19:11:27', '2023-04-18 19:11:27', NULL, NULL);
-INSERT INTO `habilidades` VALUES (32, 'Saber (historia)', '2023-04-18 19:12:04', '2023-04-18 19:12:04', NULL, NULL);
-INSERT INTO `habilidades` VALUES (33, 'Conjurar', '2023-04-18 19:12:12', '2023-04-18 19:12:12', NULL, NULL);
-INSERT INTO `habilidades` VALUES (34, 'Rezar', '2023-04-18 19:12:18', '2023-04-18 19:12:18', NULL, NULL);
-INSERT INTO `habilidades` VALUES (35, 'Oficio (trampero)', '2023-04-18 19:12:27', '2023-04-18 19:12:27', NULL, NULL);
-INSERT INTO `habilidades` VALUES (36, 'oficio (alquimista)', '2023-04-18 19:12:35', '2023-04-18 19:12:35', NULL, NULL);
-INSERT INTO `habilidades` VALUES (37, 'Oficio (herrero)', '2023-04-18 19:12:47', '2023-04-18 19:12:47', NULL, NULL);
-INSERT INTO `habilidades` VALUES (38, 'Oficio (constructor)', '2023-04-18 19:12:57', '2023-04-18 19:12:57', NULL, NULL);
-INSERT INTO `habilidades` VALUES (39, 'oficio (cartografo)', '2023-04-18 19:13:06', '2023-04-18 19:13:06', NULL, NULL);
-INSERT INTO `habilidades` VALUES (40, 'Oficio (pirotécnico)', '2023-04-18 19:13:41', '2023-04-18 19:13:41', NULL, NULL);
-INSERT INTO `habilidades` VALUES (41, 'Oficio (crear venenos)', '2023-04-18 19:13:52', '2023-04-18 19:13:52', NULL, NULL);
-INSERT INTO `habilidades` VALUES (42, 'Oficio (cocinero)', '2023-04-18 19:14:10', '2023-04-18 19:14:10', NULL, NULL);
-INSERT INTO `habilidades` VALUES (43, 'Oficio (bufón)', '2023-04-18 19:14:19', '2023-04-18 19:14:19', NULL, NULL);
-INSERT INTO `habilidades` VALUES (44, 'oficio (granjero)', '2023-04-18 19:14:52', '2023-04-18 19:14:52', NULL, NULL);
-INSERT INTO `habilidades` VALUES (45, 'Oficio (sastre)', '2023-04-18 19:15:01', '2023-04-18 19:15:01', NULL, NULL);
+INSERT INTO `habilidades` VALUES (1, 'Actuar', '2023-04-17 20:47:35', '2023-04-17 20:47:35', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (2, 'Acrobacias', '2023-04-18 18:45:48', '2023-04-18 19:05:13', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (3, 'Aguante', '2023-04-18 19:05:22', '2023-04-18 19:05:22', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (4, 'Armas a distancia', '2023-04-18 19:05:32', '2023-04-18 19:05:32', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (5, 'Armas CaC', '2023-04-18 19:05:42', '2023-04-18 19:05:42', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (6, 'Autocontrol', '2023-04-18 19:05:53', '2023-04-18 19:05:53', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (7, 'Brio', '2023-04-18 19:06:08', '2023-04-18 19:06:08', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (8, 'Conversar', '2023-04-18 19:06:16', '2023-04-18 19:06:16', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (9, 'Curar', '2023-04-18 19:06:24', '2023-04-18 19:06:24', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (10, 'Evaluar', '2023-04-18 19:06:50', '2023-04-18 19:06:50', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (11, 'Folklore', '2023-04-18 19:06:59', '2023-04-18 19:06:59', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (12, 'Hurtar', '2023-04-18 19:07:14', '2023-04-18 19:07:14', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (13, 'Intimidar', '2023-04-18 19:07:22', '2023-04-18 19:07:22', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (14, 'Liderazgo', '2023-04-18 19:07:34', '2023-04-18 19:07:34', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (15, 'Montar', '2023-04-18 19:07:40', '2023-04-18 19:07:40', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (16, 'Navegar', '2023-04-18 19:07:46', '2023-04-18 19:07:46', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (17, 'Percibir', '2023-04-18 19:07:55', '2023-04-18 19:07:55', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (18, 'Pelea', '2023-04-18 19:08:02', '2023-04-18 19:08:02', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (19, 'Sigilo', '2023-04-18 19:08:31', '2023-04-18 19:08:31', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (20, 'Supervivencia', '2023-04-18 19:08:39', '2023-04-18 19:08:39', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (21, 'Trastear', '2023-04-18 19:08:47', '2023-04-18 19:08:47', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (22, 'Trato animal', '2023-04-18 19:08:56', '2023-04-18 19:08:56', NULL, NULL, 0);
+INSERT INTO `habilidades` VALUES (23, 'Lengua (común)', '2023-04-18 19:09:22', '2023-04-18 19:09:22', NULL, NULL, 1);
+INSERT INTO `habilidades` VALUES (24, 'Lengua (Krell)', '2023-04-18 19:09:33', '2023-04-18 19:09:33', NULL, NULL, 1);
+INSERT INTO `habilidades` VALUES (25, 'Lengua (Ni-go)', '2023-04-18 19:09:45', '2023-04-18 19:09:45', NULL, NULL, 1);
+INSERT INTO `habilidades` VALUES (26, 'Lengua (trival)', '2023-04-18 19:09:57', '2023-04-18 19:09:57', NULL, NULL, 1);
+INSERT INTO `habilidades` VALUES (27, 'Saber (Ciencias)', '2023-04-18 19:10:20', '2023-04-18 19:10:20', NULL, NULL, 2);
+INSERT INTO `habilidades` VALUES (28, 'Saber (Artes)', '2023-04-18 19:10:30', '2023-04-18 19:10:30', NULL, NULL, 2);
+INSERT INTO `habilidades` VALUES (29, 'Saber (arcano)', '2023-04-18 19:10:39', '2023-04-18 19:10:39', NULL, NULL, 2);
+INSERT INTO `habilidades` VALUES (30, 'Saber (teologia)', '2023-04-18 19:10:49', '2023-04-18 19:10:49', NULL, NULL, 2);
+INSERT INTO `habilidades` VALUES (31, 'Saber (mundo espiritual)', '2023-04-18 19:11:27', '2023-04-18 19:11:27', NULL, NULL, 2);
+INSERT INTO `habilidades` VALUES (32, 'Saber (historia)', '2023-04-18 19:12:04', '2023-04-18 19:12:04', NULL, NULL, 2);
+INSERT INTO `habilidades` VALUES (33, 'Conjurar', '2023-04-18 19:12:12', '2023-04-18 19:12:12', NULL, NULL, 2);
+INSERT INTO `habilidades` VALUES (34, 'Rezar', '2023-04-18 19:12:18', '2023-04-18 19:12:18', NULL, NULL, 2);
+INSERT INTO `habilidades` VALUES (35, 'Oficio (trampero)', '2023-04-18 19:12:27', '2023-04-18 19:12:27', NULL, NULL, 3);
+INSERT INTO `habilidades` VALUES (36, 'oficio (alquimista)', '2023-04-18 19:12:35', '2023-04-18 19:12:35', NULL, NULL, 3);
+INSERT INTO `habilidades` VALUES (37, 'Oficio (herrero)', '2023-04-18 19:12:47', '2023-04-18 19:12:47', NULL, NULL, 3);
+INSERT INTO `habilidades` VALUES (38, 'Oficio (constructor)', '2023-04-18 19:12:57', '2023-04-18 19:12:57', NULL, NULL, 3);
+INSERT INTO `habilidades` VALUES (39, 'oficio (cartografo)', '2023-04-18 19:13:06', '2023-04-18 19:13:06', NULL, NULL, 3);
+INSERT INTO `habilidades` VALUES (40, 'Oficio (pirotécnico)', '2023-04-18 19:13:41', '2023-04-18 19:13:41', NULL, NULL, 3);
+INSERT INTO `habilidades` VALUES (41, 'Oficio (crear venenos)', '2023-04-18 19:13:52', '2023-04-18 19:13:52', NULL, NULL, 3);
+INSERT INTO `habilidades` VALUES (42, 'Oficio (cocinero)', '2023-04-18 19:14:10', '2023-04-18 19:14:10', NULL, NULL, 3);
+INSERT INTO `habilidades` VALUES (43, 'Oficio (bufón)', '2023-04-18 19:14:19', '2023-04-18 19:14:19', NULL, NULL, 3);
+INSERT INTO `habilidades` VALUES (44, 'oficio (granjero)', '2023-04-18 19:14:52', '2023-04-18 19:14:52', NULL, NULL, 3);
+INSERT INTO `habilidades` VALUES (45, 'Oficio (sastre)', '2023-04-18 19:15:01', '2023-04-18 19:15:01', NULL, NULL, 3);
 
 -- ----------------------------
 -- Table structure for lugares_cuerpo
@@ -1176,6 +1177,10 @@ INSERT INTO `permission_role` VALUES (56, 1);
 INSERT INTO `permission_role` VALUES (57, 1);
 INSERT INTO `permission_role` VALUES (58, 1);
 INSERT INTO `permission_role` VALUES (59, 1);
+INSERT INTO `permission_role` VALUES (60, 1);
+INSERT INTO `permission_role` VALUES (61, 1);
+INSERT INTO `permission_role` VALUES (62, 1);
+INSERT INTO `permission_role` VALUES (63, 1);
 
 -- ----------------------------
 -- Table structure for permission_user
@@ -1260,7 +1265,7 @@ CREATE TABLE `permissions`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `permissions_name_unique`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of permissions
@@ -1321,6 +1326,10 @@ INSERT INTO `permissions` VALUES (56, 'acceso-habilidades', NULL, NULL, NULL, NU
 INSERT INTO `permissions` VALUES (57, 'borrar-habilidades', NULL, NULL, NULL, NULL);
 INSERT INTO `permissions` VALUES (58, 'editar-habilidades', NULL, NULL, NULL, NULL);
 INSERT INTO `permissions` VALUES (59, 'crear-habilidades', NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (60, 'acceso-personajes', NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (61, 'borrar-personajes', NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (62, 'editar-personajes', NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (63, 'crear-personajes', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for personajes
@@ -1401,42 +1410,43 @@ CREATE TABLE `petrechos`  (
   `estorbo` int(11) NULL DEFAULT NULL,
   `tipo_id` int(11) NULL DEFAULT NULL,
   `precio` decimal(16, 2) NULL DEFAULT NULL,
-  `alcance_max` int(11) NULL DEFAULT NULL,
-  `alcance_min` int(11) NULL DEFAULT NULL,
+  `estorbo_2` int(11) NULL DEFAULT NULL,
+  `estorbo_3` int(11) NULL DEFAULT NULL,
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `deleted_at` timestamp(0) NULL DEFAULT NULL,
   `descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `empresa_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of petrechos
 -- ----------------------------
-INSERT INTO `petrechos` VALUES (1, 'Herramientas de galeno', 0, 2, 30, 50.00, 0, 0, '2023-04-17 19:53:34', '2023-04-19 13:21:11', NULL, '-1 a las tiradas de sanar.');
-INSERT INTO `petrechos` VALUES (2, 'mochila pequeña', 0, -8, 1, 5.00, 0, 0, '2023-04-17 20:06:48', '2023-04-17 20:06:48', NULL, 'Recipiente barato.');
-INSERT INTO `petrechos` VALUES (3, 'Mapa viejo', 0, 0, 34, 5.00, 0, 0, '2023-04-18 20:10:07', '2023-04-18 20:10:07', NULL, 'Mapa viejo e impreciso de una región');
-INSERT INTO `petrechos` VALUES (4, 'Cuaderno en blanco', 0, 0, 34, 3.00, 0, 0, '2023-04-18 20:10:51', '2023-04-18 20:10:51', NULL, NULL);
-INSERT INTO `petrechos` VALUES (5, 'Material de escritura', 0, 0, 34, 5.00, 0, 0, '2023-04-18 20:16:53', '2023-04-19 13:21:00', NULL, 'Pluma de oca y tintero');
-INSERT INTO `petrechos` VALUES (6, 'Ropa de Viaje', 0, 0, 33, 0.00, 0, 0, '2023-04-18 20:20:04', '2023-04-18 20:20:04', NULL, 'Ropa resistente, sucia y gastada.');
-INSERT INTO `petrechos` VALUES (7, 'Aúreos', 0, 0, 34, 0.00, 0, 0, '2023-04-18 20:21:50', '2023-04-18 20:21:50', NULL, 'Moneda divisible de uso común');
-INSERT INTO `petrechos` VALUES (8, 'Brujula', 0, 0, 34, 10.00, 0, 0, '2023-04-18 20:31:52', '2023-04-18 20:31:52', NULL, NULL);
-INSERT INTO `petrechos` VALUES (9, 'Licor potente', 0, 2, 35, 5.00, 0, 0, '2023-04-19 13:06:46', '2023-04-19 13:06:46', NULL, '+1 a las tiradas de aguante para no embriagarse.');
-INSERT INTO `petrechos` VALUES (10, 'Ración de viaje', 0, 2, 35, 0.00, 0, 0, '2023-04-19 13:14:47', '2023-04-19 13:15:05', NULL, 'Cecina, queso, pan asentado, frutos deshidratados, pescado en salazón y embutidos forman la dieta del viajero sin talento con la sartén. Puede mantener a una persona alimentada por un dia... siempre que no sea de sangre Fenrir.');
-INSERT INTO `petrechos` VALUES (11, 'Odre', 0, 2, 1, 4.00, 0, 0, '2023-04-19 13:17:03', '2023-04-19 13:17:03', NULL, 'pequeño recipiente para líquidos, generalmente fabricado a partir de pellejos y vejigas de animales. Puede contener aproximadamente un litro y medio.');
-INSERT INTO `petrechos` VALUES (12, 'Cuerda (2 metros)', 0, 2, 29, 1.00, 0, 0, '2023-04-19 13:18:52', '2023-04-19 13:21:27', NULL, 'Cuerda de fibras duras, como esparto o cáñamo. Más resistente de lo que aparenta.');
-INSERT INTO `petrechos` VALUES (13, 'Gancho', 0, 2, 34, 5.00, 0, 0, '2023-04-19 13:20:46', '2023-04-19 13:20:46', NULL, 'Gancho de metal resistente, perfecto para anclar una cuerda o colgar algo (o alguien) de el.');
-INSERT INTO `petrechos` VALUES (14, 'Toga', 0, 2, 33, 8.00, 0, 0, '2023-04-19 14:04:18', '2023-04-19 14:04:18', NULL, 'Ropa ligera y cómoda  para climas cálidos.');
-INSERT INTO `petrechos` VALUES (15, 'Emblema de orden.', 0, 1, 34, 0.00, 0, 0, '2023-04-19 14:09:37', '2023-04-19 14:09:37', NULL, 'Joya o placa decorativa con iconografía grabada que identifica al portador como miembro de una orden.');
-INSERT INTO `petrechos` VALUES (16, 'Grimorio pequeño', 0, 1, 36, 50.00, 0, 0, '2023-04-19 14:12:14', '2023-04-19 14:12:14', NULL, 'Libro pequeño, pergamino o cuaderno que contiene un hechizo (puede estar determinado al azar o por el Dj).');
-INSERT INTO `petrechos` VALUES (17, 'Documentos', 0, 0, 34, 0.00, 0, 0, '2023-04-19 15:51:53', '2023-04-19 15:51:53', NULL, 'Documentación varia');
-INSERT INTO `petrechos` VALUES (18, 'Manto', 0, 2, 33, 8.00, 0, 0, '2023-04-19 16:17:18', '2023-04-19 16:17:18', NULL, 'Manto resistente.');
-INSERT INTO `petrechos` VALUES (19, 'Manto con capucha', 0, 0, 33, 8.00, 0, 0, '2023-04-19 16:18:26', '2023-04-19 16:18:26', NULL, 'Protege de la intemperie y de ojos curiosos.');
-INSERT INTO `petrechos` VALUES (20, 'Lámpara de aceite', 0, 0, 38, 15.00, 0, 0, '2023-04-19 16:25:36', '2023-04-19 16:25:36', NULL, 'Ilumina con claridad hasta rango 3, tenuemente hasta rango 4. Requiere 1/2 botella de aceite cada 8 horas.');
-INSERT INTO `petrechos` VALUES (21, 'Mochila grande', 0, 0, 1, 10.00, 0, 0, '2023-04-19 16:27:00', '2023-04-19 16:27:00', NULL, 'Añade 6 huecos de estorbo 2 y 2 de estorbo 3.');
-INSERT INTO `petrechos` VALUES (22, 'Mercancía varia', 0, 4, 34, 0.00, 0, 0, '2023-04-19 16:47:19', '2023-04-19 16:47:19', NULL, 'Objetos varios.');
-INSERT INTO `petrechos` VALUES (23, 'Ábaco', 0, 0, 30, 5.00, 0, 0, '2023-04-19 16:49:40', '2023-04-19 16:49:40', NULL, 'Ayuda a llevar las cuentas... usando cuentas de madera.');
-INSERT INTO `petrechos` VALUES (24, 'Carro de mano', 0, 5, 28, 30.00, 0, 0, '2023-04-19 16:51:25', '2023-04-19 16:51:25', NULL, 'Carro de madera inestable, usado para que un hombre o un animal de tiro pequeño lleve mercancía de un lado a otro.');
+INSERT INTO `petrechos` VALUES (0, 'Herramientas de galeno', 0, 2, 30, 50.00, 0, 0, '2023-04-17 19:53:34', '2023-04-19 13:21:11', NULL, '-1 a las tiradas de sanar.', NULL);
+INSERT INTO `petrechos` VALUES (2, 'mochila pequeña', 0, 0, 1, 5.00, 2, 0, '2023-04-17 20:06:48', '2023-04-23 10:56:45', NULL, 'Recipiente barato.', NULL);
+INSERT INTO `petrechos` VALUES (3, 'Mapa viejo', 0, 0, 34, 5.00, 0, 0, '2023-04-18 20:10:07', '2023-04-18 20:10:07', NULL, 'Mapa viejo e impreciso de una región', NULL);
+INSERT INTO `petrechos` VALUES (4, 'Cuaderno en blanco', 0, 0, 34, 3.00, 0, 0, '2023-04-18 20:10:51', '2023-04-18 20:10:51', NULL, NULL, NULL);
+INSERT INTO `petrechos` VALUES (5, 'Material de escritura', 0, 0, 34, 5.00, 0, 0, '2023-04-18 20:16:53', '2023-04-19 13:21:00', NULL, 'Pluma de oca y tintero', NULL);
+INSERT INTO `petrechos` VALUES (6, 'Ropa de Viaje', 0, 0, 33, 0.00, 0, 0, '2023-04-18 20:20:04', '2023-04-18 20:20:04', NULL, 'Ropa resistente, sucia y gastada.', NULL);
+INSERT INTO `petrechos` VALUES (7, 'Aúreos', 0, 0, 34, 0.00, 0, 0, '2023-04-18 20:21:50', '2023-04-18 20:21:50', NULL, 'Moneda divisible de uso común', NULL);
+INSERT INTO `petrechos` VALUES (8, 'Brujula', 0, 0, 34, 10.00, 0, 0, '2023-04-18 20:31:52', '2023-04-18 20:31:52', NULL, NULL, NULL);
+INSERT INTO `petrechos` VALUES (9, 'Licor potente', 0, 2, 35, 5.00, 0, 0, '2023-04-19 13:06:46', '2023-04-19 13:06:46', NULL, '+1 a las tiradas de aguante para no embriagarse.', NULL);
+INSERT INTO `petrechos` VALUES (10, 'Ración de viaje', 0, 2, 35, 0.00, 0, 0, '2023-04-19 13:14:47', '2023-04-19 13:15:05', NULL, 'Cecina, queso, pan asentado, frutos deshidratados, pescado en salazón y embutidos forman la dieta del viajero sin talento con la sartén. Puede mantener a una persona alimentada por un dia... siempre que no sea de sangre Fenrir.', NULL);
+INSERT INTO `petrechos` VALUES (11, 'Odre', 0, 2, 1, 4.00, 0, 0, '2023-04-19 13:17:03', '2023-04-19 13:17:03', NULL, 'pequeño recipiente para líquidos, generalmente fabricado a partir de pellejos y vejigas de animales. Puede contener aproximadamente un litro y medio.', NULL);
+INSERT INTO `petrechos` VALUES (12, 'Cuerda (2 metros)', 0, 2, 29, 1.00, 0, 0, '2023-04-19 13:18:52', '2023-04-19 13:21:27', NULL, 'Cuerda de fibras duras, como esparto o cáñamo. Más resistente de lo que aparenta.', NULL);
+INSERT INTO `petrechos` VALUES (13, 'Gancho', 0, 2, 34, 5.00, 0, 0, '2023-04-19 13:20:46', '2023-04-19 13:20:46', NULL, 'Gancho de metal resistente, perfecto para anclar una cuerda o colgar algo (o alguien) de el.', NULL);
+INSERT INTO `petrechos` VALUES (14, 'Toga', 0, 2, 33, 8.00, 0, 0, '2023-04-19 14:04:18', '2023-04-19 14:04:18', NULL, 'Ropa ligera y cómoda  para climas cálidos.', NULL);
+INSERT INTO `petrechos` VALUES (15, 'Emblema de orden.', 0, 1, 34, 0.00, 0, 0, '2023-04-19 14:09:37', '2023-04-19 14:09:37', NULL, 'Joya o placa decorativa con iconografía grabada que identifica al portador como miembro de una orden.', NULL);
+INSERT INTO `petrechos` VALUES (16, 'Grimorio pequeño', 0, 1, 36, 50.00, 0, 0, '2023-04-19 14:12:14', '2023-04-19 14:12:14', NULL, 'Libro pequeño, pergamino o cuaderno que contiene un hechizo (puede estar determinado al azar o por el Dj).', NULL);
+INSERT INTO `petrechos` VALUES (17, 'Documentos', 0, 0, 34, 0.00, 0, 0, '2023-04-19 15:51:53', '2023-04-19 15:51:53', NULL, 'Documentación varia', NULL);
+INSERT INTO `petrechos` VALUES (18, 'Manto', 0, 2, 33, 8.00, 0, 0, '2023-04-19 16:17:18', '2023-04-19 16:17:18', NULL, 'Manto resistente.', NULL);
+INSERT INTO `petrechos` VALUES (19, 'Manto con capucha', 0, 0, 33, 8.00, 0, 0, '2023-04-19 16:18:26', '2023-04-19 16:18:26', NULL, 'Protege de la intemperie y de ojos curiosos.', NULL);
+INSERT INTO `petrechos` VALUES (20, 'Lámpara de aceite', 0, 0, 38, 15.00, 0, 0, '2023-04-19 16:25:36', '2023-04-19 16:25:36', NULL, 'Ilumina con claridad hasta rango 3, tenuemente hasta rango 4. Requiere 1/2 botella de aceite cada 8 horas.', NULL);
+INSERT INTO `petrechos` VALUES (21, 'Mochila grande', 0, 0, 1, 10.00, 6, 2, '2023-04-19 16:27:00', '2023-04-23 10:55:45', NULL, 'Añade 6 huecos de estorbo 2 y 2 de estorbo 3.', NULL);
+INSERT INTO `petrechos` VALUES (22, 'Mercancía varia', 0, 4, 34, 0.00, 0, 0, '2023-04-19 16:47:19', '2023-04-19 16:47:19', NULL, 'Objetos varios.', NULL);
+INSERT INTO `petrechos` VALUES (23, 'Ábaco', 0, 0, 30, 5.00, 0, 0, '2023-04-19 16:49:40', '2023-04-19 16:49:40', NULL, 'Ayuda a llevar las cuentas... usando cuentas de madera.', NULL);
+INSERT INTO `petrechos` VALUES (24, 'Carro de mano', 0, 5, 28, 30.00, 0, 0, '2023-04-19 16:51:25', '2023-04-19 16:51:25', NULL, 'Carro de madera inestable, usado para que un hombre o un animal de tiro pequeño lleve mercancía de un lado a otro.', NULL);
 
 -- ----------------------------
 -- Table structure for petrechos_propiedades
