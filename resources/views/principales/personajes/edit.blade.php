@@ -345,7 +345,7 @@
                             <div class="mb-3 col-4">
                                 <label for="equipo" class="form-label">Equipo:</label>
                                 <select id="equipo" class="form-control form-control-sm">
-                                    @foreach($petrechos->merge($armas)->merge($armaduras) as $equipo)
+                                    @foreach($petrechos->concat($armas)->concat($armaduras) as $equipo)
                                         <option value="{{ $equipo->id }}" data-danio="{{$equipo->danio}}" data-alcance="{{$equipo->alcance_max}}" data-propiedades="{{$equipo->propiedades}}"  data-tipo_id="{{$equipo->tipo_id}}" data-estorbo="{{$equipo->estorbo}}" data-estorbo2="{{$equipo->estorbo_2}}" data-estorbo3="{{$equipo->estorbo_3}}" data-nombre="{{ $equipo->nombre }}" data-descripcion="{{ $equipo->descripcion }}">{{ $equipo->nombre }}</option>
                                     @endforeach
                                 </select>
@@ -926,9 +926,9 @@
         return objetos.reduce(function(acumulador, objeto) {
             var valorPropiedad = objeto[propiedad];
             if (!acumulador[valorPropiedad]) {
-            acumulador[valorPropiedad] = { valor: valorPropiedad, suma: 0, objetos: [] };
+                acumulador[valorPropiedad] = { valor: valorPropiedad, suma: 0, objetos: [] };
             }
-            acumulador[valorPropiedad].suma += 1 * objeto.cantidad;
+            acumulador[valorPropiedad].suma += 1 * (objeto.cantidad  != undefined ? objeto.cantidad  : 1);
             acumulador[valorPropiedad].objetos.push(objeto);
             return acumulador;
         }, {});
@@ -936,10 +936,15 @@
 
     function actualizarEstorbos(){
         let objetosEstorbo = agruparObjetosPorPropiedad(objetos, 'estorbo');
+        let armasEstorbo = agruparObjetosPorPropiedad(armasPj, 'estorbo');
+        console.log(armasEstorbo)
+        let todosLosObjetos = {...objetosEstorbo, ...armasEstorbo}
 
-        $("#estorbo2").val(objetosEstorbo[2] ? objetosEstorbo[2].suma : 0);
-        $("#estorbo3").val(objetosEstorbo[3] ? objetosEstorbo[3].suma : 0);
-        $("#estorbo4").val(objetosEstorbo[4] ? objetosEstorbo[4].suma : 0);
+        console.log(todosLosObjetos)
+
+        $("#estorbo2").val(todosLosObjetos[2] ? todosLosObjetos[2].suma : 0);
+        $("#estorbo3").val(todosLosObjetos[3] ? todosLosObjetos[3].suma : 0);
+        $("#estorbo4").val(todosLosObjetos[4] ? todosLosObjetos[4].suma : 0);
         $("#estorbo2_max").val(4);
         $("#estorbo3_max").val(2);
         $("#estorbo4_max").val(1);
