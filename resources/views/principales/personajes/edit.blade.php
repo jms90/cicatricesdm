@@ -10,7 +10,7 @@
 }
 </style>
 <div class="mb-2">
-    <button id="btn-add" class="btn btn-success" onclick="abrirModal()"><i class="fas fa-plus"></i>Guardar</button>
+    <button id="btn-add" class="btn btn-success" onclick="guardar()"><i class="fas fa-plus"></i>Guardar</button>
 </div>
 
 <div>
@@ -49,7 +49,7 @@
             <label for="segunda_ascendencia_id" class="form-label">A. Secundaria</label>
             <select class="form-control form-control-sm" id="segunda_ascendencia_id" name="clase_id">
                 @foreach ($ascendencias as $ascendencia)
-                    <option {{ $modelo != null && $user->id == $modelo->segunda_ascendencia_id ? "selected" : "" }} value="{{ $ascendencia->id }}">{{ $ascendencia->nombre }}</option>
+                    <option {{ $modelo != null && $ascendencia->id == $modelo->segunda_ascendencia_id ? "selected" : "" }} value="{{ $ascendencia->id }}">{{ $ascendencia->nombre }}</option>
                 @endforeach
             </select>
         </div>
@@ -104,7 +104,7 @@
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-atributos" role="tabpanel" aria-labelledby="nav-atributos-tab">
-                    <div class="row">
+                    <div class="row" id="atributos">
                         <div class="col-6">
                             @foreach ($atributos->where("tipo", "0") as $atributo )
                             <div class="row">
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="nav-generales" role="tabpanel" aria-labelledby="nav-generales-tab">
-                    <div class="col-12">
+                    <div class="col-12" id="habilidades">
                         @php
                         $count = 1;
                         @endphp
@@ -148,7 +148,7 @@
                                         <label for="habilidad_{{ $habilidad->nombre }}" class="mr-2">{{ $habilidad->nombre }}</label>
                                         @for ($i = 1; $i <= 4; $i++)
                                             <div class="form-check form-check-inline  ml-auto" style="width: 7px;">
-                                                <input class="form-check-input" type="checkbox" id="habilidad_{{ $habilidad->id }}_{{ $i }}" name="{{ $habilidad->nombre }}" style="{{$i == 4 ? "box-shadow: 1px 1px 10px 0.2rem #a77df585" : ""}}">
+                                                <input class="form-check-input" name="habilidades" type="checkbox" id="habilidad_{{ $habilidad->id }}_{{ $i }}" name="{{ $habilidad->nombre }}" style="{{$i == 4 ? "box-shadow: 1px 1px 10px 0.2rem #a77df585" : ""}}">
                                                 <label class="form-check-label" for="{{ $habilidad->nombre }}_{{ $i }}"></label>
                                             </div>
                                         @endfor
@@ -179,7 +179,7 @@
                                         <label for="{{ $habilidad->nombre }}_{{ $i }}" class="mr-2">{{ $habilidad->nombre }}</label>
                                         @for ($i = 1; $i <= 4; $i++)
                                             <div class="form-check form-check-inline  ml-auto" style="width: 7px;">
-                                                <input class="form-check-input" type="checkbox" id="habilidad_{{ $habilidad->id }}_{{ $i }}" name="{{ $habilidad->nombre }}" style="{{$i == 4 ? "box-shadow: 1px 1px 10px 0.2rem #a77df585" : ""}}">
+                                                <input class="form-check-input" name="habilidades" type="checkbox" id="habilidad_{{ $habilidad->id }}_{{ $i }}" name="{{ $habilidad->nombre }}" style="{{$i == 4 ? "box-shadow: 1px 1px 10px 0.2rem #a77df585" : ""}}">
                                                 <label class="form-check-label" for="{{ $habilidad->nombre }}_{{ $i }}"></label>
                                             </div>
                                         @endfor
@@ -210,7 +210,7 @@
                                         <label for="{{ $habilidad->nombre }}_{{ $i }}" class="mr-2">{{ $habilidad->nombre }}</label>
                                         @for ($i = 1; $i <= 4; $i++)
                                             <div class="form-check form-check-inline  ml-auto" style="width: 7px;">
-                                                <input class="form-check-input" type="checkbox" id="habilidad_{{ $habilidad->id }}_{{ $i }}" name="{{ $habilidad->nombre }}" style="{{$i == 4 ? "box-shadow: 1px 1px 10px 0.2rem #a77df585" : ""}}">
+                                                <input class="form-check-input" name="habilidades" type="checkbox" id="habilidad_{{ $habilidad->id }}_{{ $i }}" name="{{ $habilidad->nombre }}" style="{{$i == 4 ? "box-shadow: 1px 1px 10px 0.2rem #a77df585" : ""}}">
                                                 <label class="form-check-label" for="{{ $habilidad->nombre }}_{{ $i }}"></label>
                                             </div>
                                         @endfor
@@ -241,7 +241,7 @@
                                         <label for="{{ $habilidad->nombre }}_{{ $i }}" class="mr-2">{{ $habilidad->nombre }}</label>
                                         @for ($i = 1; $i <= 4; $i++)
                                             <div class="form-check form-check-inline  ml-auto" style="width: 7px;">
-                                                <input class="form-check-input" type="checkbox" id="habilidad_{{ $habilidad->id }}_{{ $i }}" name="{{ $habilidad->nombre }}" style="{{$i == 4 ? "box-shadow: 1px 1px 10px 0.2rem #a77df585" : ""}}">
+                                                <input class="form-check-input" name="habilidades" type="checkbox" id="habilidad_{{ $habilidad->id }}_{{ $i }}" name="{{ $habilidad->nombre }}" style="{{$i == 4 ? "box-shadow: 1px 1px 10px 0.2rem #a77df585" : ""}}">
                                                 <label class="form-check-label" for="{{ $habilidad->nombre }}_{{ $i }}"></label>
                                             </div>
                                         @endfor
@@ -260,7 +260,7 @@
                 <div class="tab-pane fade" id="nav-avances" role="tabpanel" aria-labelledby="nav-avances-tab">
                     <div class="col-12">
                         <center>
-                            <table class="tableNiveles table table-hover table-responsive table-sm" style="width: 100%;-webkit-box-shadow: 5px 5px 12px 0px rgba(0,0,0,0.68);box-shadow: 5px 5px 12px 0px rgba(0,0,0,0.68);padding: 6px;">
+                            <table id="tablaAvances" class="tableNiveles table table-hover table-responsive table-sm" style="width: 100%;-webkit-box-shadow: 5px 5px 12px 0px rgba(0,0,0,0.68);box-shadow: 5px 5px 12px 0px rgba(0,0,0,0.68);padding: 6px;">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>Atributos</th>
@@ -340,13 +340,12 @@
                                 <tr>
                               </table>
                         </div>
-
                         <div class="row align-items-center">
                             <div class="mb-3 col-4">
                                 <label for="equipo" class="form-label">Equipo:</label>
                                 <select id="equipo" class="form-control form-control-sm">
                                     @foreach($petrechos->concat($armas)->concat($armaduras) as $equipo)
-                                        <option value="{{ $equipo->id }}" data-danio="{{$equipo->danio}}" data-alcance="{{$equipo->alcance_max}}" data-propiedades="{{$equipo->propiedades}}"  data-tipo_id="{{$equipo->tipo_id}}" data-estorbo="{{$equipo->estorbo}}" data-estorbo2="{{$equipo->estorbo_2}}" data-estorbo3="{{$equipo->estorbo_3}}" data-nombre="{{ $equipo->nombre }}" data-descripcion="{{ $equipo->descripcion }}">{{ $equipo->nombre }}</option>
+                                        <option value="{{ $equipo->id }}" data-protecion="{{$equipo->proteccion}}" data-danio="{{$equipo->danio}}" data-alcance="{{$equipo->alcance_max}}" data-propiedades="{{$equipo->propiedades}}"  data-tipo_id="{{$equipo->tipo_id}}" data-estorbo="{{$equipo->estorbo}}" data-estorbo2="{{$equipo->estorbo_2}}" data-estorbo3="{{$equipo->estorbo_3}}" data-nombre="{{ $equipo->nombre }}" data-descripcion="{{ $equipo->descripcion }}">{{ $equipo->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -419,63 +418,63 @@
                 <div class="form-group row justify-content-center align-items-center">
                     <div class="col-md-4">
                         <label for="control" class="form-label">Puntos de Vida</label>
-                        <input type="number" name="puntos_vida" id="puntos_vida" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="puntos_vida" id="puntos_vida" class="form-control form-control-sm text-center" value="{{ $modelo != null ? $modelo->puntos_vida : ""}}" required>
                     </div>
                     <div class="mt-4 text-center">
                         <span>/</span>
                     </div>
                     <div class="col-md-4">
                         <label for="control" class="form-label"></label>
-                        <input type="number" name="puntos_vida_restantes" id="puntos_vida_restantes" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="puntos_vida_restantes" id="puntos_vida_restantes" class="form-control form-control-sm text-center" value="{{ $modelo != null ? $modelo->puntos_vida_restantes : ""}}" required>
                     </div>
                 </div>
                 <hr>
                 <div class="form-group row justify-content-center align-items-center">
                     <div class="col-md-4">
                         <label for="control" class="form-label">PEF</label>
-                        <input type="number" name="pef_restantes" id="pef_restantes" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="pef_restantes" id="pef_restantes" class="form-control form-control-sm text-center" value="{{ $modelo != null ? $modelo->pef_restantes : ""}}" required>
                     </div>
                     <div class="mt-4 text-center">
                         <span>/</span>
                     </div>
                     <div class="col-md-4">
                         <label for="control" class="form-label">PEF Máx</label>
-                        <input type="number" name="pef_total" id="pef_total" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="pef_total" id="pef_total" class="form-control form-control-sm text-center" value="{{ $modelo != null ? $modelo->pef_total : ""}}" required>
                     </div>
                 </div>
 
                 <div class="form-group row justify-content-center align-items-center">
                     <div class="col-md-4">
                         <label for="control" class="form-label">PEM</label>
-                        <input type="number" name="pem_restantes" id="pem_restantes" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="pem_restantes" id="pem_restantes" class="form-control form-control-sm text-center" value="{{ $modelo != null ? $modelo->pem_restantes : ""}}" required>
                     </div>
                     <div class="mt-4 text-center">
                         <span>/</span>
                     </div>
                     <div class="col-md-4">
                         <label for="control" class="form-label">PEM Máx</label>
-                        <input type="number" name="pem_total" id="pem_total" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="pem_total" id="pem_total" class="form-control form-control-sm text-center" value="{{ $modelo != null ? $modelo->pem_total : ""}}" required>
                     </div>
                 </div>
                 <hr>
                 <div class="form-group row justify-content-center align-items-center">
                     <div class="col-md-4">
                         <label for="control" class="form-label">A.CaC</label>
-                        <input type="number" name="defensa_acac" id="defensa_acac" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="defensa_acac" id="defensa_acac" class="form-control form-control-sm text-center" value="{{$modelo != null ? $modelo->defensa_acac: ""}}" required>
                     </div>
                     <div class="text-center">
                         <span>/</span>
                     </div>
                     <div class="col-md-4">
                         <label for="control" class="form-label">Pelea</label>
-                        <input type="number" name="defensa_pelea" id="defensa_pelea" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="defensa_pelea" id="defensa_pelea" class="form-control form-control-sm text-center" value="{{ $modelo != null ? $modelo->defensa_pelea : ""}}" required>
                     </div>
                 </div>
                 <hr>
                 <div class="form-group row justify-content-center align-items-center">
                     <div class="col-md-4">
                         <label for="control" class="form-label">Control</label>
-                        <input type="number" name="control" id="control" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="control" id="control" class="form-control form-control-sm text-center" value="{{ $modelo != null ? $modelo->control : ""}}" required>
                     </div>
                     <div class="mt-4 text-center">
                         <span>/</span>
@@ -488,7 +487,7 @@
                 <div class="form-group row justify-content-center align-items-center">
                     <div class="col-md-4">
                         <label for="iluminacion" class="form-label">Iluminación</label>
-                        <input type="number" name="iluminacion" id="iluminacion" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="iluminacion" id="iluminacion" class="form-control form-control-sm text-center"  value="{{ $modelo != null ? $modelo->iluminacion : ""}}"required>
                     </div>
                     <div class="mt-4 text-center">
                         <span>/</span>
@@ -501,7 +500,7 @@
                 <div class="form-group row justify-content-center align-items-center">
                     <div class="col-md-4">
                         <label for="cordura" class="form-label">Cordura</label>
-                        <input type="number" name="cordura" id="cordura" class="form-control form-control-sm text-center" required>
+                        <input type="number" name="cordura" id="cordura" class="form-control form-control-sm text-center" value="{{ $modelo != null ? $modelo->cordura : ""}}" required>
                     </div>
                     <div class="mt-4 text-center">
                         <span>/</span>
@@ -576,6 +575,35 @@
             $("#descripcionObjeto").val("");
         });
 
+        $("#crear-armadura").on("click", function(){
+            var equipo = $('#equipo option:selected');
+            var cantidad = $('#cantidad').val();
+            var descripcion = $('#descripcionObjeto').val();
+
+            let armadura = armaduras.find(armadura => armadura.id == equipo.val());
+            console.log(armadura)
+            let lugares = [];
+                armadura.lugares_cuerpo.forEach(lugar => {
+                    lugares.push(lugar.id);
+            });
+
+            armadura = {
+                id: uuidv4(),
+                armaId: equipo.val(),
+                tipo_id: equipo.data('tipo_id'),
+                proteccion: equipo.data('protecion'),
+                lugaresCuerpo: lugares,
+                estorbo: equipo.data('estorbo'),
+            }
+
+            armadurasPj.push(armadura);
+            mostrarArmaduras();
+
+            $("#equipo").val("").trigger("change");
+            $("#cantidad").val("1");
+            $("#descripcionObjeto").val("");
+        });
+
         $('#crear-objeto').on('click', function() {
             var equipo = $('#equipo option:selected');
             var cantidad = $('#cantidad').val();
@@ -601,6 +629,7 @@
 
         $('#atributos input[type="checkbox"]').change(function() {
             var selected = parseInt($(this).attr('id').split('_')[2]);
+
             for (var i = 1; i <= selected; i++) {
                 $('#atributo_' + $(this).attr('id').split('_')[1] + '_' + i).prop('checked', true);
             }
@@ -658,6 +687,7 @@
 
         @if ($modelo)
             $("#titulo").text("Editar Ficha");
+            cargarConfiguracionPj();
         @endif
 
         $('#tabla_clases').DataTable({
@@ -873,6 +903,98 @@
 
     }
 
+    function mostrarArmaduras(){
+        var html = '';
+        actualizarEstorbos();
+        $('#armaduras').empty();
+        $("#totalArmaduras").text("");
+        $("#totalArmaduras").hide();
+        if(armadurasPj.length > 0){
+            $("#totalArmaduras").text(armadurasPj.length);
+            $("#totalArmaduras").show();
+        }
+        for (let i = 0; i < armadurasPj.length; i++) {
+            let objeto = armadurasPj[i];
+            let optionHTML = '';
+            let selectHTML = '';
+            let optionTipoHTML = '';
+            let selectTipos = '';
+            let selectLugares = '';
+            let optionLugarHTML = '';
+
+
+            // Generar opciones del select
+            armaduras.forEach(function(equipo, index) {
+                let selected = equipo.id == objeto.armaId ? 'selected' : '';
+                optionHTML += '<option value="' + equipo.id + '" data-tipo_id="' + equipo.tipo_id + '" data-nombre="' + equipo.nombre + '" data-estorbo="' + equipo.estorbo + '" data-descripcion="' + equipo.descripcion + '" ' + selected + '>' + equipo.nombre + '</option>';
+            });
+
+            @json($tipos).forEach(function(tipo, index) {
+                let selected = tipo.id == objeto.tipo_id ? 'selected' : '';
+                optionTipoHTML += '<option value="' + tipo.id + '"' + selected +' >' + tipo.nombre + '</option>';
+            });
+
+            @json($lugaresCuerpo).forEach(function(lugar, index) {
+                let selected = objeto.lugaresCuerpo.includes(lugar.id) ? 'selected' : '';
+                optionLugarHTML += '<option value="' + lugar.id + '" ' + selected + '>' + lugar.nombre + '</option>';
+            });
+
+            selectHTML = '<select class="form-control form-control-sm equipo-select" onchange="editarArma(' + i + ', this.value)">' + optionHTML + '</select>';
+            selectTipos = '<select class="form-control form-control-sm tipo-select" onchange="editarObjetoTipo(' + i + ', this.value)" disabled>' + optionTipoHTML + '</select>';
+            selectLugares = '<select class="form-control form-control-sm lugares-select" multiple onchange="editarObjetoLugar(' + i + ', this.value)">' + optionLugarHTML + '</select>';
+            let html = '<div class="mb-3 objeto" data-id="' + objeto.id + '">' +
+                            '<div class="row align-items-center">' +
+                                '<div class="mb-3 col-2">' +
+                                    '<label class="form-label">Equipo:</label>' +
+                                        selectHTML +
+                                    '</div>' +
+                                '<div class="mb-3 col-1">' +
+                                    '<label class="form-label">Protección:</label>' +
+                                    '<input type="number" class="form-control form-control-sm" disabled value="'+ objeto.proteccion + '">' +
+                                '</div>' +
+                                '<div class="mb-3 col-2">' +
+                                    '<label class="form-label">Tipo:</label>' +
+                                    selectTipos +
+                                '</div>' +
+                                '<div class="mb-3 col-1">' +
+                                    '<label class="form-label">Estorbo:</label>' +
+                                    '<input type="text" class="form-control form-control-sm descripcion-input" onkeyup="editarObjetoDescripcion(' + i + ',  this.value)" value="' + objeto.estorbo + '">' +
+                                '</div>' +
+                                '<div class="mb-3 col-4">' +
+                                    '<label class="form-label">Propiedades:</label>' +
+                                    selectLugares +
+                                '</div>' +
+                                '<div class="mt-3 col-1">' +
+                                    '<button class="btn btn-sm btn-danger eliminar-armadura" data-id="'+ objeto.id+'"  type="button">Eliminar</button>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+            $('#armaduras').append(html);
+        }
+
+        $(".equipo-select").select2({
+            language: "es",
+            width: "100%",
+            theme: "classic",
+        });
+
+        $(".lugares-select").select2({
+            language: "es",
+            width: "100%",
+            theme: "classic",
+            multiple: true,
+        });
+
+        $('.eliminar-armadura').on('click', function() {
+            var id = $(this).data('id');
+            armadurasPj = armadurasPj.filter(function(objeto) {
+                return objeto.id != id;
+            });
+            mostrarArmaduras();
+        });
+
+    }
 
     function editarObjeto(index, valor){
         objetos[index]["equipoId"] = valor;
@@ -937,8 +1059,9 @@
     function actualizarEstorbos(){
         let objetosEstorbo = agruparObjetosPorPropiedad(objetos, 'estorbo');
         let armasEstorbo = agruparObjetosPorPropiedad(armasPj, 'estorbo');
-        console.log(armasEstorbo)
-        let todosLosObjetos = {...objetosEstorbo, ...armasEstorbo}
+        let armadurasEstorbo = agruparObjetosPorPropiedad(armadurasPj, 'estorbo');
+
+        let todosLosObjetos = {...objetosEstorbo, ...armasEstorbo, ...armadurasEstorbo}
 
         console.log(todosLosObjetos)
 
@@ -960,4 +1083,148 @@
         $("#estorbo3_max").val( parseInt($("#estorbo3_max").val()) + max_estorbo3);
 
     }
+
+    function guardar(){
+        let user_id = $("#user_id").val();
+        let nombre = $("#nombre").val();
+        let genero = $("#genero").val();
+        let ascendencia_id = $("#ascendencia_id").val();
+        let segunda_ascendencia_id = $("#segunda_ascendencia_id").val();
+        let clase_id = $("#clase_id").val();
+        let segunda_clase_id = $("#segunda_clase_id").val();
+        let concepto = $("#concepto").val();
+        let experiencia_total = $("#experiencia_total").val();
+        let experiencia_gastada = $("#experiencia_gastada").val();
+        let puntos_vida = $("#puntos_vida").val();
+        let puntos_vida_restantes = $("#puntos_vida_restantes").val();
+        let pef_restantes = $("#pef_restantes").val();
+        let pef_total = $("#pef_total").val();
+        let pem_restantes = $("#pem_restantes").val();
+        let pem_total = $("#pem_total").val();
+        let defensa_acac = $("#defensa_acac").val();
+        let defensa_pelea = $("#defensa_pelea").val();
+        let control = $("#control").val();
+        let max_control = $("#max_control").val();
+        let iluminacion = $("#iluminacion").val();
+        let max_iluminacion = $("#max_iluminacion").val();
+        let cordura = $("#cordura").val();
+        let max_cordura = $("#max_cordura").val();
+
+        let puntosMasAltosAtributos = {};
+        $('[id^="atributo_"]').each(function() {
+            var atributoId = $(this).attr('id').split('_')[1];
+            var casillaSeleccionada = $(this).closest('.row').find(':checkbox:checked').last();
+            var puntoSeleccionado = parseInt(casillaSeleccionada.attr('id').split('_')[2]);
+            puntosMasAltosAtributos[atributoId] = puntoSeleccionado;
+        });
+
+        let checkboxes = $('input[name="habilidades"]');
+
+        // Objeto para almacenar los valores de los checkboxes seleccionados
+        let habilidades = {};
+
+        // Iterar sobre los checkboxes
+        checkboxes.each(function() {
+        let checkbox = $(this);
+        let habilidadId = checkbox.attr('id').split('_')[1];
+        let valor = checkbox.prop('checked') ? checkbox.attr('id').split('_')[2] : 0;
+        if (habilidades[habilidadId] == null || valor > habilidades[habilidadId]) {
+            habilidades[habilidadId] = valor;
+        }
+        });
+
+        var avances = [];
+
+        $("#tablaAvances tbody tr").each(function() {
+            var atributo = $(this).find("td:first-child").text().trim();
+            var niveles = [];
+            $(this).find("input[type='number']").each(function() {
+                niveles.push(parseInt($(this).val()));
+
+            });
+            avances.push({
+                atributo: atributo,
+                niveles: niveles
+            });
+        });
+
+        let talentos = $("#talentos").val();
+
+        @if($modelo)
+            var url = "{{ route('updatePersonaje', $modelo->id) }}";
+            @else
+            var url = "{{ route('storePersonaje') }}";
+        @endif
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: {
+                user_id,
+                nombre,
+                genero,
+                ascendencia_id,
+                segunda_ascendencia_id,
+                clase_id,
+                segunda_clase_id,
+                concepto,
+                experiencia_total,
+                experiencia_gastada,
+                puntos_vida,
+                puntos_vida_restantes,
+                pef_restantes,
+                pef_total,
+                pem_restantes,
+                pem_total,
+                defensa_acac,
+                defensa_pelea,
+                control,
+                iluminacion,
+                cordura,
+                objetos,
+                armasPj,
+                armadurasPj,
+                puntosMasAltosAtributos,
+                habilidades,
+                avances,
+                talentos
+            },
+            success: function(response) {
+                console.log(response.mensaje)
+                cargaSwal(response.status, response.mensaje)
+                $("#tabla_petrechos").DataTable().ajax.reload(null, false);
+            },
+            error: function(xhr, status, error) {
+                cargaSwal(false, "Error en el servidor al procesar su petición.")
+            }
+        });
+    }
+
+    @if($modelo)
+        function cargarConfiguracionPj(){
+            let atributos = @json($modelo->atributos);
+            let habilidades = @json($modelo->habilidades);
+            let avances = @json($modelo->avances);
+            let talentos = @json($modelo->talentos->pluck('id'));
+
+            $("#talentos").val(talentos).trigger("change");
+
+            atributos.forEach(element => {
+                $("#atributo_" + element.pivot.atributo_id + "_" + element.pivot.valor).prop("checked", true).trigger("change");
+            });
+
+            habilidades.forEach(element => {
+                $("#habilidad_" + element.pivot.habilidad_id + "_" + element.pivot.valor).prop("checked", true).trigger("change");
+            });
+
+            avances.forEach(element => {
+                if(element.segundo_nivel){
+                    $("#nivel_secundario_"+ element.atributo_id + "_" + element.nivel).val(element.cantidad_nivel);
+                }else{
+                    $("#nivel_"+ element.atributo_id + "_" + element.nivel).val(element.cantidad_nivel);
+                }
+            });
+
+
+        }
+    @endif
 </script>
