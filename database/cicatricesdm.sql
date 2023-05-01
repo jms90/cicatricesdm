@@ -11,7 +11,7 @@
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 25/04/2023 20:40:13
+ Date: 01/05/2023 22:33:14
 */
 
 SET NAMES utf8mb4;
@@ -448,7 +448,7 @@ CREATE TABLE `atributos_clases`  (
   `nivel` int(11) NULL DEFAULT NULL,
   `cantidad_nivel` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 289 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 337 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of atributos_clases
@@ -741,6 +741,54 @@ INSERT INTO `atributos_clases` VALUES (285, 8, 6, '2023-04-19 16:56:53', '2023-0
 INSERT INTO `atributos_clases` VALUES (286, 8, 6, '2023-04-19 16:56:53', '2023-04-19 16:56:53', NULL, 4, NULL);
 INSERT INTO `atributos_clases` VALUES (287, 8, 6, '2023-04-19 16:56:53', '2023-04-19 16:56:53', NULL, 5, NULL);
 INSERT INTO `atributos_clases` VALUES (288, 8, 6, '2023-04-19 16:56:53', '2023-04-19 16:56:53', NULL, 6, NULL);
+INSERT INTO `atributos_clases` VALUES (289, 1, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 1, NULL);
+INSERT INTO `atributos_clases` VALUES (290, 1, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 2, NULL);
+INSERT INTO `atributos_clases` VALUES (291, 1, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 3, NULL);
+INSERT INTO `atributos_clases` VALUES (292, 1, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 4, NULL);
+INSERT INTO `atributos_clases` VALUES (293, 1, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 5, NULL);
+INSERT INTO `atributos_clases` VALUES (294, 1, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 6, NULL);
+INSERT INTO `atributos_clases` VALUES (295, 2, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 1, NULL);
+INSERT INTO `atributos_clases` VALUES (296, 2, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 2, NULL);
+INSERT INTO `atributos_clases` VALUES (297, 2, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 3, NULL);
+INSERT INTO `atributos_clases` VALUES (298, 2, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 4, NULL);
+INSERT INTO `atributos_clases` VALUES (299, 2, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 5, NULL);
+INSERT INTO `atributos_clases` VALUES (300, 2, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 6, NULL);
+INSERT INTO `atributos_clases` VALUES (301, 3, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 1, NULL);
+INSERT INTO `atributos_clases` VALUES (302, 3, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 2, NULL);
+INSERT INTO `atributos_clases` VALUES (303, 3, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 3, NULL);
+INSERT INTO `atributos_clases` VALUES (304, 3, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 4, NULL);
+INSERT INTO `atributos_clases` VALUES (305, 3, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 5, NULL);
+INSERT INTO `atributos_clases` VALUES (306, 3, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 6, NULL);
+INSERT INTO `atributos_clases` VALUES (307, 4, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 1, NULL);
+INSERT INTO `atributos_clases` VALUES (308, 4, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 2, NULL);
+INSERT INTO `atributos_clases` VALUES (309, 4, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 3, NULL);
+INSERT INTO `atributos_clases` VALUES (310, 4, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 4, NULL);
+INSERT INTO `atributos_clases` VALUES (311, 4, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 5, NULL);
+INSERT INTO `atributos_clases` VALUES (312, 4, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 6, NULL);
+INSERT INTO `atributos_clases` VALUES (313, 5, 7, '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, 1, NULL);
+INSERT INTO `atributos_clases` VALUES (314, 5, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 2, NULL);
+INSERT INTO `atributos_clases` VALUES (315, 5, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 3, NULL);
+INSERT INTO `atributos_clases` VALUES (316, 5, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 4, NULL);
+INSERT INTO `atributos_clases` VALUES (317, 5, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 5, NULL);
+INSERT INTO `atributos_clases` VALUES (318, 5, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 6, NULL);
+INSERT INTO `atributos_clases` VALUES (319, 6, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 1, NULL);
+INSERT INTO `atributos_clases` VALUES (320, 6, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 2, NULL);
+INSERT INTO `atributos_clases` VALUES (321, 6, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 3, NULL);
+INSERT INTO `atributos_clases` VALUES (322, 6, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 4, NULL);
+INSERT INTO `atributos_clases` VALUES (323, 6, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 5, NULL);
+INSERT INTO `atributos_clases` VALUES (324, 6, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 6, NULL);
+INSERT INTO `atributos_clases` VALUES (325, 7, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 1, NULL);
+INSERT INTO `atributos_clases` VALUES (326, 7, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 2, NULL);
+INSERT INTO `atributos_clases` VALUES (327, 7, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 3, NULL);
+INSERT INTO `atributos_clases` VALUES (328, 7, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 4, NULL);
+INSERT INTO `atributos_clases` VALUES (329, 7, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 5, NULL);
+INSERT INTO `atributos_clases` VALUES (330, 7, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 6, NULL);
+INSERT INTO `atributos_clases` VALUES (331, 8, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 1, NULL);
+INSERT INTO `atributos_clases` VALUES (332, 8, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 2, NULL);
+INSERT INTO `atributos_clases` VALUES (333, 8, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 3, NULL);
+INSERT INTO `atributos_clases` VALUES (334, 8, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 4, NULL);
+INSERT INTO `atributos_clases` VALUES (335, 8, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 5, NULL);
+INSERT INTO `atributos_clases` VALUES (336, 8, 7, '2023-04-30 20:26:13', '2023-04-30 20:26:13', NULL, 6, NULL);
 
 -- ----------------------------
 -- Table structure for atributos_paraficha
@@ -767,6 +815,28 @@ INSERT INTO `atributos_paraficha` VALUES (5, 'Inteligencia', '2023-04-09 22:16:2
 INSERT INTO `atributos_paraficha` VALUES (6, 'Coraje', '2023-04-09 22:16:26', NULL, NULL, 1);
 INSERT INTO `atributos_paraficha` VALUES (7, 'Percepción', '2023-04-09 22:16:26', NULL, NULL, 1);
 INSERT INTO `atributos_paraficha` VALUES (8, 'Carisma', '2023-04-09 22:16:26', NULL, NULL, 1);
+
+-- ----------------------------
+-- Table structure for avances_personajes
+-- ----------------------------
+DROP TABLE IF EXISTS `avances_personajes`;
+CREATE TABLE `avances_personajes`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `atributo_id` int(11) NOT NULL,
+  `personaje_id` int(11) NULL DEFAULT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `deleted_at` timestamp(0) NULL DEFAULT NULL,
+  `nivel` int(11) NULL DEFAULT NULL,
+  `cantidad_nivel` int(11) NULL DEFAULT NULL,
+  `segundoNivel` tinyint(4) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of avances_personajes
+-- ----------------------------
+INSERT INTO `avances_personajes` VALUES (51, 1, 2, '2023-05-01 20:17:33', '2023-05-01 20:17:33', NULL, 1, 1, 0);
 
 -- ----------------------------
 -- Table structure for bendiciones
@@ -819,7 +889,7 @@ CREATE TABLE `clases`  (
   `descripcion` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `talento_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of clases
@@ -830,6 +900,7 @@ INSERT INTO `clases` VALUES (3, 'Buho', '2023-04-19 14:22:24', '2023-04-19 14:22
 INSERT INTO `clases` VALUES (4, 'Gladiador', '2023-04-19 16:02:22', '2023-04-19 16:02:22', NULL, 'Habilidades representativas: Armas CaC, Pelea, Brio, Actuar.\nArmas: Tridente, red, casco de gladiador, hombrera de gladiador, faldones de gladiador.', 22);
 INSERT INTO `clases` VALUES (5, 'Ladrón', '2023-04-19 16:34:28', '2023-04-19 16:34:28', NULL, 'Habilidades representativas: Hurtar, Trastear, Sigilo, Evaluar\nArmas iniciales: Daga, Espada corta.', 23);
 INSERT INTO `clases` VALUES (6, 'Mercader ambulante', '2023-04-19 16:56:52', '2023-04-19 16:57:02', NULL, 'Habilidades representativas: Conversar, Evaluar, Folklore, Oficio (uno cualquiera)\nArmas iniciales: Maza, Daga en la bota.', 24);
+INSERT INTO `clases` VALUES (7, 'Mercenario', '2023-04-30 20:26:12', '2023-04-30 20:26:12', NULL, NULL, 24);
 
 -- ----------------------------
 -- Table structure for clases_petrechos
@@ -1069,11 +1140,12 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of migrations
 -- ----------------------------
+INSERT INTO `migrations` VALUES (1, '0000_00_00_000000_create_websockets_statistics_entries_table', 1);
 
 -- ----------------------------
 -- Table structure for password_reset_tokens
@@ -1332,6 +1404,118 @@ INSERT INTO `permissions` VALUES (62, 'editar-personajes', NULL, NULL, NULL, NUL
 INSERT INTO `permissions` VALUES (63, 'crear-personajes', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
+-- Table structure for personaje_atributo
+-- ----------------------------
+DROP TABLE IF EXISTS `personaje_atributo`;
+CREATE TABLE `personaje_atributo`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `personaje_id` int(11) NOT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `deleted_at` timestamp(0) NULL DEFAULT NULL,
+  `atributo_id` int(11) NULL DEFAULT NULL,
+  `valor` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 409 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of personaje_atributo
+-- ----------------------------
+INSERT INTO `personaje_atributo` VALUES (401, 2, NULL, NULL, NULL, 1, 3);
+INSERT INTO `personaje_atributo` VALUES (402, 2, NULL, NULL, NULL, 2, 4);
+INSERT INTO `personaje_atributo` VALUES (403, 2, NULL, NULL, NULL, 3, 4);
+INSERT INTO `personaje_atributo` VALUES (404, 2, NULL, NULL, NULL, 4, 2);
+INSERT INTO `personaje_atributo` VALUES (405, 2, NULL, NULL, NULL, 5, 2);
+INSERT INTO `personaje_atributo` VALUES (406, 2, NULL, NULL, NULL, 6, 2);
+INSERT INTO `personaje_atributo` VALUES (407, 2, NULL, NULL, NULL, 7, 1);
+INSERT INTO `personaje_atributo` VALUES (408, 2, NULL, NULL, NULL, 8, 3);
+
+-- ----------------------------
+-- Table structure for personaje_habilidad
+-- ----------------------------
+DROP TABLE IF EXISTS `personaje_habilidad`;
+CREATE TABLE `personaje_habilidad`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `personaje_id` int(11) NOT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `deleted_at` timestamp(0) NULL DEFAULT NULL,
+  `habilidad_id` int(11) NULL DEFAULT NULL,
+  `valor` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2296 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of personaje_habilidad
+-- ----------------------------
+INSERT INTO `personaje_habilidad` VALUES (2251, 2, NULL, NULL, NULL, 1, 0);
+INSERT INTO `personaje_habilidad` VALUES (2252, 2, NULL, NULL, NULL, 2, 0);
+INSERT INTO `personaje_habilidad` VALUES (2253, 2, NULL, NULL, NULL, 3, 0);
+INSERT INTO `personaje_habilidad` VALUES (2254, 2, NULL, NULL, NULL, 4, 1);
+INSERT INTO `personaje_habilidad` VALUES (2255, 2, NULL, NULL, NULL, 5, 2);
+INSERT INTO `personaje_habilidad` VALUES (2256, 2, NULL, NULL, NULL, 6, 0);
+INSERT INTO `personaje_habilidad` VALUES (2257, 2, NULL, NULL, NULL, 7, 1);
+INSERT INTO `personaje_habilidad` VALUES (2258, 2, NULL, NULL, NULL, 8, 1);
+INSERT INTO `personaje_habilidad` VALUES (2259, 2, NULL, NULL, NULL, 9, 0);
+INSERT INTO `personaje_habilidad` VALUES (2260, 2, NULL, NULL, NULL, 10, 1);
+INSERT INTO `personaje_habilidad` VALUES (2261, 2, NULL, NULL, NULL, 11, 0);
+INSERT INTO `personaje_habilidad` VALUES (2262, 2, NULL, NULL, NULL, 12, 0);
+INSERT INTO `personaje_habilidad` VALUES (2263, 2, NULL, NULL, NULL, 13, 0);
+INSERT INTO `personaje_habilidad` VALUES (2264, 2, NULL, NULL, NULL, 14, 0);
+INSERT INTO `personaje_habilidad` VALUES (2265, 2, NULL, NULL, NULL, 15, 0);
+INSERT INTO `personaje_habilidad` VALUES (2266, 2, NULL, NULL, NULL, 16, 0);
+INSERT INTO `personaje_habilidad` VALUES (2267, 2, NULL, NULL, NULL, 17, 0);
+INSERT INTO `personaje_habilidad` VALUES (2268, 2, NULL, NULL, NULL, 18, 0);
+INSERT INTO `personaje_habilidad` VALUES (2269, 2, NULL, NULL, NULL, 19, 0);
+INSERT INTO `personaje_habilidad` VALUES (2270, 2, NULL, NULL, NULL, 20, 0);
+INSERT INTO `personaje_habilidad` VALUES (2271, 2, NULL, NULL, NULL, 21, 0);
+INSERT INTO `personaje_habilidad` VALUES (2272, 2, NULL, NULL, NULL, 22, 0);
+INSERT INTO `personaje_habilidad` VALUES (2273, 2, NULL, NULL, NULL, 23, 1);
+INSERT INTO `personaje_habilidad` VALUES (2274, 2, NULL, NULL, NULL, 24, 0);
+INSERT INTO `personaje_habilidad` VALUES (2275, 2, NULL, NULL, NULL, 25, 0);
+INSERT INTO `personaje_habilidad` VALUES (2276, 2, NULL, NULL, NULL, 26, 0);
+INSERT INTO `personaje_habilidad` VALUES (2277, 2, NULL, NULL, NULL, 27, 0);
+INSERT INTO `personaje_habilidad` VALUES (2278, 2, NULL, NULL, NULL, 28, 0);
+INSERT INTO `personaje_habilidad` VALUES (2279, 2, NULL, NULL, NULL, 29, 0);
+INSERT INTO `personaje_habilidad` VALUES (2280, 2, NULL, NULL, NULL, 30, 0);
+INSERT INTO `personaje_habilidad` VALUES (2281, 2, NULL, NULL, NULL, 31, 0);
+INSERT INTO `personaje_habilidad` VALUES (2282, 2, NULL, NULL, NULL, 32, 0);
+INSERT INTO `personaje_habilidad` VALUES (2283, 2, NULL, NULL, NULL, 33, 0);
+INSERT INTO `personaje_habilidad` VALUES (2284, 2, NULL, NULL, NULL, 34, 0);
+INSERT INTO `personaje_habilidad` VALUES (2285, 2, NULL, NULL, NULL, 35, 0);
+INSERT INTO `personaje_habilidad` VALUES (2286, 2, NULL, NULL, NULL, 36, 0);
+INSERT INTO `personaje_habilidad` VALUES (2287, 2, NULL, NULL, NULL, 37, 0);
+INSERT INTO `personaje_habilidad` VALUES (2288, 2, NULL, NULL, NULL, 38, 0);
+INSERT INTO `personaje_habilidad` VALUES (2289, 2, NULL, NULL, NULL, 39, 0);
+INSERT INTO `personaje_habilidad` VALUES (2290, 2, NULL, NULL, NULL, 40, 0);
+INSERT INTO `personaje_habilidad` VALUES (2291, 2, NULL, NULL, NULL, 41, 0);
+INSERT INTO `personaje_habilidad` VALUES (2292, 2, NULL, NULL, NULL, 42, 0);
+INSERT INTO `personaje_habilidad` VALUES (2293, 2, NULL, NULL, NULL, 43, 0);
+INSERT INTO `personaje_habilidad` VALUES (2294, 2, NULL, NULL, NULL, 44, 0);
+INSERT INTO `personaje_habilidad` VALUES (2295, 2, NULL, NULL, NULL, 45, 0);
+
+-- ----------------------------
+-- Table structure for personaje_talento
+-- ----------------------------
+DROP TABLE IF EXISTS `personaje_talento`;
+CREATE TABLE `personaje_talento`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `personaje_id` int(11) NOT NULL,
+  `talento_id` int(11) NOT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `deleted_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 151 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of personaje_talento
+-- ----------------------------
+INSERT INTO `personaje_talento` VALUES (148, 2, 9, NULL, NULL, NULL);
+INSERT INTO `personaje_talento` VALUES (149, 2, 16, NULL, NULL, NULL);
+INSERT INTO `personaje_talento` VALUES (150, 2, 24, NULL, NULL, NULL);
+
+-- ----------------------------
 -- Table structure for personajes
 -- ----------------------------
 DROP TABLE IF EXISTS `personajes`;
@@ -1368,12 +1552,13 @@ CREATE TABLE `personajes`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   `deleted_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of personajes
 -- ----------------------------
-INSERT INTO `personajes` VALUES (1, 'PacoPepe', '1', 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `personajes` VALUES (1, 'Marcus Saltwater', '3', 1, 2, 'M', 7, 2, NULL, 5, 5, 13, 13, 8, 8, 4, 4, 5, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-04-30 19:42:54', '2023-04-30 19:42:54', NULL);
+INSERT INTO `personajes` VALUES (2, 'Marcus Saltwater', '3', 1, 2, 'M', 7, 2, NULL, 5, 5, 13, 13, 8, 8, 4, 4, 5, 3, 100, 0, 100, NULL, NULL, NULL, NULL, NULL, NULL, '2023-04-30 19:44:51', '2023-05-01 20:17:33', NULL);
 
 -- ----------------------------
 -- Table structure for personal_access_tokens
@@ -1678,5 +1863,24 @@ CREATE TABLE `users`  (
 INSERT INTO `users` VALUES (1, 'Medi', 'justom78@gmail.com', NULL, '$2y$10$Xud6TAe.u7bQqlebQfAg6OkaozgYODLzX.DWYySE04PdFmriVNTLm', NULL, '2023-04-17 19:21:05', '2023-04-17 19:21:05');
 INSERT INTO `users` VALUES (2, 'Admin', 'Admin@mail.com', NULL, '$2y$10$oGzySRyCSThD.3/swBnxy.sPTUIqjpYKSOYgTW0.1RIHknoNXwca.', 'Vhn5uKC6vxdPYq4BAJLq6Vv1zSRtmWHmtZ9GLalnPzyoGVeDtVW22EuJSjbv', '2023-04-17 19:26:07', '2023-04-17 19:26:07');
 INSERT INTO `users` VALUES (3, 'TheremDM', 'lascicatricesdelmundo@gmail.com', NULL, '$2y$10$afhUEJFWIyqcW9o5EJm2CeWpJTPQEP/MzR5Q/a.t.e9is84Mx7gxW', 'kdEksqwp7bGdVHXpGJh7qVh5N4oGHOxCO8gfA4mISwMmLFzZANwLl6ODaalY', '2023-04-17 19:39:59', '2023-04-17 19:39:59');
+
+-- ----------------------------
+-- Table structure for websockets_statistics_entries
+-- ----------------------------
+DROP TABLE IF EXISTS `websockets_statistics_entries`;
+CREATE TABLE `websockets_statistics_entries`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `app_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `peak_connection_count` int(11) NOT NULL,
+  `websocket_message_count` int(11) NOT NULL,
+  `api_message_count` int(11) NOT NULL,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of websockets_statistics_entries
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
