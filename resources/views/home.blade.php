@@ -4,9 +4,11 @@
 
 @section('content_header')
     <h1 id="titulo">Dashboard</h1>
+    @vite(['resources/js/app.js'])
 @stop
 
 @section('content')
+
     <style>
         .custom-swal-title {
             color: white;
@@ -26,6 +28,7 @@
 @stop
 
 @section('css')
+
     {{-- <link rel="stylesheet" href="{{asset('css/main.css')}}"> --}}
 @stop
 

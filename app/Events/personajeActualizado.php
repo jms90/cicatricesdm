@@ -35,7 +35,7 @@ class personajeActualizado implements ShouldBroadcast
     {
 
         return [
-            new PrivateChannel('actualizacionPj.' . $this->personaje->id),
+            new PrivateChannel('actualizacionPj'),
         ];
     }
 }
